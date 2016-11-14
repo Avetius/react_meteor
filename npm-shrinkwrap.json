@@ -395,6 +395,11 @@
       "from": "mobx@>=2.3.4 <3.0.0",
       "resolved": "https://registry.npmjs.org/mobx/-/mobx-2.6.0.tgz"
     },
+    "moment": {
+      "version": "2.15.2",
+      "from": "moment@latest",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.15.2.tgz"
+    },
     "ms": {
       "version": "0.7.1",
       "from": "ms@0.7.1",
@@ -455,6 +460,18 @@
       "from": "react-bootstrap@latest",
       "resolved": "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-0.30.6.tgz"
     },
+    "react-datetime": {
+      "version": "2.6.2",
+      "from": "https://registry.npmjs.org/react-datetime/-/react-datetime-2.6.2.tgz",
+      "resolved": "https://registry.npmjs.org/react-datetime/-/react-datetime-2.6.2.tgz",
+      "dependencies": {
+        "object-assign": {
+          "version": "3.0.0",
+          "from": "object-assign@>=3.0.0 <4.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-3.0.0.tgz"
+        }
+      }
+    },
     "react-deep-force-update": {
       "version": "2.0.1",
       "from": "react-deep-force-update@>=2.0.1 <3.0.0",
@@ -498,6 +515,11 @@
           "resolved": "https://registry.npmjs.org/domready/-/domready-1.0.8.tgz"
         }
       }
+    },
+    "react-onclickoutside": {
+      "version": "4.9.0",
+      "from": "react-onclickoutside@>=4.1.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-4.9.0.tgz"
     },
     "react-overlays": {
       "version": "0.6.10",

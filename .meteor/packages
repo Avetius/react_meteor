@@ -25,3 +25,4 @@ shell-server
 less
 fourseven:scss
 seba:minifiers-autoprefixer
+fortawesome:fontawesome

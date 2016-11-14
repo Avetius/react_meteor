@@ -4,6 +4,7 @@
 @import "colors";
 @import "theme";
 
+/* fonts */
 @import "font-imports/lato/lato";
 @import "font-imports/fontello/fontello";
 @import "font-imports/climacons/climacons";
@@ -19,6 +20,9 @@
 @import "font-imports/pixelvicon/pixelvicon";
 @import "font-imports/Simple-Line-Icons/Simple-Line-Icons";
 @import "font-imports/Stroke-Gap-Icons/Stroke-Gap-Icons";
+
+/* project custom styles */
+@import "custom";
 
 /* Page styles */
 @import "pages/home";
