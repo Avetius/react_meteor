@@ -1,9 +1,7 @@
 import methodStubs from './configs/method_stubs';
 //import actions from './actions';
 import routes from './routes';
-
-// tmp:
-let actions = {};
+import actions from './actions';
 
 export default {
   routes,

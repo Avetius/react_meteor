@@ -3,7 +3,7 @@ import {mount} from 'react-mounter';
 
 import MainLayout from './components/main_layout';
 
-import AddIco from './containers/addIco';
+import AddOrEditIco from './containers/addOrEditIco';
 import NotFound from './containers/notFound';
 
 
@@ -14,16 +14,25 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.list',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddIco />)
+        content: () => (<AddOrEditIco />)
       });
     }
   });
 
   FlowRouter.route('/admin/add-ico', {
-    name: 'add-ico',
+    name: 'ico.add',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddIco/>)
+        content: () => (<AddOrEditIco/>)
+      });
+    }
+  });
+
+  FlowRouter.route('/admin/edit-ico/:icoId', {
+    name: 'ico.edit',
+    action(icoId) {
+      mount(MainLayoutCtx, {
+        content: () => (<AddOrEditIco icoId={icoId} />)
       });
     }
   });

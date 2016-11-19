@@ -7,13 +7,17 @@ import {DateTimeStart, DateTimeEnd} from './form/dateTimePicker';
 
 import IcoForm from './form/icoForm';
 
-export default class AddIco extends React.Component {
+export default class AddOrEditIco extends React.Component {
+  constructor (props) {
+    super(props);
+    console.log('addOrEditIco cmp: ', props);
+  }
 
   render() {
     return (
       <div className="row">
         <div className="col-md-12">
-          <IcoForm />
+          <IcoForm icoEntityValue={this.props.icoEntity} save={this.props.saveNewIco} saveConcept={this.props.saveAsConcept} />
         </div>
       </div>
     );

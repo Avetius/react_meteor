@@ -235,7 +235,7 @@ const renderOptions = {
   fields: {
     oneSentenceExplanation: {
       type: 'textarea',
-      help: <i>My form help</i>
+      help: <i>It should be short descriptive explanation. Should be short enough to use in 1 tweet.</i>
     },
     mediumLengthDescription: {
       type: 'textarea',
@@ -268,30 +268,39 @@ const renderOptions = {
 export default class IcoForm extends React.Component{
   constructor (props) {
     super(props);
+    const icoEntityValue = this.props.icoEntityValue || {};
     this.state = {
-
+      icoEntityValue: icoEntityValue
     };
   }
 
   save() {
-    // call getValue() to get the values of the form
-    var value = this.refs.icoForm.getValue();
     // if validation fails, value will be null
+    let value = this.refs.icoForm.getValue();
 
     console.log('saved value:', value);
     if (value) {
-
+      this.props.save(value);
+    } else {
+      console.warn('upps, something happened. Validation failed?');
     }
   }
 
   saveConcept () {
-    console.log('saving concept..');
-    //console.log(t.form.Form.templates);
+    let value = this.refs.icoForm.getValue();
+    console.log('saving concept..', value);
+    if (value) {
+      this.props.saveConcept(value);
+    } else {
+      console.warn('upps, something happened. Validation failed?');
+    }
   }
 
-  onChange (icoEntityValue) {
-    this.setState({icoEntityValue});
+  onChange(icoEntityValue, path) {
+    // validate a field on every change
+    this.refs.icoForm.getComponent(path).validate();
   }
+
 
   render() {
     return (
@@ -303,7 +312,6 @@ export default class IcoForm extends React.Component{
               ref="icoForm"
               type={IcoType}
               options={renderOptions}
-              value={this.state.icoEntityValue}
               onChange={this.onChange.bind(this)}
             />
           </div>

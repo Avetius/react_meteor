@@ -1,5 +1,5 @@
-import posts from './posts';
+import icoProjects from './icoProjects';
 
 export default function () {
-  posts();
+  icoProjects();
 }
