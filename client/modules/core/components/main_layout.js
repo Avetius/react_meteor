@@ -16,7 +16,7 @@ const Layout = ({content = () => null }) => (
     </div>
 
     <footer>
-    <small>Built with <a href='https://github.com/kadirahq/mantra'>Mantra</a> &amp; Meteor.</small>
+    <small>Footer placeholder.</small>
     </footer>
   </div>
 );

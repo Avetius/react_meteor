@@ -35,6 +35,7 @@ export default class AddOrEditIco extends React.Component {
           ) : (
             <IcoForm icoEntityValue={icoFormValue}
                      save={this.props.saveNewIco}
+                     edit={this.props.saveEditedIco}
                      saveConcept={this.props.saveAsConcept}
                      editMode={this.props.editMode}
             />

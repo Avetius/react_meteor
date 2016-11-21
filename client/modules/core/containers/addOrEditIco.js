@@ -1,14 +1,14 @@
 import AddOrEditIco from '../components/addOrEditIco';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 
-export const composer = ({context, icoId}, onData) => {
+export const composer = ({context, editMode}, onData) => {
   const {Meteor, Collections} = context();
 
   // lets fetch and edit ICO
-  if (icoId) {
+  if (editMode && editMode.icoId) {
 
-    if (Meteor.subscribe('ico.single', icoId).ready()) {
-      const icoEntity = Collections.IcoProjects.findOne(icoId);
+    if (Meteor.subscribe('ico.single', editMode.icoId).ready()) {
+      const icoEntity = Collections.IcoProjects.findOne(editMode.icoId);
       if (icoEntity) {
         onData(null, {icoEntity});
       } else {
@@ -17,7 +17,7 @@ export const composer = ({context, icoId}, onData) => {
       }
 
     } else {
-      const icoEntity = Collections.IcoProjects.findOne(icoId);
+      const icoEntity = Collections.IcoProjects.findOne(editMode.icoId);
       if (icoEntity) {
         onData(null, {icoEntity});
       } else {
@@ -34,6 +34,7 @@ export const composer = ({context, icoId}, onData) => {
 
 export const depsMapper = (context, actions) => ({
   saveNewIco: actions.icoProject.add,
+  saveEditedIco: actions.icoProject.edit,
   saveAsConcept: actions.icoProject.saveAsConcept,
   context: () => context
 });

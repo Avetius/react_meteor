@@ -1,26 +1,38 @@
 export default {
-  add({Meteor}, icoEntity) {
-    if (!icoEntity) {
-      return console.warn('ADD_ICO_ERROR', 'icoEntity is required.');
+  add({Meteor}, icoProject) {
+    if (!icoProject) {
+      return console.warn('ADD_ICO_ERROR', 'icoProject is required.');
     }
 
     const id = Meteor.uuid();
     console.log('ico.add is calling..');
-    Meteor.call('ico.add', id, icoEntity, (err) => {
+    Meteor.call('ico.add', id, icoProject, (err) => {
       if (err) {
         return console.warn('ADD_ICO_ERROR', err.message);
       }
     });
   },
 
-  saveAsConcept ({Meteor}, icoEntity) {
-    if (!icoEntity) {
-      return console.warn('SAVE_AS_CONCEPT_ERROR', 'icoEntity is required.');
+  edit({Meteor}, id, icoProject) {
+    if (!icoProject) {
+      return console.warn('EDIT_ICO_ERROR', 'icoProject is required.');
+    }
+
+    Meteor.call('ico.edit', id, icoProject, (err) => {
+      if (err) {
+        return console.warn('EDIT_ICO_ERROR', err.message);
+      }
+    });
+  },
+
+  saveAsConcept ({Meteor}, icoProject) {
+    if (!icoProject) {
+      return console.warn('SAVE_AS_CONCEPT_ERROR', 'icoProject is required.');
     }
 
     const id = Meteor.uuid();
     console.log('ico.saveAsConcept is calling..');
-    Meteor.call('ico.saveAsConcept', id, icoEntity, (err) => {
+    Meteor.call('ico.saveAsConcept', id, icoProject, (err) => {
       if (err) {
         return console.warn('SAVE_AS_CONCEPT_ERROR', err.message);
       }

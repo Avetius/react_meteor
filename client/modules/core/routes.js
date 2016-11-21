@@ -23,7 +23,7 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.add',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={false} />)
+        content: () => (<AddOrEditIco editMode={{active: false}} />)
       });
     }
   });
@@ -32,7 +32,7 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.edit',
     action({icoId}) {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco icoId={icoId} editMode={true} />)
+        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoId}} />)
       });
     }
   });

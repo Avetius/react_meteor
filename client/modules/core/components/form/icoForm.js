@@ -381,7 +381,7 @@ const renderOptions = {
 export default class IcoForm extends React.Component{
   constructor (props) {
     super(props);
-    const icoEntityValue = this.props.icoEntityValue || {};
+    console.log(props);
   }
 
   save() {
@@ -391,6 +391,17 @@ export default class IcoForm extends React.Component{
     console.log('saved value:', value);
     if (value) {
       this.props.save(value);
+    } else {
+      console.warn('upps, something happened. Validation failed?');
+    }
+  }
+
+  edit() {
+    const value = this.refs.icoForm.getValue();
+
+    console.log('saved edited value:', value);
+    if (value) {
+      this.props.edit(this.props.editMode.icoId, value);
     } else {
       console.warn('upps, something happened. Validation failed?');
     }
@@ -414,14 +425,22 @@ export default class IcoForm extends React.Component{
     }
   }
 
-
   render() {
-    let icoForm;
-    if (this.props.editMode) {
+    let icoForm, saveButtons;
+    if (this.props.editMode.active) {
       icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions} value={this.props.icoEntityValue}
-                      onChange={this.onChange.bind(this)} />
+                      onChange={this.onChange.bind(this)} />;
+      saveButtons =
+        <div>
+          <Button onClick={this.edit.bind(this)} bsStyle="primary">Edit and publish</Button>
+        </div>;
     } else {
-      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions} onChange={this.onChange.bind(this)} />
+      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions} onChange={this.onChange.bind(this)} />;
+      saveButtons =
+        <div>
+          <Button onClick={this.save.bind(this)} bsStyle="primary">Save and publish</Button>
+          <Button onClick={this.saveConcept.bind(this)} bsStyle="default">Save a concept</Button>
+        </div>;
     }
 
     return (
@@ -436,8 +455,7 @@ export default class IcoForm extends React.Component{
         <div className="row margin-vertical-md">
           <div className="col-md-10">
             <ButtonToolbar>
-              <Button onClick={this.save.bind(this)} bsStyle="primary">Save and publish</Button>
-              <Button onClick={this.saveConcept.bind(this)} bsStyle="default">Save a concept</Button>
+              {saveButtons}
             </ButtonToolbar>
           </div>
         </div>
