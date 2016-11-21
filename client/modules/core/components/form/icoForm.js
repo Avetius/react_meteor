@@ -227,20 +227,83 @@ const formLayout = (locals) => {
   );
 };
 
+const addonIcons = {
+  projectName: <i className="fa fa-font" aria-hidden="true"></i>,
+  abbreviation: null,
+  officialWebsiteLink: <i className="fa fa-home" aria-hidden="true"></i>,
+  icoWebsiteLink: <i className="fa fa-money" aria-hidden="true"></i>,
+  whitePaperLink: <i className="fa fa-file-text-o" aria-hidden="true"></i>,
+  icoStatus: null,
+  projectStatus: null,
+  oneSentenceExplanation: <span>
+    <i className="fa fa-twitter" aria-hidden="true"></i> &nbsp;
+    <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                          </span>,
+  mediumLengthDescription: <i className="fa fa-pencil-square-o" aria-hidden="true"></i>,
+  icoStartDatetime: null,
+  icoEndDatetime: null,
+  icoEvents: null,
+  maxSupply: null,
+  fundKeeper: null,
+  runningSocialCampaign: null,
+  coFounders: <i className="fa fa-user-circle" aria-hidden="true"></i>,
+  countryOfOrigin: null,
+  underlyingCryptoPlatform: null,
+  bonus: null,
+  bounty: null,
+  affiliate: null,
+  affiliateAmount: null,
+  githubLink: <i className="fa fa-github" aria-hidden="true"></i>,
+  slackLink: <i className="fa fa-slack" aria-hidden="true"></i>,
+  twitterLink: <i className="fa fa-twitter" aria-hidden="true"></i>,
+  facebookLink: <i className="fa fa-facebook-official" aria-hidden="true"></i>,
+  redditLink: <i className="fa fa-reddit" aria-hidden="true"></i>,
+  blogLink: <i className="fa fa-newspaper-o" aria-hidden="true"></i>,
+  telegramLink: <i className="fa fa-telegram" aria-hidden="true"></i>
+};
 
 
 const renderOptions = {
   template: formLayout,
   auto: 'placeholders',
   fields: {
+    projectName: {
+      config: {
+        addonBefore: addonIcons.projectName
+      }
+    },
+    abbreviation: {},
+    officialWebsiteLink: {
+      config: {
+        addonBefore: addonIcons.officialWebsiteLink
+      }
+    },
+    icoWebsiteLink: {
+      config: {
+        addonBefore: addonIcons.icoWebsiteLink
+      }
+    },
+    whitePaperLink: {
+      config: {
+        addonBefore: addonIcons.whitePaperLink
+      }
+    },
+    icoStatus: {},
+    projectStatus: {},
     oneSentenceExplanation: {
       type: 'textarea',
-      help: <i>It should be short descriptive explanation. Should be short enough to use in 1 tweet.</i>
+      help: <i>It should be short descriptive explanation. Should be short enough to use in 1 tweet.</i>,
+      config: {
+        addonBefore: addonIcons.oneSentenceExplanation
+      }
     },
     mediumLengthDescription: {
       type: 'textarea',
       attrs: {
         rows:5
+      },
+      config: {
+        addonBefore: addonIcons.mediumLengthDescription
       }
     },
     icoStartDatetime: {
@@ -261,6 +324,56 @@ const renderOptions = {
           }
         }
       }
+    },
+    maxSupply: {},
+    fundKeeper: {},
+    runningSocialCampaign: {},
+    coFounders: {
+      config: {
+        addonBefore: addonIcons.coFounders
+      }
+    },
+    countryOfOrigin: {},
+    underlyingCryptoPlatform: {},
+    bonus: {},
+    bounty: {},
+    affiliate: {},
+    affiliateAmount: {},
+
+    githubLink: {
+      config: {
+        addonBefore: addonIcons.githubLink
+      }
+    },
+    slackLink: {
+      config: {
+        addonBefore: addonIcons.slackLink
+      }
+    },
+    twitterLink: {
+      config: {
+        addonBefore: addonIcons.twitterLink
+      }
+    },
+    facebookLink: {
+      config: {
+        addonBefore: addonIcons.facebookLink
+      }
+    },
+    redditLink: {
+      config: {
+        addonBefore: addonIcons.redditLink
+      }
+    },
+    blogLink: {
+      config: {
+        addonBefore: addonIcons.blogLink
+      }
+    },
+    telegramLink: {
+      config: {
+        addonBefore: addonIcons.telegramLink
+      }
     }
   }
 };
@@ -269,14 +382,11 @@ export default class IcoForm extends React.Component{
   constructor (props) {
     super(props);
     const icoEntityValue = this.props.icoEntityValue || {};
-    this.state = {
-      icoEntityValue: icoEntityValue
-    };
   }
 
   save() {
     // if validation fails, value will be null
-    let value = this.refs.icoForm.getValue();
+    const value = this.refs.icoForm.getValue();
 
     console.log('saved value:', value);
     if (value) {
@@ -287,7 +397,7 @@ export default class IcoForm extends React.Component{
   }
 
   saveConcept () {
-    let value = this.refs.icoForm.getValue();
+    const value = this.refs.icoForm.getValue();
     console.log('saving concept..', value);
     if (value) {
       this.props.saveConcept(value);
@@ -298,22 +408,28 @@ export default class IcoForm extends React.Component{
 
   onChange(icoEntityValue, path) {
     // validate a field on every change
-    this.refs.icoForm.getComponent(path).validate();
+    const formComponent = this.refs.icoForm.getComponent(path);
+    if (formComponent) {
+      formComponent.validate();
+    }
   }
 
 
   render() {
+    let icoForm;
+    if (this.props.editMode) {
+      icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions} value={this.props.icoEntityValue}
+                      onChange={this.onChange.bind(this)} />
+    } else {
+      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions} onChange={this.onChange.bind(this)} />
+    }
+
     return (
       <div>
 
         <div className="row">
           <div className="col-md-10">
-            <Form
-              ref="icoForm"
-              type={IcoType}
-              options={renderOptions}
-              onChange={this.onChange.bind(this)}
-            />
+            {icoForm}
           </div>
         </div>
 

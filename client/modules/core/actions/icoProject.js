@@ -18,6 +18,7 @@ export default {
       return console.warn('SAVE_AS_CONCEPT_ERROR', 'icoEntity is required.');
     }
 
+    const id = Meteor.uuid();
     console.log('ico.saveAsConcept is calling..');
     Meteor.call('ico.saveAsConcept', id, icoEntity, (err) => {
       if (err) {

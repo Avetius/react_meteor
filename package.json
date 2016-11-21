@@ -32,6 +32,7 @@
   "dependencies": {
     "@sketchpixy/rubix": "^2.9.11",
     "domready": "^1.0.8",
+    "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.16.4.tgz",
     "mantra-core": "^1.7.0",
     "moment": "^2.15.2",
     "react": "^15.0.0",

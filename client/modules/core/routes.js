@@ -23,16 +23,16 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.add',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco/>)
+        content: () => (<AddOrEditIco editMode={false} />)
       });
     }
   });
 
   FlowRouter.route('/admin/edit-ico/:icoId', {
     name: 'ico.edit',
-    action(icoId) {
+    action({icoId}) {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco icoId={icoId} />)
+        content: () => (<AddOrEditIco icoId={icoId} editMode={true} />)
       });
     }
   });
