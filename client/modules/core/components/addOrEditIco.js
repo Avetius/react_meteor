@@ -11,7 +11,7 @@ import IcoForm from './form/icoForm';
 export default class AddOrEditIco extends React.Component {
   constructor (props) {
     super(props);
-    console.log('@cmp: this.props ', this.props);
+    //console.log('@cmp: this.props ', this.props);
   }
 
   // todo extract this method to separate object and as a static method

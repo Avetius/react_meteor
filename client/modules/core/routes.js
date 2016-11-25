@@ -4,6 +4,7 @@ import {mount} from 'react-mounter';
 import MainLayout from './components/main_layout';
 
 import AddOrEditIco from './containers/addOrEditIco';
+import IcoFrontList from './containers/icoFrontList';
 import NotFound from './containers/notFound';
 
 
@@ -14,8 +15,17 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.list',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco />)
+        content: () => (<IcoFrontList />)
       });
+    }
+  });
+
+  FlowRouter.route('/profile/:icoSlug', {
+    name: 'ico.profile',
+    action({icoSlug}) {
+      mount(MainLayoutCtx, {
+        content: () => (<NotFound />)
+      })
     }
   });
 

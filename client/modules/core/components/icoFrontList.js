@@ -1,3 +1,16 @@
-import icoFrontList from '../components/icoFrontList';
+import { ListGroup } from '@sketchpixy/rubix';
+import IcoShortItem from './icoShortItem';
 
-export const tmp = icoFrontList;
+const IcoFrontList = (props) => {
+  console.log('IcoFrontList:', props);
+  return (
+    <ListGroup componentClass="ul">
+      {
+        props.icoEntities.map((icoEntity) => {
+        return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
+      })}
+    </ListGroup>
+  );
+};
+
+export default IcoFrontList;

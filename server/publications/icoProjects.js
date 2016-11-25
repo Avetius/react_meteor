@@ -6,9 +6,9 @@ export default function () {
   Meteor.publish('ico.list', function () {
     const selector = {};
     const options = {
-      fields: {_id: 1},
+      fields: { entityState: 0},
       sort: {createdAt: -1},
-      limit: 10
+      limit: 25
     };
     return IcoProjects.find(selector, options);
   });
