@@ -2,7 +2,7 @@ import { ListGroup } from '@sketchpixy/rubix';
 import IcoShortItem from './icoShortItem';
 
 const IcoFrontList = (props) => {
-  console.log('IcoFrontList:', props);
+
   return (
     <ListGroup componentClass="ul">
       {
