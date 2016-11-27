@@ -10,6 +10,12 @@ $content-elem-bg-color: #fff;
   cursor: pointer;
 }
 
+.text-help {
+  border-bottom: thin dotted;
+  cursor: help;
+}
+
+
 /* layout & theme */
 html, body {
   height: 100%;

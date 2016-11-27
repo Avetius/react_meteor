@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Countdown from './dateTimeCountdown';
+import ContentWithPopover from './contentWithPopover';
 
 export default class IcoFrontItem extends React.Component {
 
@@ -85,7 +86,11 @@ export default class IcoFrontItem extends React.Component {
                 <h4 className="margin-vertical-xs">{ico.projectName}<span className="text-uppercase">{` (${ico.abbreviation})`}</span></h4>
               </div>
               <div className="col-xs-12 col-md-6">
-                {`Project status: `} <strong>{ico.icoStatus}</strong>
+                <ContentWithPopover fieldLabel="Fund keeper"
+                                    helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
+                  <span className="text-help margin-right-xs">Project status:</span>
+                </ContentWithPopover>
+                <strong>{ico.icoStatus}</strong>
               </div>
             </div>
 
@@ -97,10 +102,18 @@ export default class IcoFrontItem extends React.Component {
 
             <div className="row">
               <div className="col-xs-12 col-md-6">
-                {`Start Date: ${moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}`}
+                <ContentWithPopover fieldLabel="Fund keeper"
+                                    helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
+                  <span className="text-help margin-right-xs">Start Date:</span>
+                </ContentWithPopover>
+                {moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
               </div>
               <div className="col-xs-12 col-md-6">
-                {`End Date: ${moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}`}
+                <ContentWithPopover fieldLabel="Fund keeper"
+                                    helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
+                  <span className="text-help margin-right-xs">End Date:</span>
+                </ContentWithPopover>
+                {moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
               </div>
             </div>
 
@@ -110,6 +123,7 @@ export default class IcoFrontItem extends React.Component {
                   this.state.icoCountdown.enable ? (
                     <Countdown givenDate={this.state.icoCountdown.date}
                                message={this.state.icoCountdown.message}
+                               help={{enable: true, field: 'ICO start (example)', text: 'ICO start describe exact date and time when you will able first invest into ICO. (example)'}}
                                afterTimeout={this.reComputeCountdowns.bind(this)}/>
                   ) : ''
                 }
@@ -128,7 +142,15 @@ export default class IcoFrontItem extends React.Component {
 
             <div className="row">
               <div className="col-xs-12">
-                {`Fund keeper: ${ico.fundKeeper}`}
+                <ContentWithPopover fieldLabel="Fund keeper"
+                  helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
+                  <span>
+                    {'Fund keeper'}
+                    <i className="fa fa-info-circle padding-horizontal-xs fa-lg cursor-pointer" aria-hidden="false" />
+                    {': '}
+                  {` ${ico.fundKeeper}`}
+                  </span>
+                </ContentWithPopover>
               </div>
             </div>
 
