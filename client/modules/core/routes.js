@@ -5,6 +5,7 @@ import MainLayout from './components/main_layout';
 
 import AddOrEditIco from './containers/addOrEditIco';
 import IcoFrontList from './containers/icoFrontList';
+import IcoProfile from './containers/icoProfile'
 import NotFound from './containers/notFound';
 
 
@@ -24,7 +25,7 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.profile',
     action({icoSlug}) {
       mount(MainLayoutCtx, {
-        content: () => (<NotFound />)
+        content: () => (<IcoProfile icoSlug={icoSlug} />)
       })
     }
   });

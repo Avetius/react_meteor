@@ -44,7 +44,7 @@ const App = React.createClass({displayName: "App",
         <ContentWithPopover fieldLabel={this.props.help.field}
                             helpText={this.props.help.text}
         >
-          <span className="text-help">{this.props.message}</span>
+          <span className="text-help margin-right-xs">{this.props.message}</span>
         </ContentWithPopover>
 
     } else {
