@@ -15,12 +15,12 @@ export default class IcoFrontItem extends React.Component {
     const icoWebsiteLink = prefixHttpIfMissing(this.props.icoEntity.icoWebsiteLink);
 
     return (
-      <li className="list-group-item padding-all-sm">
-        <div className="row">
+      <li className="list-group-item padding-all-sm margin-bottom-md">
+        <div className="row row-vertical-center">
           <div className="col-xs-12 col-md-2 padding-right-xs">
-            <img className="img-responsive margin-top-sm" src="/Ico_Wallpaper_2.jpg" />
+            <img className="img-responsive margin-top-sm" src="/Decent_foundation_logo.png" />
           </div>
-          <div className="col-xs-12 col-md-10">
+          <div className="col-xs-12 col-md-10 padding-left-sm">
 
             <IcoShortItemMainRows ico={this.props.icoEntity} />
 

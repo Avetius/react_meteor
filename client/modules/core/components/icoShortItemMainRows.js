@@ -34,7 +34,7 @@ export default class IcoShortItemMainRows extends React.Component {
       };
     } else if (moment().isAfter(icoStartDatetime) && moment().isAfter(icoEndDatetime)) {
       icoCountdownState = {
-        icoCountdown : { enable: true, message: 'ICO ended.' }
+        icoCountdown : { enable: true, message: 'ICO has finished.' }
       };
     } else {
       console.warn('IcoCountDown is not working for this ICO item.');
@@ -48,13 +48,15 @@ export default class IcoShortItemMainRows extends React.Component {
       // todo show also bonus info before ICO will start
       // todo change it to Array.prototype.find method as that is more effective
       icoEvents.forEach((event) => {
-        // we presume events are not overlapping
-        if (moment().isAfter(event.eventStartDatetime) && moment().isBefore(event.eventEndDatetime)) {
-          bonusCountdownState = {
-            bonusCountdown : {
-              enable: true, message: event.eventName, date: event.eventEndDatetime
-            }
-          };
+        if (event.isBonusEvent) {
+          // we presume bonus events are not overlapping
+          if (moment().isAfter(event.eventStartDatetime) && moment().isBefore(event.eventEndDatetime)) {
+            bonusCountdownState = {
+              bonusCountdown : {
+                enable: true, message: event.eventName, date: event.eventEndDatetime
+              }
+            };
+          }
         }
       });
     }
@@ -134,13 +136,9 @@ export default class IcoShortItemMainRows extends React.Component {
           <div className="col-xs-12">
             <ContentWithPopover fieldLabel="Fund keeper"
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
-                      <span>
-                        {'Fund keeper'}
-                        <i className="fa fa-info-circle padding-horizontal-xs fa-lg cursor-pointer" aria-hidden="false" />
-                        {': '}
-                        {` ${ico.fundKeeper}`}
-                      </span>
+              <span className="text-help margin-right-xs">Fund keeper:</span>
             </ContentWithPopover>
+            {ico.fundKeeper}
           </div>
         </div>
 

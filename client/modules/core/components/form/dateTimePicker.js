@@ -19,8 +19,12 @@ class DateTimePicker extends t.form.Component { // extend the base class
     return (locals) => {
       this.interceptedOnChange = locals.onChange;
       return (
-        <div className="form-group">
-          <Datetime value={locals.value} onChange={this.interceptorOnChange.bind(this)} inputProps={this.inputProps} />
+        <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
+          <label className="control-label">{locals.label}</label>
+          <Datetime value={locals.value}
+                    onChange={this.interceptorOnChange.bind(this)}
+                    inputProps={this.inputProps}
+          />
           { (this.state.UTCRenderedDateTime) ?
             (<div>
               <i>{`UTC datetime: ${this.state.UTCRenderedDateTime.format("dddd, MMMM Do YYYY, h:mm:ss a")}`}</i>
@@ -34,9 +38,7 @@ class DateTimePicker extends t.form.Component { // extend the base class
   };
 
   interceptorOnChange (val) {
-    //console.log('changed val:', val.format("dddd, MMMM Do YYYY, h:mm:ss a"));
     this.setState({ UTCRenderedDateTime: val.clone().utc() });
-    //console.log('changed UTC val:', val.format("dddd, MMMM Do YYYY, h:mm:ss a"));
     this.interceptedOnChange(val.toDate());
   };
 

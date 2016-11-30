@@ -15,6 +15,16 @@ $content-elem-bg-color: #fff;
   cursor: help;
 }
 
+.row-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.row-all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* layout & theme */
 html, body {

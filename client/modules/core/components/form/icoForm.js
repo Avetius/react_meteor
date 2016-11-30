@@ -9,11 +9,6 @@ import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import LabelWithHelp from './labelWithHelp';
 
 // form data model definitions
-const IcoStatus = t.enums({
-  ongoing: 'Ongoing',
-  upcoming: 'Upcoming',
-  finished: 'Finished'
-});
 
 const ProjectStatus = t.enums({
   concept: 'Concept',
@@ -29,15 +24,11 @@ const FundKeeper = t.enums({
   exchange: 'Exchange'
 });
 
-const RunningSocialCampaign = t.enums({
-  yes: 'yes',
-  no: 'no'
-});
-
 const IcoEvent = t.struct({
   eventName: t.Str,
   eventStartDatetime: t.Date,
-  eventEndDatetime: t.maybe(t.Date)
+  eventEndDatetime: t.Date,
+  isBonusEvent: t.Boolean,
 });
 
 const IcoType = t.struct({
@@ -46,7 +37,6 @@ const IcoType = t.struct({
   officialWebsiteLink: t.String,
   icoWebsiteLink: t.String,
   whitePaperLink: t.String,
-  icoStatus: IcoStatus,
   projectStatus: ProjectStatus,
   oneSentenceExplanation: t.String,
   mediumLengthDescription: t.maybe(t.String),
@@ -55,11 +45,9 @@ const IcoType = t.struct({
   icoEvents: t.maybe(t.list(IcoEvent)),
   maxSupply: t.maybe(t.String),
   fundKeeper: FundKeeper,
-  runningSocialCampaign: RunningSocialCampaign,
   coFounders: t.String,
   countryOfOrigin: t.String,
   underlyingCryptoPlatform: t.String,
-  bonus: t.Boolean,
   bounty: t.Boolean,
   affiliate: t.Boolean,
   affiliateAmount: t.maybe(t.String),
@@ -78,149 +66,56 @@ const formLayout = (locals) => {
       <h3>New ICO</h3>
       <p>Please click on help icon to know more info about details of the field.</p>
 
-      <LabelWithHelp fieldLabel="Project name"
-                     helpText=""
-      />
       {locals.inputs.projectName}
 
-      <LabelWithHelp fieldLabel="Abbreviation"
-                     helpText=""
-      />
       {locals.inputs.abbreviation}
 
-      <LabelWithHelp fieldLabel="Official website link"
-                     helpText=""
-      />
       {locals.inputs.officialWebsiteLink}
 
-      <LabelWithHelp fieldLabel="ICO website link"
-                     helpText=""
-      />
       {locals.inputs.icoWebsiteLink}
 
-      <LabelWithHelp fieldLabel="White paper link"
-                     helpText=""
-      />
       {locals.inputs.whitePaperLink}
 
-      <LabelWithHelp fieldLabel="ICO status"
-                     helpText=""
-      />
-      {locals.inputs.icoStatus}
-
-      <LabelWithHelp fieldLabel="Project status"
-                     helpText=""
-      />
       {locals.inputs.projectStatus}
 
-      <LabelWithHelp fieldLabel="One Sentence Explanation"
-                     helpText="It should be short descriptive explanation. Should be short enough to use in 1 tweet."
-      />
       {locals.inputs.oneSentenceExplanation}
 
-      <LabelWithHelp fieldLabel="Medium length description"
-                     helpText="It should be short description"
-      />
       {locals.inputs.mediumLengthDescription}
 
-      <LabelWithHelp fieldLabel="ICO Start Datetime"
-                     helpText=""
-      />
       {locals.inputs.icoStartDatetime}
 
-      <LabelWithHelp fieldLabel="ICO End Datetime"
-                     helpText=""
-      />
       {locals.inputs.icoEndDatetime}
 
-      <LabelWithHelp fieldLabel="ICO and project specific events"
-                     helpText=""
-      />
       {locals.inputs.icoEvents}
 
-      <LabelWithHelp fieldLabel="Max currency supply (if any)"
-                     helpText=""
-      />
       {locals.inputs.maxSupply}
 
-      <LabelWithHelp fieldLabel="Fund keeper"
-                     helpText=""
-      />
       {locals.inputs.fundKeeper}
 
-      <LabelWithHelp fieldLabel="Running Social Campaign"
-                     helpText=""
-      />
-      {locals.inputs.runningSocialCampaign}
-
-      <LabelWithHelp fieldLabel="Co-Founders"
-                     helpText=""
-      />
       {locals.inputs.coFounders}
 
-      <LabelWithHelp fieldLabel="Country of origin"
-                     helpText=""
-      />
       {locals.inputs.countryOfOrigin}
 
-      <LabelWithHelp fieldLabel="Underlying crypto platform"
-                     helpText=""
-      />
       {locals.inputs.underlyingCryptoPlatform}
 
-      <LabelWithHelp fieldLabel="Existence of bonus"
-                     helpText=""
-      />
-      {locals.inputs.bonus}
-
-      <LabelWithHelp fieldLabel="Existence of bounty"
-                     helpText=""
-      />
       {locals.inputs.bounty}
 
-      <LabelWithHelp fieldLabel="Affiliate"
-                     helpText=""
-      />
       {locals.inputs.affiliate}
 
-      <LabelWithHelp fieldLabel="Affiliate amount"
-                     helpText=""
-      />
       {locals.inputs.affiliateAmount}
 
-      <LabelWithHelp fieldLabel="Main github repository link"
-                     helpText=""
-      />
       {locals.inputs.githubLink}
 
-      <LabelWithHelp fieldLabel="Slack link"
-                     helpText=""
-      />
       {locals.inputs.slackLink}
 
-      <LabelWithHelp fieldLabel="Twitter link"
-                     helpText=""
-      />
       {locals.inputs.twitterLink}
 
-      <LabelWithHelp fieldLabel="Facebook link"
-                     helpText=""
-      />
       {locals.inputs.facebookLink}
 
-      <LabelWithHelp fieldLabel="Reddit link"
-                     helpText=""
-      />
       {locals.inputs.redditLink}
 
-      <LabelWithHelp fieldLabel="Blog link"
-                     helpText=""
-      />
       {locals.inputs.blogLink}
 
-      <LabelWithHelp fieldLabel="Telegram link"
-                     helpText=""
-      />
       {locals.inputs.telegramLink}
 
     </div>
@@ -233,7 +128,6 @@ const addonIcons = {
   officialWebsiteLink: <i className="fa fa-home" aria-hidden="true"></i>,
   icoWebsiteLink: <i className="fa fa-money" aria-hidden="true"></i>,
   whitePaperLink: <i className="fa fa-file-text-o" aria-hidden="true"></i>,
-  icoStatus: null,
   projectStatus: null,
   oneSentenceExplanation: <span>
     <i className="fa fa-twitter" aria-hidden="true"></i> &nbsp;
@@ -245,11 +139,9 @@ const addonIcons = {
   icoEvents: null,
   maxSupply: null,
   fundKeeper: null,
-  runningSocialCampaign: null,
   coFounders: <i className="fa fa-user-circle" aria-hidden="true"></i>,
   countryOfOrigin: null,
   underlyingCryptoPlatform: null,
-  bonus: null,
   bounty: null,
   affiliate: null,
   affiliateAmount: null,
@@ -268,30 +160,38 @@ const renderOptions = {
   auto: 'placeholders',
   fields: {
     projectName: {
+      legend: 'Project name',
       config: {
         addonBefore: addonIcons.projectName
       }
     },
-    abbreviation: {},
+    abbreviation: {
+      legend: 'Abbreviation',
+    },
     officialWebsiteLink: {
+      legend: 'Official website link',
       config: {
         addonBefore: addonIcons.officialWebsiteLink
       }
     },
     icoWebsiteLink: {
+      legend: 'ICO website link',
       config: {
         addonBefore: addonIcons.icoWebsiteLink
       }
     },
     whitePaperLink: {
+      legend: 'White paper link',
       config: {
         addonBefore: addonIcons.whitePaperLink
       }
     },
-    icoStatus: {},
-    projectStatus: {},
+    projectStatus: {
+      legend: 'Project status',
+    },
     oneSentenceExplanation: {
       type: 'textarea',
+      legend: 'One sentence explanation',
       help: <i>It should be short descriptive explanation. Should be short enough to use in 1 tweet.</i>,
       config: {
         addonBefore: addonIcons.oneSentenceExplanation
@@ -302,18 +202,22 @@ const renderOptions = {
       attrs: {
         rows:5
       },
+      legend: 'Medium length description',
       config: {
         addonBefore: addonIcons.mediumLengthDescription
       }
     },
     icoStartDatetime: {
+      legend: 'ICO Start Datetime',
       factory: DateTimeStart
     },
     icoEndDatetime: {
+      legend: 'ICO End Datetime',
       factory: DateTimeEnd
     },
     icoEvents: {
       disableOrder: true,
+      legend: <h4>ICO and project specific events (ie. bonus events, ...)</h4>,
       item: {
         fields: {
           eventStartDatetime: {
@@ -325,52 +229,72 @@ const renderOptions = {
         }
       }
     },
-    maxSupply: {},
-    fundKeeper: {},
-    runningSocialCampaign: {},
+    maxSupply: {
+      legend: 'Max currency supply (if any)',
+    },
+    fundKeeper: {
+      legend: 'Fund keeper',
+    },
     coFounders: {
+      legend: '',
       config: {
         addonBefore: addonIcons.coFounders
       }
     },
-    countryOfOrigin: {},
-    underlyingCryptoPlatform: {},
-    bonus: {},
-    bounty: {},
-    affiliate: {},
-    affiliateAmount: {},
+    countryOfOrigin: {
+      legend: '',
+    },
+    underlyingCryptoPlatform: {
+      legend: 'Underlying crypto-platform',
+    },
+    bounty: {
+      legend: 'Existence of bounty',
+    },
+    affiliate: {
+      legend: 'Affiliate',
+    },
+    affiliateAmount: {
+      legend: 'Affiliate amount',
+    },
 
     githubLink: {
+      legend: 'Main github repository link',
       config: {
         addonBefore: addonIcons.githubLink
       }
     },
     slackLink: {
+      legend: 'Slack link',
       config: {
         addonBefore: addonIcons.slackLink
       }
     },
     twitterLink: {
+      legend: 'Twitter link',
       config: {
         addonBefore: addonIcons.twitterLink
       }
     },
     facebookLink: {
+      legend: 'Facebook link',
       config: {
         addonBefore: addonIcons.facebookLink
       }
     },
     redditLink: {
+      legend: 'Reddit link',
       config: {
         addonBefore: addonIcons.redditLink
       }
     },
     blogLink: {
+      legend: 'Blog link',
       config: {
         addonBefore: addonIcons.blogLink
       }
     },
     telegramLink: {
+      legend: 'Telegram link',
       config: {
         addonBefore: addonIcons.telegramLink
       }

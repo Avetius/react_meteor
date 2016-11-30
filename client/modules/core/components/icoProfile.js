@@ -8,9 +8,6 @@ export default class IcoProfile extends React.Component {
 
   constructor (props) {
     super(props);
-    // todo move it to separate comp or LATER to redux
-    // tmp
-    this.state = { bonusCountdown: {}, icoCountdown: {}};
   }
 
   render () {
@@ -21,10 +18,7 @@ export default class IcoProfile extends React.Component {
       return link.substr(0, 4) === 'http' ? link : 'http://' + link;
     };
 
-    // render-validation -- should be removed in long term and fix in db instead
-
-
-
+    // todo: render-validation -- should be removed in long term and fix in db instead
     const officialWebsiteLink = prefixHttpIfMissing(this.props.icoEntity.officialWebsiteLink);
     const whitePaperLink = prefixHttpIfMissing(this.props.icoEntity.whitePaperLink);
     const icoWebsiteLink = prefixHttpIfMissing(this.props.icoEntity.icoWebsiteLink);
@@ -32,15 +26,15 @@ export default class IcoProfile extends React.Component {
 
     return (
       <div className="panel panel-default">
-        <div className="panel-body padding-vertical-sm">
+        <div className="panel-body padding-all-sm">
 
-          <div className="row">
+          <div className="row row-vertical-center">
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
-              <img className="img-responsive margin-top-sm" src="/Ico_Wallpaper_2.jpg" />
+              <img className="img-responsive margin-top-sm" src="/Decent_foundation_logo.png" />
             </div>
 
-            <div className="col-xs-12 col-md-10">
+            <div className="col-xs-12 col-md-10 padding-left-sm">
 
               <IcoShortItemMainRows ico={this.props.icoEntity} />
 
