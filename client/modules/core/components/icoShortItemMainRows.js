@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import i18next from 'i18next';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 
@@ -82,7 +83,7 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Project status:</span>
             </ContentWithPopover>
-            <strong>{ico.icoStatus}</strong>
+            <strong>{i18next.t('ico.projectStatus.' + ico.projectStatus)}</strong>
           </div>
         </div>
 
@@ -98,14 +99,14 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Start Date:</span>
               </ContentWithPopover>
-              {moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+              {moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm a")}
           </div>
           <div className="col-xs-12 col-md-6">
             <ContentWithPopover fieldLabel="Fund keeper"
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">End Date:</span>
             </ContentWithPopover>
-            {moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+            {moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm a")}
           </div>
         </div>
 
@@ -138,7 +139,7 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Fund keeper:</span>
             </ContentWithPopover>
-            {ico.fundKeeper}
+            {i18next.t('ico.fundKeeper.' + ico.fundKeeper)}
           </div>
         </div>
 

@@ -1,64 +1,14 @@
 import React from 'react';
 import t from 'tcomb-form';
 const Form = t.form.Form;
+// ../../../../..
+import { IcoType } from '/lib/icoProject';
 
 // Rubix theme
 import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import LabelWithHelp from './labelWithHelp';
-
-// form data model definitions
-
-const ProjectStatus = t.enums({
-  concept: 'Concept',
-  workingPrototype: 'Working prototype',
-  privateDemo: 'Private demo',
-  publicDemo: 'publicDemo',
-  Live: 'Live'
-});
-
-const FundKeeper = t.enums({
-  escrow: 'Escrow',
-  devs: 'Dev(s)',
-  exchange: 'Exchange'
-});
-
-const IcoEvent = t.struct({
-  eventName: t.Str,
-  eventStartDatetime: t.Date,
-  eventEndDatetime: t.Date,
-  isBonusEvent: t.Boolean,
-});
-
-const IcoType = t.struct({
-  projectName: t.String,
-  abbreviation: t.String,
-  officialWebsiteLink: t.String,
-  icoWebsiteLink: t.String,
-  whitePaperLink: t.String,
-  projectStatus: ProjectStatus,
-  oneSentenceExplanation: t.String,
-  mediumLengthDescription: t.maybe(t.String),
-  icoStartDatetime: t.Date,
-  icoEndDatetime: t.Date,
-  icoEvents: t.maybe(t.list(IcoEvent)),
-  maxSupply: t.maybe(t.String),
-  fundKeeper: FundKeeper,
-  coFounders: t.String,
-  countryOfOrigin: t.String,
-  underlyingCryptoPlatform: t.String,
-  bounty: t.Boolean,
-  affiliate: t.Boolean,
-  affiliateAmount: t.maybe(t.String),
-  githubLink: t.maybe(t.String),
-  slackLink: t.maybe(t.String),
-  twitterLink: t.maybe(t.String),
-  facebookLink: t.maybe(t.String),
-  redditLink: t.maybe(t.String),
-  blogLink: t.maybe(t.String),
-  telegramLink: t.maybe(t.String)
-});
 
 const formLayout = (locals) => {
   return (
