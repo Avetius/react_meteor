@@ -4,6 +4,8 @@ import i18next from 'i18next';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 
+import IcoStatus from '/lib/icoStatus';
+
 export default class IcoShortItemMainRows extends React.Component {
 
   constructor (props) {
@@ -22,18 +24,18 @@ export default class IcoShortItemMainRows extends React.Component {
     let icoEndDatetime = this.props.ico.icoEndDatetime;
     let icoCountdownState;
 
-    if (moment().isBefore(icoStartDatetime)) {
+    if (IcoStatus.isUpcoming(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : {
           enable: true, message: 'ICO will start in ', date: icoStartDatetime }
       };
-    } else if (moment().isAfter(icoStartDatetime) && moment().isBefore(icoEndDatetime)) {
+    } else if (IcoStatus.isOngoing(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : {
           enable: true, message: 'ICO ends in ', date: icoEndDatetime
         }
       };
-    } else if (moment().isAfter(icoStartDatetime) && moment().isAfter(icoEndDatetime)) {
+    } else if (IcoStatus.isFinished(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : { enable: true, message: 'ICO has finished.' }
       };
@@ -83,7 +85,7 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Project status:</span>
             </ContentWithPopover>
-            <strong>{'icoStatus here'}</strong>
+            <strong>{i18next.t('ico.icoStatus.' + IcoStatus.compute(ico))}</strong>
           </div>
         </div>
 

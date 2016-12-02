@@ -8,6 +8,11 @@ export default () => {
         translation: {
           test: 'test',
           ico: {
+            icoStatus: {
+              upcoming: 'Upcoming',
+              ongoing: 'Ongoing',
+              finished: 'Finished'
+            },
             projectStatus: {
               concept: 'Concept',
               workingPrototype: 'Working prototype',
