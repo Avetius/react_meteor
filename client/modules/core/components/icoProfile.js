@@ -36,7 +36,7 @@ export default class IcoProfile extends React.Component {
 
             <div className="col-xs-12 col-md-10 padding-left-sm">
 
-              <IcoShortItemMainRows ico={this.props.icoEntity} />
+              <IcoShortItemMainRows ico={this.props.icoEntity} isProfile={true} />
 
               <hr className="margin-vertical-xs" />
 

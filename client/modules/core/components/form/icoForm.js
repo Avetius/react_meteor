@@ -1,14 +1,12 @@
 import React from 'react';
 import t from 'tcomb-form';
 const Form = t.form.Form;
-// ../../../../..
 import { IcoType } from '/lib/icoProject';
 
 // Rubix theme
 import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
-import LabelWithHelp from './labelWithHelp';
 
 const formLayout = (locals) => {
   return (

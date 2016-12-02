@@ -20,6 +20,14 @@ $content-elem-bg-color: #fff;
   align-items: center;
 }
 
+/* tmp fix */
+@media (min-width: $screen-md-min) {
+  .tmp-relative-top-minus-5px {
+    position: relative;
+    top: -5px;
+  }
+}
+
 .row-all-center {
   display: flex;
   justify-content: center;

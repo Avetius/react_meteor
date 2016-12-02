@@ -83,7 +83,7 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Project status:</span>
             </ContentWithPopover>
-            <strong>{i18next.t('ico.projectStatus.' + ico.projectStatus)}</strong>
+            <strong>{'icoStatus here'}</strong>
           </div>
         </div>
 
@@ -134,13 +134,31 @@ export default class IcoShortItemMainRows extends React.Component {
 
 
         <div className="row">
-          <div className="col-xs-12">
+          <div className="col-xs-12 col-md-6">
             <ContentWithPopover fieldLabel="Fund keeper"
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Fund keeper:</span>
             </ContentWithPopover>
             {i18next.t('ico.fundKeeper.' + ico.fundKeeper)}
           </div>
+          <div className="col-xs-12 col-md-4">
+
+            <ContentWithPopover fieldLabel="Fund keeper"
+                                helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
+              <span className="text-help margin-right-xs">Project status:</span>
+            </ContentWithPopover>
+            <strong>{i18next.t('ico.projectStatus.' + ico.projectStatus)}</strong>
+
+          </div>
+
+          { this.props.isProfile ?
+            <div className="col-xs-12 col-md-2 tmp-relative-top-minus-5px">
+              <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink} rel="noopener noreferrer">Invest</a>
+            </div>
+           : ''
+          }
+
+
         </div>
 
       </div>
