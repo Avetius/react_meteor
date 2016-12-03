@@ -184,13 +184,12 @@ const renderOptions = {
       legend: 'Fund keeper',
     },
     coFounders: {
-      legend: '',
+      legend: 'Co-founders',
       config: {
-        addonBefore: addonIcons.coFounders
       }
     },
     countryOfOrigin: {
-      legend: '',
+      legend: 'Country of origin',
     },
     underlyingCryptoPlatform: {
       legend: 'Underlying crypto-platform',

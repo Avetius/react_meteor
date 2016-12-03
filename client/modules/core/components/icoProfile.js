@@ -140,12 +140,13 @@ export default class IcoProfile extends React.Component {
             </div>
           </div>
 
-
           <div className="row">
             <div className="col-md-12">
               <hr />
               <h4>ICO overview</h4>
-              <h5>Project goal</h5>
+              <p>
+                {ico.mediumLengthDescription}
+              </p>
               <hr />
               <h4>Team</h4>
               <hr />
