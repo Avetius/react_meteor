@@ -199,7 +199,7 @@ const renderOptions = {
           roleDescription: {
             type: 'textarea',
             attrs: {
-              rows:3
+              rows:1
             }
           },
           personalBackground: {
@@ -311,7 +311,7 @@ export default class IcoForm extends React.Component{
   }
 
   onChange(icoEntityValue, path) {
-    // validate a field on every change -- todo: consider remove this as speed optimization
+    // validate a field on every change -- consider implement this in onBlur field event handler
     const formComponent = this.refs.icoForm.getComponent(path);
     if (formComponent) {
       formComponent.validate();

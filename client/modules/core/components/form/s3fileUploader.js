@@ -12,12 +12,16 @@ class S3FileUploader extends t.form.Component {
       position: 'relative',
       cursor: 'pointer'
     };
+    // Meteor.absoluteUrl() is like http://localhost:3000/ or https://icoindex.com
+    const urlArr = Meteor.absoluteUrl().split(':');
+    // remove possible port number and add 5001 port
+    const uploadUrl = `${urlArr[0]}:${urlArr[1]}:5001`;
 
     const uploaderProps = {
       style,
       // max file size 2MB
       maxFileSize: 1024 * 1024 * 2,
-      server: 'http://localhost:5001',
+      server: uploadUrl,
       s3Url: 'https://s3-eu-west-1.amazonaws.com/ico1/' + this.customProps.dir,
       signingUrlQueryParams: { uploadType: 'avatar', dir: this.customProps.dir }
     };

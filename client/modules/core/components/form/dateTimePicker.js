@@ -15,7 +15,7 @@ class DateTimePicker extends t.form.Component { // extend the base class
   }
 
   getTemplate() {
-    //const utcFormattedDatetime =
+
     return (locals) => {
       this.interceptedOnChange = locals.onChange;
       return (
