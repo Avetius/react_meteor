@@ -53,9 +53,9 @@ footer {
   min-height: 51rem;
 }
 
-#react-root {
-  /* not needed now
-  min-height: 100%;*/
+/* fix for images inside preview of uploaders */
+.react-dropzone-s3-uploader > img {
+  max-height: 100%;
 }
 
 

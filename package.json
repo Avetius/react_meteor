@@ -32,6 +32,7 @@
   "dependencies": {
     "@sketchpixy/rubix": "^2.9.11",
     "domready": "^1.0.8",
+    "express": "^4.14.0",
     "i18next": "^4.1.0",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.16.4.tgz",
     "mantra-core": "^1.7.0",
@@ -40,6 +41,7 @@
     "react-bootstrap": "^0.30.6",
     "react-datetime": "https://registry.npmjs.org/react-datetime/-/react-datetime-2.6.2.tgz",
     "react-dom": "^15.0.0",
+    "react-dropzone-s3-uploader": "^0.8.1",
     "react-mounter": "^1.2.0",
     "tcomb-form": "^0.9.10"
   },

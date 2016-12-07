@@ -1,12 +1,14 @@
 import React from 'react';
 import t from 'tcomb-form';
 const Form = t.form.Form;
+import S3FileUploader from './s3fileUploader';
 import { IcoType } from '/lib/icoProject';
 
 // Rubix theme
 import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
+import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
 
 const formLayout = (locals) => {
   return (
@@ -17,6 +19,8 @@ const formLayout = (locals) => {
       {locals.inputs.projectName}
 
       {locals.inputs.abbreviation}
+
+      {locals.inputs.icoProjectLogo}
 
       {locals.inputs.officialWebsiteLink}
 
@@ -116,6 +120,10 @@ const renderOptions = {
     abbreviation: {
       legend: 'Abbreviation',
     },
+    icoProjectLogo: {
+      legend: 'ICO Project Logo',
+      factory: IcoProjectLogoUploader
+    },
     officialWebsiteLink: {
       legend: 'Official website link',
       config: {
@@ -184,8 +192,26 @@ const renderOptions = {
       legend: 'Fund keeper',
     },
     coFounders: {
-      legend: 'Co-founders',
-      config: {
+      disableOrder: true,
+      legend: <h4>Co-founders</h4>,
+      item: {
+        fields: {
+          roleDescription: {
+            type: 'textarea',
+            attrs: {
+              rows:3
+            }
+          },
+          personalBackground: {
+            type: 'textarea',
+            attrs: {
+              rows:3
+            }
+          },
+          photoUrl: {
+            factory: CoFounderPhotoUploader
+          }
+        }
       }
     },
     countryOfOrigin: {
@@ -250,10 +276,6 @@ const renderOptions = {
 };
 
 export default class IcoForm extends React.Component{
-  constructor (props) {
-    super(props);
-    console.log(props);
-  }
 
   save() {
     // if validation fails, value will be null
@@ -289,7 +311,7 @@ export default class IcoForm extends React.Component{
   }
 
   onChange(icoEntityValue, path) {
-    // validate a field on every change
+    // validate a field on every change -- todo: consider remove this as speed optimization
     const formComponent = this.refs.icoForm.getComponent(path);
     if (formComponent) {
       formComponent.validate();
