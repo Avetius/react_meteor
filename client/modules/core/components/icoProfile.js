@@ -39,16 +39,6 @@ export default class IcoProfile extends React.Component {
 
     const ico = this.props.icoEntity;
 
-    const prefixHttpIfMissing = (link) => {
-      return link.substr(0, 4) === 'http' ? link : 'http://' + link;
-    };
-
-    // todo: render-validation -- should be removed in long term and fix in db instead
-    const officialWebsiteLink = prefixHttpIfMissing(this.props.icoEntity.officialWebsiteLink);
-    const whitePaperLink = prefixHttpIfMissing(this.props.icoEntity.whitePaperLink);
-    const icoWebsiteLink = prefixHttpIfMissing(this.props.icoEntity.icoWebsiteLink);
-
-
     return (
       <div className="panel panel-default">
         <div className="panel-body padding-all-sm">
@@ -56,7 +46,7 @@ export default class IcoProfile extends React.Component {
           <div className="row row-vertical-center">
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
-              <img className="img-responsive margin-top-sm" src="/Decent_foundation_logo.png" />
+              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo} />
             </div>
 
             <div className="col-xs-12 col-md-10 padding-left-sm">
