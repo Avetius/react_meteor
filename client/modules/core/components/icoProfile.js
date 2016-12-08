@@ -22,17 +22,18 @@ export default class IcoProfile extends React.Component {
     if (!link) {
       return (
         <div>
-          <span className="h4 margin-horizontal-sm"><i className={icon} aria-hidden="true"></i></span>
+          <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
           <span>{placeholder}</span>
         </div>
       )
     }
 
     return (
-    <div>
-      <span className="h4 margin-horizontal-sm"><i className={icon} aria-hidden="true"></i></span>
-      <a className="" target="_blank" href={link} rel="noopener noreferrer">{linkName}</a>
-    </div>)
+      <a className="" target="_blank" href={link} rel="noopener noreferrer">
+        <span className="h4 fg-black margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
+        {linkName}
+      </a>
+    )
   }
 
   render () {
@@ -134,12 +135,30 @@ export default class IcoProfile extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <hr />
-              <h4>ICO overview</h4>
+
+              <h3>ICO overview</h3>
               <p>
                 {ico.mediumLengthDescription}
               </p>
               <hr />
-              <h4>Team</h4>
+
+              <h3>Team</h3>
+              <div className="row">
+
+                {ico.coFounders.map((coFounder)=> {
+                  return (
+                    <div key={Math.random().toString()} className="col-xs-6 col-md-3">
+                      <p> <img className="img-responsive" src={coFounder.photoUrl} /> </p>
+                      <h4 className="display-inline-block margin-right-xs"> {coFounder.name} </h4>
+                      {this.makeLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl })}
+                      {this.makeLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl })}
+                      <h5> {coFounder.roleDescription}</h5>
+                      <p> {coFounder.personalBackground} </p>
+                    </div>
+
+                  )
+                })}
+              </div>
               <hr />
               <h4>Marketing & community</h4>
 

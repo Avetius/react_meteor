@@ -20,7 +20,7 @@ export default function () {
   };
 
   const coFounder2 = {
-    name: 'John Doe2',
+    name: 'VeryLongNameIsHereVeryLongNameIsHereVeryLongNameIsHere Doe2',
     roleDescription: 'CTO',
     personalBackground: 'Matej’s interest in online privacy was fueled first while studying Computer Science at the Swiss Federal Institute of Technology in Lausanne where he completed a project concerning the privacy protection of mobile phone users for Nokia Research Center. Since then he became more and more involved with Bitcoin. Mining at his own laptop in the beginning, then organizing cryptocurrency conferences around the world (Austria, China, Belgium, UK, …). He also founded the first Bitcoin Marketing agency in the world. Matej has operated from multiple countries, including the UK, Isle of Man, Switzerland, Slovakia or China. Since the beginning he is passionate about the immense potential of blockchain technologies. Thereby, he founded DECENT last year.',
     photoUrl: decentFounderPhoto2,
