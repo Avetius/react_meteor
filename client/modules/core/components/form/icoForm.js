@@ -9,6 +9,7 @@ import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubi
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
+import {OneSentenceTextInput, MediumLengthDescriptionInput} from './limitedTextInput';
 
 const formLayout = (locals) => {
   return (
@@ -151,17 +152,19 @@ const renderOptions = {
       help: <i>It should be short descriptive explanation. Should be short enough to use in 1 tweet.</i>,
       config: {
         addonBefore: addonIcons.oneSentenceExplanation
-      }
+      },
+      factory: OneSentenceTextInput
     },
     mediumLengthDescription: {
       type: 'textarea',
-      attrs: {
-        rows:5
-      },
       legend: 'Medium length description',
       config: {
+        customAttrs: {
+          rows:5
+        },
         addonBefore: addonIcons.mediumLengthDescription
-      }
+      },
+      factory: MediumLengthDescriptionInput
     },
     icoStartDatetime: {
       legend: 'ICO Start Datetime',
