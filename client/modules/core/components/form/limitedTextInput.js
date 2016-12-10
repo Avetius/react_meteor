@@ -15,7 +15,10 @@ class LimitedTextInput extends t.form.Component {
     const randomId = (Math.random()*1000).toString();
 
     return (locals) => {
+      // save callback for middleware purpose
       this.interceptedOnChange = locals.onChange;
+      locals.value = locals.value || '';
+
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label htmlFor={randomId} className="control-label">{locals.label}</label>
@@ -28,13 +31,15 @@ class LimitedTextInput extends t.form.Component {
             }
 
             { this.customProps.type === 'text' ?
-              ( <input type={locals.type} id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)}/> )
+              ( <input type={locals.type} value={locals.value}
+                       id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)}/> )
               : ''
             }
 
             {  this.customProps.type === 'textarea' ?
               (
-                <textarea { ...locals.config.customAttrs } id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)} />
+                <textarea { ...locals.config.customAttrs } value={locals.value}
+                  id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)} />
               ) : ''
             }
 

@@ -31,8 +31,17 @@ class S3FileUploader extends t.form.Component {
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
-          <DropzoneS3Uploader onFinish={this.interceptorOnChange.bind(this)} {...uploaderProps} />
-          <div className="help-block margin-vertical-xs"><i>{this.customProps.helpText}</i></div>
+          {
+            locals.context.editMode && !this.state.enableReUpload ? (
+              <div style={style} onClick={this.enableReUpload.bind(this)}>
+                <img src={locals.value} className="image-uploader-preview" />
+              </div> ) : (
+                <DropzoneS3Uploader onFinish={this.interceptorOnChange.bind(this)} {...uploaderProps} />
+              )
+          }
+          <div className="help-block margin-vertical-xs">
+            <i>{this.customProps.helpText} { locals.context.editMode ? <span className="h4">{' (Click twice if you want to re-upload image.)'}</span> : ''}</i>
+          </div>
         </div>
       );
     };
@@ -44,6 +53,13 @@ class S3FileUploader extends t.form.Component {
     const publicUrl = icoBucketUrl + this.customProps.dir + '/' + val.filename;
     this.interceptedOnChange(publicUrl);
   };
+
+  enableReUpload () {
+    this.setState({enableReUpload: true});
+    // force form component to call getTemplate() ie. re-render our content
+    this.interceptedOnChange('');
+  }
+
 }
 
 export class IcoProjectLogoUploader extends S3FileUploader  {

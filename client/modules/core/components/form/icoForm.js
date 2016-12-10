@@ -325,13 +325,14 @@ export default class IcoForm extends React.Component{
     let icoForm, saveButtons;
     if (this.props.editMode.active) {
       icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions} value={this.props.icoEntityValue}
-                      onChange={this.onChange.bind(this)} />;
+                      context={{editMode: true}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
           <Button onClick={this.edit.bind(this)} bsStyle="primary">Edit and publish</Button>
         </div>;
     } else {
-      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions} onChange={this.onChange.bind(this)} />;
+      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions}
+                     context={{editMode: false}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
           <Button onClick={this.save.bind(this)} bsStyle="primary">Save and publish</Button>

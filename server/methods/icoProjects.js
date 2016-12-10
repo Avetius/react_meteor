@@ -1,5 +1,5 @@
 import {IcoProjects} from '/lib/collections';
-import {IcoProjectTypeDef} from '../validation';
+import {IcoTypeDef} from '/lib/icoProject';
 
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
@@ -33,8 +33,8 @@ export default function () {
       // todo allow this only for this.userId which is in admin group
       // todo call tComb server validation
 
-      // pick only those fields which are present in IcoProjectTypeDef and set values from icoEntity
-      const objectToSet = _.mapValues(IcoProjectTypeDef, (value, key, obj) => {
+      // pick only those fields which are present in IcoTypeDef and set values from icoEntity
+      const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
         return icoProject[key];
       });
 
