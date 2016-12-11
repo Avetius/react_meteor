@@ -1,5 +1,5 @@
 export default {
-  add({Meteor}, icoProject) {
+  add({Meteor, FlowRouter}, icoProject) {
     if (!icoProject) {
       return console.warn('ADD_ICO_ERROR', 'icoProject is required.');
     }
@@ -8,19 +8,23 @@ export default {
     console.log('ico.add is calling..');
     Meteor.call('ico.add', id, icoProject, (err) => {
       if (err) {
-        return console.warn('ADD_ICO_ERROR', err.message);
+        return console.error('ADD_ICO_ERROR', err.error, err.reason);
+      } else {
+        FlowRouter.go('ico.profile', { icoSlug: id });
       }
     });
   },
 
-  edit({Meteor}, id, icoProject) {
+  edit({Meteor, FlowRouter}, id, icoProject) {
     if (!icoProject) {
       return console.warn('EDIT_ICO_ERROR', 'icoProject is required.');
     }
 
     Meteor.call('ico.edit', id, icoProject, (err) => {
       if (err) {
-        return console.warn('EDIT_ICO_ERROR', err.message);
+        return console.error('EDIT_ICO_ERROR', err.error, err.reason);
+      } else {
+        FlowRouter.go('ico.profile', { icoSlug: id });
       }
     });
   },
@@ -34,7 +38,7 @@ export default {
     console.log('ico.saveAsConcept is calling..');
     Meteor.call('ico.saveAsConcept', id, icoProject, (err) => {
       if (err) {
-        return console.warn('SAVE_AS_CONCEPT_ERROR', err.message);
+        return console.error('SAVE_AS_CONCEPT_ERROR', err.error, err.reason);
       }
     });
   },

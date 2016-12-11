@@ -1,9 +1,11 @@
 import {IcoProjects} from '/lib/collections';
-import {IcoTypeDef} from '/lib/icoProject';
+import {IcoTypeDef, IcoType} from '/lib/icoProject';
 
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 import _ from 'lodash';
+
+import t from 'tcomb-validation';
 
 export default function () {
   Meteor.methods({
@@ -12,6 +14,13 @@ export default function () {
       check(icoProject, Object);
 
       // todo allow this only for this.userId which is in admin group
+
+      // validation
+      const validationResult = t.validate(icoProject, IcoType);
+      if (!validationResult.isValid()) {
+        throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
+      }
+
       const createdAt = new Date();
       const icoEntity = {
         _id,
@@ -31,7 +40,12 @@ export default function () {
       check(icoProject, Object);
 
       // todo allow this only for this.userId which is in admin group
-      // todo call tComb server validation
+
+      // validation
+      const validationResult = t.validate(icoProject, IcoType);
+      if (!validationResult.isValid()) {
+        throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
+      }
 
       // pick only those fields which are present in IcoTypeDef and set values from icoEntity
       const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
