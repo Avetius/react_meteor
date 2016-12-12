@@ -12,6 +12,8 @@ class S3FileUploader extends t.form.Component {
       position: 'relative',
       cursor: 'pointer'
     };
+    const previewStyle = { ...style, border: 'solid 1px #999'};
+
     // Meteor.absoluteUrl() is like http://localhost:3000/ or https://icoindex.com
     const urlArr = Meteor.absoluteUrl().split(':');
     // remove possible port number and add 5001 port
@@ -33,7 +35,7 @@ class S3FileUploader extends t.form.Component {
           <label className="control-label">{locals.label}</label>
           {
             locals.context.editMode && !this.state.enableReUpload ? (
-              <div style={style} onClick={this.enableReUpload.bind(this)}>
+              <div style={previewStyle} onClick={this.enableReUpload.bind(this)}>
                 <img src={locals.value} className="image-uploader-preview" />
               </div> ) : (
                 <DropzoneS3Uploader onFinish={this.interceptorOnChange.bind(this)} {...uploaderProps} />
@@ -56,8 +58,9 @@ class S3FileUploader extends t.form.Component {
 
   enableReUpload () {
     this.setState({enableReUpload: true});
-    // force form component to call getTemplate() ie. re-render our content
-    this.interceptedOnChange('');
+    // force form component to call getTemplate() ie. re-render our content by random string value //
+    // todo: this hack cause bug, that if you click on preview image and then didn't upload anything, picture url will be replaced by this random string anyway (if you save the form of course)
+    this.interceptedOnChange('randomStr:'+Math.random().toString());
   }
 
 }
