@@ -1,4 +1,3 @@
-import Meteor from 'meteor/meteor';
 import {IcoProjects} from '/lib/collections';
 
 export default () => {
@@ -14,3 +13,19 @@ export default () => {
     remove() { return true; }
   });
 }
+
+// Facebook integration setup
+Meteor.startup(function() {
+  ServiceConfiguration.configurations.update({
+      'service': 'facebook',
+    },
+    {
+      $set: {
+        'appId': '897986073678471',
+        'secret': '99058f8a113bf0d520b876b5e5f28b0c'
+      }
+    },
+    {
+      upsert: true
+    });
+});

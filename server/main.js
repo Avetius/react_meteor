@@ -3,7 +3,7 @@ import methods from './methods';
 import addInitialData from './configs/initial_adds';
 import basicSetup from './configs/basicSetup';
 
-basicSetup();
 publications();
 methods();
 addInitialData();
+basicSetup();

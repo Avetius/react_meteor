@@ -1,5 +1,6 @@
 import React from 'react';
 import {mount} from 'react-mounter';
+import {Accounts} from 'meteor/std:accounts-ui';
 
 import MainLayout from './components/main_layout';
 
@@ -44,6 +45,15 @@ export default function (injectDeps, {FlowRouter}) {
     action({icoId}) {
       mount(MainLayoutCtx, {
         content: () => (<AddOrEditIco editMode={{active: true, icoId: icoId}} />)
+      });
+    }
+  });
+
+  FlowRouter.route('/login', {
+    name: 'login',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<Accounts.ui.LoginForm />)
       });
     }
   });

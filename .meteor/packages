@@ -26,3 +26,8 @@ less
 fourseven:scss
 seba:minifiers-autoprefixer
 fortawesome:fontawesome
+accounts-password
+std:accounts-ui
+std:accounts-bootstrap
+accounts-facebook
+service-configuration
