@@ -1,4 +1,5 @@
 import {IcoProjects} from '/lib/collections';
+import {Meteor} from 'meteor/meteor';
 
 export default () => {
   // Deny all client-side updates to user documents

@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './navigation';
 import * as Rb from 'react-bootstrap';
+import {Accounts} from 'meteor/std:accounts-ui';
 
 import { Grid, Row, Col, MainContainer } from '@sketchpixy/rubix';
 
@@ -9,9 +10,17 @@ const Layout = ({content = () => null }) => (
 
     <header>
       <Grid className="">
+        <Row className="margin-vertical-lg">
+          <Col sm={6} md={4}>
+            <img className="img-responsive" src="/logo1_min.png" />
+          </Col>
+          <Col sm={6} md={3} mdPush={5}>
+            <Accounts.ui.LoginForm />
+          </Col>
+        </Row>
+
         <Row className="">
           <Col sm={12} md={10} mdPush={1}>
-            <h1>ICO index</h1>
             <Navigation />
           </Col>
         </Row>
