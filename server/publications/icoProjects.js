@@ -4,11 +4,17 @@ import {check} from 'meteor/check';
 
 export default function () {
   Meteor.publish('ico.list', function () {
-    const selector = {};
+    let selector;
+    if (this.userId) {
+      selector = { $or: [ {'meta.dataStatus':'production'}, {'meta.dataStatus':'test'} ] };
+    } else {
+      selector = { 'meta.dataStatus': 'production'};
+    }
+
     const options = {
       fields: { entityState: 0},
-      sort: {createdAt: -1},
-      limit: 25
+      sort: { createdAt: -1 },
+      limit: 40
     };
     return IcoProjects.find(selector, options);
   });

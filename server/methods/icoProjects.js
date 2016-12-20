@@ -25,6 +25,10 @@ export default function () {
       const icoEntity = {
         _id,
         createdAt,
+        // meta info about app data
+        meta: {
+          dataStatus: 'production'
+        },
         entityState: {
           isConcept: false,
           isChangeRequest: false

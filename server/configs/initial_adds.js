@@ -44,6 +44,9 @@ export default function () {
   const genericIco = {
     _id: genericIcoId,
     createdAt: new Date(),
+    meta: {
+      dataStatus: 'test'
+    },
     entityState: { isConcept : false, isChangeRequest : false },
 
     projectName: 'Decent',
