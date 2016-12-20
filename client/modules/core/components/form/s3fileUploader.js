@@ -14,10 +14,17 @@ class S3FileUploader extends t.form.Component {
     };
     const previewStyle = { ...style, border: 'solid 1px #999'};
 
-    // Meteor.absoluteUrl() is like http://localhost:3000/ or https://icoindex.com
+    // Meteor.absoluteUrl() eg, http://localhost:3000/ or http://test1.icoindex.com/
     const urlArr = Meteor.absoluteUrl().split(':');
-    // remove possible port number and add 5001 port
-    const uploadUrl = `${urlArr[0]}:${urlArr[1]}:5001`;
+
+    // remove possible port number
+    const host = urlArr[0] + ':' + urlArr[1];
+
+    // host: eg. http://localhost  http://test1.icoindex.com/
+    const hostArr = host.split('/');
+
+    // remove trailing slash '/' and add 5001 port
+    const uploadUrl = hostArr[0] + '//' + hostArr[2] + ':5001';
 
     const uploaderProps = {
       style,

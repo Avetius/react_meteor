@@ -1,6 +1,6 @@
 {
-  "name": "mantra-demo",
-  "version": "0.4.1",
+  "name": "ico-index2",
+  "version": "0.5.0",
   "scripts": {
     "lint": "eslint ./lib ./client ./server --ext .js",
     "lintfix": "npm run lint -- --fix",
