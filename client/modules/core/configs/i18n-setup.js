@@ -22,7 +22,7 @@ export default () => {
             },
             fundKeeper: {
               escrow: 'Escrow',
-              devs: 'Dev(s)',
+              devs: 'Developing team',
               exchange: 'Exchange'
             }
           }
