@@ -4,6 +4,7 @@ import moment from 'moment';
 import IcoShortItemMainRows from './icoShortItemMainRows';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
+import AccountsMgmt from '/client/configs/accountsMgmt';
 
 export default class IcoProfile extends React.Component {
 
@@ -48,6 +49,16 @@ export default class IcoProfile extends React.Component {
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
               <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo} />
+              { AccountsMgmt.isAdmin() ? (
+                <div className="margin-vertical-md">
+                  <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
+                    <span className="h4">
+                      <i className="fa fa-pencil margin-right-sm" />
+                      Edit ICO
+                    </span>
+                  </a>
+                </div> ) : ''
+              }
             </div>
 
             <div className="col-xs-12 col-md-10 padding-left-sm">

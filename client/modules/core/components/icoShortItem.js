@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import AccountsMgmt from '/client/configs/accountsMgmt';
 import IcoShortItemMainRows from './icoShortItemMainRows';
 
 export default class IcoFrontItem extends React.Component {
@@ -19,8 +20,20 @@ export default class IcoFrontItem extends React.Component {
 
             <hr className="margin-vertical-xs" />
 
-            <div className="row">
-              <div className="col-xs-12 col-md-2 col-md-offset-8">
+            <div className="row row-vertical-center">
+
+              <div className="col-xs-12 col-md-2 col-md-offset-6 padding-top-sm">
+                { AccountsMgmt.isAdmin() ? (
+                  <a href={`/admin/edit-ico/${ico._id}`}>
+                    <span className="h4">
+                      <i className="fa fa-pencil margin-right-sm" />
+                      Edit ICO
+                    </span>
+                  </a> ) : ''
+                }
+              </div>
+
+              <div className="col-xs-12 col-md-2">
                 <a className="btn btn-info" target="_blank" href={`/profile/${ico._id}`} rel="noopener noreferrer">Details</a>
               </div>
               <div className="col-xs-12 col-md-2">
