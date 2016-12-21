@@ -20,6 +20,10 @@ export default function ({Meteor, Collections}) {
         ...icoProject
       };
 
+      // post-process -- todo put into separate class
+      icoEntity.icoEvents = icoEntity.icoEvents || [];
+      icoEntity.coFounders = icoEntity.coFounders || [];
+
       Collections.IcoProjects.insert(icoEntity);
     },
     'ico.edit' (_id, icoProject) {
@@ -33,6 +37,11 @@ export default function ({Meteor, Collections}) {
       }
 
       icoProject.updateAt = new Date();
+
+      // post-process -- todo put into separate class
+      icoProject.icoEvents = icoProject.icoEvents || [];
+      icoProject.coFounders = icoProject.coFounders || [];
+
       Collections.IcoProjects.update({ _id: _id },{ $set: icoProject });
     },
     'ico.saveAsConcept' (_id, icoProject) {

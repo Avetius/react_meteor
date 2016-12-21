@@ -1,7 +1,7 @@
 import {IcoProjects} from '/lib/collections';
 import moment from 'moment';
 
-export default function () {
+export default function ({redeploy = false}) {
 
   // default data generation
 
@@ -109,6 +109,10 @@ export default function () {
   testIco3._id = 'eb48459a-3748-48b5-8cb9-198bfbee745d';
   testIco3.icoStartDatetime = testIcoStartDateUpcoming;
   testIco3.icoEndDatetime = testIcoEndDateUpcoming;
+
+  if (redeploy) {
+    IcoProjects.remove({ $or: [ {_id: genericIcoId }, { _id: testIco1._id }, { _id: testIco2._id }, { _id: testIco3._id } ]});
+  }
 
   if (IcoProjects.find({}).count() === 0 || IcoProjects.find({ _id: genericIcoId}).count() === 0) {
     IcoProjects.insert(genericIco, (err, _id) => {

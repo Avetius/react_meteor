@@ -1,5 +1,6 @@
 import {IcoProjects} from '/lib/collections';
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
+import createInitialTestData from '/server/configs/initial_adds';
 
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
@@ -36,6 +37,10 @@ export default function () {
         ...icoProject
       };
 
+      // post-process -- todo put into separate class
+      icoEntity.icoEvents = icoEntity.icoEvents || [];
+      icoEntity.coFounders = icoEntity.coFounders || [];
+
       IcoProjects.insert(icoEntity);
     },
 
@@ -58,6 +63,10 @@ export default function () {
 
       objectToSet.updateAt = new Date();
 
+      // post-process -- todo put into separate class
+      objectToSet.icoEvents = objectToSet.icoEvents || [];
+      objectToSet.coFounders = objectToSet.coFounders || [];
+
       IcoProjects.update({ _id: _id },{ $set: objectToSet });
     },
 
@@ -70,6 +79,13 @@ export default function () {
       check(_id, String);
       console.log(`ICO project with _id: ${_id} removed`);
       IcoProjects.remove(_id);
+    },
+
+    'ico.redeployTestData'() {
+      // todo add admin check
+      if (this.userId) {
+        createInitialTestData({redeploy: true});
+      }
     }
   });
 }

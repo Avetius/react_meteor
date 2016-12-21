@@ -182,3 +182,10 @@ export default class IcoProfile extends React.Component {
   };
 }
 
+IcoProfile.defaultProps = {
+  icoEntity: {
+    icoEvents: [],
+    coFounders: []
+  }
+};
+

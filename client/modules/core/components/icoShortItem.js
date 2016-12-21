@@ -48,3 +48,10 @@ export default class IcoFrontItem extends React.Component {
     );
   }
 }
+
+IcoFrontItem.defaultProps = {
+  icoEntity: {
+    icoEvents: [],
+    coFounders: []
+  }
+};

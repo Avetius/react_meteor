@@ -5,5 +5,5 @@ import basicSetup from './configs/basicSetup';
 
 publications();
 methods();
-addInitialData();
+addInitialData({ redeploy: false });
 basicSetup();

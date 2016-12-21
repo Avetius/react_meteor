@@ -167,3 +167,10 @@ export default class IcoShortItemMainRows extends React.Component {
     );
   }
 }
+
+IcoShortItemMainRows.defaultProps = {
+  ico: {
+    icoEvents: [],
+    coFounders: []
+  }
+};
