@@ -29,6 +29,8 @@ const formLayout = (locals) => {
 
       {locals.inputs.whitePaperLink}
 
+      {locals.inputs.businessPlanLink}
+
       {locals.inputs.projectStatus}
 
       {locals.inputs.oneSentenceExplanation}
@@ -81,6 +83,7 @@ const addonIcons = {
   officialWebsiteLink: <i className="fa fa-home" aria-hidden="true"></i>,
   icoWebsiteLink: <i className="fa fa-money" aria-hidden="true"></i>,
   whitePaperLink: <i className="fa fa-file-text-o" aria-hidden="true"></i>,
+  businessPlanLink: <i className="fa fa-money" aria-hidden="true"></i>,
   projectStatus: null,
   oneSentenceExplanation: <span>
     <i className="fa fa-twitter" aria-hidden="true"></i> &nbsp;
@@ -141,6 +144,12 @@ const renderOptions = {
       legend: 'White paper link',
       config: {
         addonBefore: addonIcons.whitePaperLink
+      }
+    },
+    businessPlanLink: {
+      legend: 'Business plan link',
+      config: {
+        addonBefore: addonIcons.businessPlanLink
       }
     },
     projectStatus: {
