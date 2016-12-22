@@ -30,7 +30,7 @@ class S3FileUploader extends t.form.Component {
     const hostArr = host.split('/');
 
     // remove trailing slash '/' and add 5001 port
-    const uploadUrl = hostArr[0] + '//' + hostArr[2] + ':5002';
+    const uploadUrl = hostArr[0] + '//' + hostArr[2] + ':5001';
 
     const uploaderProps = {
       style,
