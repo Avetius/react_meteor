@@ -4,6 +4,8 @@ const Form = t.form.Form;
 import S3FileUploader from './s3fileUploader';
 import { IcoType } from '/lib/icoProject';
 
+import CsvImportUploader from './csvImportUploader';
+
 // Rubix theme
 import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
@@ -16,6 +18,8 @@ const formLayout = (locals) => {
     <div>
       <h3>New ICO</h3>
       <p>Please click on help icon to know more info about details of the field.</p>
+
+      <CsvImportUploader />
 
       {locals.inputs.projectName}
 

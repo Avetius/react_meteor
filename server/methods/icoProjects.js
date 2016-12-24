@@ -31,8 +31,7 @@ export default function () {
           dataStatus: 'production'
         },
         entityState: {
-          isConcept: false,
-          isChangeRequest: false
+          state: 'published'
         },
         ...icoProject
       };
@@ -70,8 +69,82 @@ export default function () {
       IcoProjects.update({ _id: _id },{ $set: objectToSet });
     },
 
-    'ico.saveAsConcept' (_id, icoEntity) {
-      // TODO
+    'ico.saveAsConcept' (_id, icoProject) {
+      check(_id, String);
+      check(icoProject, Object);
+
+      // todo allow this only for this.userId which is in admin group
+
+      // todo: find some minimum validation
+      //const validationResult = t.validate(icoProject, IcoType);
+      //if (!validationResult.isValid()) {
+      //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
+      //}
+
+      const createdAt = new Date();
+      const icoEntity = {
+        _id,
+        createdAt,
+        // meta info about app data
+        meta: {
+          dataStatus: 'production'
+        },
+        entityState: {
+          state: 'concept'
+        },
+        ...icoProject
+      };
+
+      // post-process -- todo put into separate class
+      icoEntity.icoEvents = icoEntity.icoEvents || [];
+      icoEntity.coFounders = icoEntity.coFounders || [];
+
+      IcoProjects.insert(icoEntity);
+    },
+
+    'ico.publish' (_id) {
+      check(_id, String);
+
+      // todo: find some minimum validation
+      //const validationResult = t.validate(icoProject, IcoType);
+      //if (!validationResult.isValid()) {
+      //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
+      //}
+
+      // todo allow this only for this.userId which is in admin group
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published' } });
+    },
+
+    'ico.importConcepts' (icoProjects) {
+      check(icoProjects, Array);
+      console.log('icoProjects: ', icoProjects);
+      const icoEntities = icoProjects.map((icoProject) => {
+
+        const createdAt = new Date();
+        const icoEntity = {
+          createdAt,
+          meta: {
+            dataStatus: 'production'
+          },
+          entityState: {
+            // one of concept, changeRequest, published
+            state: 'concept'
+          },
+          ...icoProject
+        };
+
+        // post-process -- todo put into separate class
+        icoEntity.icoEvents = icoEntity.icoEvents || [];
+        icoEntity.coFounders = icoEntity.coFounders || [];
+
+        return icoEntity;
+      });
+
+      console.log('icoEntities:', icoEntities);
+      icoEntities.forEach((icoEntity) => {
+        IcoProjects.insert(icoEntity);
+      });
+
     },
 
     // TODO remove in production

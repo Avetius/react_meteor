@@ -47,7 +47,7 @@ export default function ({redeploy = false}) {
     meta: {
       dataStatus: 'test'
     },
-    entityState: { isConcept : false, isChangeRequest : false },
+    entityState: {  state: 'published' },
 
     projectName: 'Decent',
     abbreviation: 'DCT',
