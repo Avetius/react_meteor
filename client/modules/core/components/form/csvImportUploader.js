@@ -22,7 +22,7 @@ class csvImportUploader extends React.Component {
             obj.icoEndDatetime = new Date(obj.icoEndDatetime);
           }
           if (obj.icoStartDatetime) {
-            obj.icoStartDatetime = new Date(obj.icoEndDatetime);
+            obj.icoStartDatetime = new Date(obj.icoStartDatetime);
           }
           return obj;
         });

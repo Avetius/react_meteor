@@ -19,6 +19,7 @@ const formLayout = (locals) => {
       <p></p>
 
       {/*not needed now: <CsvImportUploader />*/}
+      <CsvImportUploader />
 
       {locals.inputs.projectName}
 
