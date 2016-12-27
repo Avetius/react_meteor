@@ -3,13 +3,15 @@ import React from 'react';
 import { Nav, NavItem } from '@sketchpixy/rubix';
 import {Meteor} from 'meteor/meteor';
 import AccountsMgmt from '/client/configs/accountsMgmt';
+import {FlowRouter} from 'meteor/kadira:flow-router';
 
 class Navigation extends React.Component {
 
   constructor (props) {
     super(props);
+    const key = FlowRouter.current().route.name || 'ico.home';
     this.state = {
-      activeKey: 'ico.home'
+      activeKey: key
     };
   }
 
