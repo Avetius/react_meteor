@@ -43,6 +43,32 @@ export default {
     });
   },
 
+  publishConcept ({Meteor}, _id) {
+    console.log('ico.publish is calling..');
+    if (!_id) {
+      return console.warn('PUBLISH_CONCEPT', 'Id of icoProject is required.');
+    }
+
+    Meteor.call('ico.publish', _id, (err) => {
+      if (err) {
+        return console.error('PUBLISH_CONCEPT', err.error, err.reason);
+      }
+    });
+  },
+
+  unPublish ({Meteor}, _id) {
+    console.log('ico.unPublish is calling..');
+    if (!_id) {
+      return console.warn('UN_PUBLISH_CONCEPT', 'Id of icoProject is required.');
+    }
+
+    Meteor.call('ico.unPublish', _id, (err) => {
+      if (err) {
+        return console.error('UN_PUBLISH_CONCEPT', err.error, err.reason);
+      }
+    });
+  },
+
   clearErrors({LocalState}) {
     //return LocalState.set('CREATE_COMMENT_ERROR', null);
   }

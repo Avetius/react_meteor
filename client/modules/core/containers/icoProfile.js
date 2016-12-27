@@ -18,19 +18,15 @@ export const composer = ({context, icoSlug}, onData) => {
     }
 
   } else {
-    const icoEntity = Collections.IcoProjects.findOne(icoId);
-    if (icoEntity) {
-      onData(null, {icoEntity});
-    } else {
-      onData();
-    }
+    onData();
   }
 
 };
 
 export const depsMapper = (context, actions) => ({
   // todo implement actions.icoProject.addToWatch,
-  //saveNewIco: actions.icoProject.addToWatchList,
+  publishConcept: actions.icoProject.publishConcept,
+  unPublish: actions.icoProject.unPublish,
   context: () => context
 });
 

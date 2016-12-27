@@ -16,7 +16,7 @@ export default class IcoProfile extends React.Component {
     if (!link && !placeholder) {
       console.error('could not build link');
     }
-    if (required && !link) {
+    if (required && !link && this.props.icoEntity.entityState.state !== 'concept') {
       console.error(`Required Link (${linkName}) is not provided.`);
     }
 
@@ -36,6 +36,12 @@ export default class IcoProfile extends React.Component {
       </a>
     )
   }
+
+  //preFillDefaultSubFields (icoEntity) {
+  //  icoEntity.icoEvents = icoEntity.icoEvents || [];
+  //  icoEntity.coFounders = icoEntity.coFounders || [];
+  //  return icoEntity;
+  //}
 
   render () {
 
@@ -171,8 +177,22 @@ export default class IcoProfile extends React.Component {
                 })}
               </div>
               <hr />
-              <h4>Marketing & community</h4>
+              { /* <h4>Marketing & community</h4>*/}
 
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12">
+
+              <h3>Admin section</h3>
+
+              <button className="btn btn-primary margin-horizontal-xs" type="button" onClick={this.props.publishConcept.bind(this, this.props.icoEntity._id)}>
+                Publish
+              </button>
+              <button className="btn btn-secondary margin-horizontal-xs" type="button" onClick={this.props.unPublish.bind(this, this.props.icoEntity._id)}>
+                UnPublish
+              </button>
             </div>
           </div>
 

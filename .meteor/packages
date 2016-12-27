@@ -31,3 +31,4 @@ std:accounts-ui
 std:accounts-bootstrap
 accounts-facebook
 service-configuration
+ccorcos:subs-cache

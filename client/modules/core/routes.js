@@ -22,6 +22,15 @@ export default function (injectDeps, {FlowRouter}) {
     }
   });
 
+  FlowRouter.route('/admin/concepts', {
+    name: 'ico.concepts',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<IcoFrontList mode="concepts" />)
+      });
+    }
+  });
+
   FlowRouter.route('/profile/:icoSlug', {
     name: 'ico.profile',
     action({icoSlug}) {

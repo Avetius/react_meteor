@@ -111,13 +111,22 @@ export default function () {
       //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       //}
 
-      // todo allow this only for this.userId which is in admin group
-      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published' } });
+      if (this.userId) {
+        IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published' } });
+      }
+    },
+
+    'ico.unPublish' (_id) {
+      check(_id, String);
+
+      if (this.userId) {
+        IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept' } });
+      }
     },
 
     'ico.importConcepts' (icoProjects) {
       check(icoProjects, Array);
-      console.log('icoProjects: ', icoProjects);
+      console.log('icoProject 1: ', icoProjects[0]);
       const icoEntities = icoProjects.map((icoProject) => {
 
         const createdAt = new Date();
@@ -140,7 +149,7 @@ export default function () {
         return icoEntity;
       });
 
-      console.log('icoEntities:', icoEntities);
+      console.log('icoEntity 1:', icoEntities[0]);
       icoEntities.forEach((icoEntity) => {
         IcoProjects.insert(icoEntity);
       });
