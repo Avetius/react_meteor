@@ -37,7 +37,8 @@ export default class IcoFrontItem extends React.Component {
                 <a className="btn btn-info" href={`/profile/${ico._id}`} rel="noopener noreferrer">Details</a>
               </div>
               <div className="col-xs-12 col-md-2">
-                <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink} rel="noopener noreferrer">Invest</a>
+                <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
+                   rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Invest</a>
               </div>
             </div>
 

@@ -78,20 +78,15 @@ export default class IcoShortItemMainRows extends React.Component {
       <div>
         <div className="row">
           <div className="col-xs-12 col-md-6">
-            <h4 className="margin-vertical-xs">{ico.projectName}<span className="text-uppercase">{` (${ico.abbreviation})`}</span></h4>
-          </div>
-          <div className="col-xs-12 col-md-6">
-            <ContentWithPopover fieldLabel="Fund keeper"
-                                helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
-              <span className="text-help margin-right-xs">Project status:</span>
-            </ContentWithPopover>
-            <strong>{i18next.t('ico.icoStatus.' + IcoStatus.compute(ico))}</strong>
+            <h4 className="margin-vertical-xs">{ico.projectName ? ico.projectName: i18next.t('ico.rendering.fieldNA') }
+              <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
+            </h4>
           </div>
         </div>
 
         <div className="row">
           <div className="col-xs-12">
-            <em>{ico.oneSentenceExplanation}</em>
+            <em>{ico.oneSentenceExplanation ? ico.oneSentenceExplanation : i18next.t('ico.rendering.fieldNA')}</em>
           </div>
         </div>
 
@@ -141,7 +136,7 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Fund keeper:</span>
             </ContentWithPopover>
-            {i18next.t('ico.fundKeeper.' + ico.fundKeeper)}
+            {ico.fundKeeper ? i18next.t('ico.fundKeeper.' + ico.fundKeeper): i18next.t('ico.rendering.fieldNA')}
           </div>
           <div className="col-xs-12 col-md-4">
 
@@ -149,13 +144,16 @@ export default class IcoShortItemMainRows extends React.Component {
                                 helpText="Can be one of: Escrow, Exchange or Devs. Describing owner of the collected funds.">
               <span className="text-help margin-right-xs">Project status:</span>
             </ContentWithPopover>
-            <strong>{i18next.t('ico.projectStatus.' + ico.projectStatus)}</strong>
+            <strong>
+              {ico.projectStatus ? i18next.t('ico.projectStatus.' + ico.projectStatus): i18next.t('ico.rendering.fieldNA')}
+            </strong>
 
           </div>
 
           { this.props.isProfile ?
             <div className="col-xs-12 col-md-2 tmp-relative-top-minus-5px">
-              <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink} rel="noopener noreferrer">Invest</a>
+              <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink}
+                 rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Invest</a>
             </div>
            : ''
           }

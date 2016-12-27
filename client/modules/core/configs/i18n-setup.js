@@ -24,6 +24,9 @@ export default () => {
               escrow: 'Escrow',
               devs: 'Developing team',
               exchange: 'Exchange'
+            },
+            rendering: {
+              fieldNA: 'N/A'
             }
           }
         }
