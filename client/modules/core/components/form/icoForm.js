@@ -16,10 +16,9 @@ import {OneSentenceTextInput, MediumLengthDescriptionInput} from './limitedTextI
 const formLayout = (locals) => {
   return (
     <div>
-      <h3>New ICO</h3>
-      <p>Please click on help icon to know more info about details of the field.</p>
+      <p></p>
 
-      <CsvImportUploader />
+      {/*not needed now: <CsvImportUploader />*/}
 
       {locals.inputs.projectName}
 
@@ -291,7 +290,7 @@ const renderOptions = {
   }
 };
 
-export default class IcoForm extends React.Component{
+export default class IcoForm extends React.Component {
 
   save() {
     // if validation fails, value will be null
@@ -358,6 +357,7 @@ export default class IcoForm extends React.Component{
 
         <div className="row">
           <div className="col-md-10">
+            { this.props.editMode.active ? <h3>Edit ICO</h3> : <h3>New Ico</h3>}
             {icoForm}
           </div>
         </div>

@@ -37,12 +37,6 @@ export default class IcoProfile extends React.Component {
     )
   }
 
-  //preFillDefaultSubFields (icoEntity) {
-  //  icoEntity.icoEvents = icoEntity.icoEvents || [];
-  //  icoEntity.coFounders = icoEntity.coFounders || [];
-  //  return icoEntity;
-  //}
-
   render () {
 
     const ico = this.props.icoEntity;
@@ -54,7 +48,7 @@ export default class IcoProfile extends React.Component {
           <div className="row row-vertical-center">
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
-              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo} />
+              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo1_min.png'} />
               { AccountsMgmt.isAdmin() ? (
                 <div className="margin-vertical-md">
                   <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
@@ -187,10 +181,12 @@ export default class IcoProfile extends React.Component {
 
               <h3>Admin section</h3>
 
-              <button className="btn btn-primary margin-horizontal-xs" type="button" onClick={this.props.publishConcept.bind(this, this.props.icoEntity._id)}>
+              <button className="btn btn-primary margin-horizontal-xs" type="button"
+                      disabled={ico.entityState.state === 'published' ? true : ''} onClick={this.props.publishConcept.bind(this, ico._id)}>
                 Publish
               </button>
-              <button className="btn btn-secondary margin-horizontal-xs" type="button" onClick={this.props.unPublish.bind(this, this.props.icoEntity._id)}>
+              <button className="btn btn-secondary margin-horizontal-xs" type="button"
+                      disabled={ico.entityState.state === 'concept' ? true : ''} onClick={this.props.unPublish.bind(this, ico._id)}>
                 UnPublish
               </button>
             </div>

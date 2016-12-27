@@ -12,7 +12,7 @@ export default class IcoFrontItem extends React.Component {
       <li className="list-group-item padding-all-sm margin-bottom-md">
         <div className="row row-vertical-center">
           <div className="col-xs-12 col-md-2 padding-right-xs">
-            <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo} />
+            <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo1_min.png'} />
           </div>
           <div className="col-xs-12 col-md-10 padding-left-sm">
 
