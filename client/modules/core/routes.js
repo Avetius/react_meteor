@@ -49,11 +49,11 @@ export default function (injectDeps, {FlowRouter}) {
     }
   });
 
-  FlowRouter.route('/admin/edit-ico/:icoId', {
+  FlowRouter.route('/admin/edit-ico/:icoSlug', {
     name: 'ico.edit',
-    action({icoId}) {
+    action({icoSlug}) {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoId}} />)
+        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoSlug}} />)
       });
     }
   });
