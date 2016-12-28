@@ -92,6 +92,7 @@ export default class IcoProfile extends React.Component {
               </div>
 
               <div className="row row-vertical-center">
+
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-github', linkName: 'Github',
@@ -121,6 +122,18 @@ export default class IcoProfile extends React.Component {
 
               <div className="row row-vertical-center">
 
+                { ico.bitcoinTalkLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({
+                      icon: 'fa fa-btc', linkName: 'Bitcoin Talk',
+                      link: ico.bitcoinTalkLink
+                    })
+                    }
+                  </div>
+                  : ''
+                }
+
                 { ico.slackLink ?
                   <div className="col-xs-4 col-md-3 padding-right-xs">
 
@@ -131,44 +144,55 @@ export default class IcoProfile extends React.Component {
                   : ''
                 }
 
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                { ico.redditLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-btc', linkName: 'Bitcoin Talk',
-                    link: ico.bitcoinTalkLink })
-                  }
-                </div>
+                    { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
+                      link: ico.redditLink })
+                    }
+                  </div>
+                  : ''
+                }
 
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                { ico.telegramLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
-                    link: ico.redditLink })
-                  }
-                </div>
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                    { this.makeLink({ icon: 'fa fa-telegram', linkName: 'Telegram',
+                      link: ico.telegramLink })
+                    }
+                  </div>
+                  : ''
+                }
 
-                  { this.makeLink({ icon: 'fa fa-telegram', linkName: 'Telegram',
-                    link: ico.telegramLink })
-                  }
-                </div>
+                { ico.weiboLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                    { this.makeLink({ icon: 'fa fa-weibo', linkName: 'Weibo',
+                      link: ico.weiboLink })
+                    }
+                  </div>
+                  : ''
+                }
 
-                  { this.makeLink({ icon: 'fa fa-weibo', linkName: 'Weibo',
-                    link: ico.weiboLink })
-                  }
-                </div>
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                { ico.weChatLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-weixin', linkName: 'WeChat',
-                    link: ico.weChatLink })
-                  }
-                </div>
-                <div className="col-xs-4 col-md-3 padding-right-xs">
+                    { this.makeLink({ icon: 'fa fa-weixin', linkName: 'WeChat',
+                      link: ico.weChatLink })
+                    }
+                  </div>
+                  : ''
+                }
 
-                  { this.makeLink({ icon: 'fa fa-qq', linkName: 'QQ',
-                    link: ico.qqLink })
-                  }
-                </div>
+                { ico.qqLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({ icon: 'fa fa-qq', linkName: 'QQ',
+                      link: ico.qqLink })
+                    }
+                  </div>
+                  : ''
+                }
 
               </div>
             </div>

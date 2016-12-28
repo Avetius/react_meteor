@@ -19,7 +19,6 @@ const formLayout = (locals) => {
       <p></p>
 
       {/*not needed now: <CsvImportUploader />*/}
-      <CsvImportUploader />
 
       {locals.inputs.projectName}
 
@@ -114,7 +113,7 @@ const addonIcons = {
   affiliate: null,
   affiliateAmount: null,
   githubLink: <i className="fa fa-github" aria-hidden="true"></i>,
-  bitcoinTalkLink: <i class="fa fa-btc" aria-hidden="true"></i>,
+  bitcoinTalkLink: <i className="fa fa-btc" aria-hidden="true"></i>,
   slackLink: <i className="fa fa-slack" aria-hidden="true"></i>,
   twitterLink: <i className="fa fa-twitter" aria-hidden="true"></i>,
   facebookLink: <i className="fa fa-facebook-official" aria-hidden="true"></i>,
