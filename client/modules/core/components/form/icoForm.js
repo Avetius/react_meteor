@@ -56,12 +56,6 @@ const formLayout = (locals) => {
 
       {locals.inputs.underlyingCryptoPlatform}
 
-      {locals.inputs.bounty}
-
-      {locals.inputs.affiliate}
-
-      {locals.inputs.affiliateAmount}
-
       {locals.inputs.githubLink}
 
       {locals.inputs.bitcoinTalkLink}
@@ -109,9 +103,6 @@ const addonIcons = {
   coFounders: <i className="fa fa-user-circle" aria-hidden="true"></i>,
   countryOfOrigin: null,
   underlyingCryptoPlatform: null,
-  bounty: null,
-  affiliate: null,
-  affiliateAmount: null,
   githubLink: <i className="fa fa-github" aria-hidden="true"></i>,
   bitcoinTalkLink: <i className="fa fa-btc" aria-hidden="true"></i>,
   slackLink: <i className="fa fa-slack" aria-hidden="true"></i>,
@@ -247,15 +238,6 @@ const renderOptions = {
     underlyingCryptoPlatform: {
       legend: 'Underlying crypto-platform',
     },
-    bounty: {
-      legend: 'Existence of bounty',
-    },
-    affiliate: {
-      legend: 'Affiliate',
-    },
-    affiliateAmount: {
-      legend: 'Affiliate amount',
-    },
 
     githubLink: {
       legend: 'Main github repository link',
@@ -376,7 +358,8 @@ export default class IcoForm extends React.Component {
                       context={{editMode: true}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
-          <Button onClick={this.edit.bind(this)} bsStyle="primary">Edit and publish</Button>
+          <Button onClick={this.edit.bind(this)} bsStyle="primary">Save edited ICO</Button>
+          <span> Save changes in either case - if it is concept or published ICO.</span>
         </div>;
     } else {
       icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions}
