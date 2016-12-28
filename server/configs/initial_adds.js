@@ -55,6 +55,7 @@ export default function ({redeploy = false}) {
     officialWebsiteLink : 'https://decent.ch',
     icoWebsiteLink: 'http://sale.decent.ch',
     whitePaperLink: 'https://decent.ch/src/decent-whitepaper.pdf',
+    businessPlanLink: 'http://sale.decent.ch',
     projectStatus: 'concept',
     oneSentenceExplanation : '@DECENTplatform is a #decentralized content distribution network that is open-source and utilizes #blockchain to ensure Trust & Security',
     mediumLengthDescription : 'DECENT’s mission is to become a liaison between various industries by bridging the gap between the emerging blockchain ecosystem. Through secure and trustworthy digital content sharing platform we provide a vertically integrated system for industries, organizations or businesses while we focus on flexibility & sustainable development. Infrastructure of linked systems enables to set more intelligent international standards of efficient, cost-effective & secure content distribution. The principles of DECENT, based on distributed trust machine – the blockchain, bring reliability to wide range of sectors & services in which privacy and security play the crucial role.',
@@ -72,12 +73,16 @@ export default function ({redeploy = false}) {
     affiliate: false,
     affiliateAmount: null,
     githubLink: null,
-    slackLink: null,
+    slackLink: 'https://test.com/test',
     twitterLink: 'https://twitter.com/DECENTplatform',
     facebookLink: null,
-    redditLink: null,
-    blogLink: null,
-    telegramLink: null
+    bitcoinTalkLink: 'https://test.com/test',
+    redditLink: 'https://test.com/test',
+    blogLink: 'https://test.com/test',
+    telegramLink: 'https://test.com/test',
+    weiboLink: 'https://test.com/test',
+    weChatLink: 'https://test.com/test',
+    qqLink: 'https://test.com/test'
   };
 
   const testIcoStartDatePast = moment().subtract(3, 'months').toDate();

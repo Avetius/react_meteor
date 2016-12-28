@@ -65,6 +65,8 @@ const formLayout = (locals) => {
 
       {locals.inputs.githubLink}
 
+      {locals.inputs.bitcoinTalkLink}
+
       {locals.inputs.slackLink}
 
       {locals.inputs.twitterLink}
@@ -76,6 +78,12 @@ const formLayout = (locals) => {
       {locals.inputs.blogLink}
 
       {locals.inputs.telegramLink}
+
+      {locals.inputs.weiboLink}
+
+      {locals.inputs.weChatLink}
+
+      {locals.inputs.qqLink}
 
     </div>
   );
@@ -106,12 +114,16 @@ const addonIcons = {
   affiliate: null,
   affiliateAmount: null,
   githubLink: <i className="fa fa-github" aria-hidden="true"></i>,
+  bitcoinTalkLink: <i class="fa fa-btc" aria-hidden="true"></i>,
   slackLink: <i className="fa fa-slack" aria-hidden="true"></i>,
   twitterLink: <i className="fa fa-twitter" aria-hidden="true"></i>,
   facebookLink: <i className="fa fa-facebook-official" aria-hidden="true"></i>,
   redditLink: <i className="fa fa-reddit" aria-hidden="true"></i>,
   blogLink: <i className="fa fa-newspaper-o" aria-hidden="true"></i>,
-  telegramLink: <i className="fa fa-telegram" aria-hidden="true"></i>
+  telegramLink: <i className="fa fa-telegram" aria-hidden="true"></i>,
+  weiboLink: <i className="fa fa-weibo" aria-hidden="true"></i>,
+  weChatLink: <i className="fa fa-weixin" aria-hidden="true"></i>,
+  qqLink: <i className="fa fa-qq" aria-hidden="true"></i>,
 };
 
 
@@ -252,6 +264,12 @@ const renderOptions = {
         addonBefore: addonIcons.githubLink
       }
     },
+    bitcoinTalkLink: {
+      legend: 'Bitcoin Talk announcement link',
+      config: {
+        addonBefore: addonIcons.bitcoinTalkLink
+      }
+    },
     slackLink: {
       legend: 'Slack link',
       config: {
@@ -287,7 +305,25 @@ const renderOptions = {
       config: {
         addonBefore: addonIcons.telegramLink
       }
-    }
+    },
+    weiboLink: {
+      legend: 'Weibo link',
+      config: {
+        addonBefore: addonIcons.weiboLink
+      }
+    },
+    weChatLink: {
+      legend: 'WeChat link',
+      config: {
+        addonBefore: addonIcons.weChatLink
+      }
+    },
+    qqLink: {
+      legend: 'QQ link',
+      config: {
+        addonBefore: addonIcons.qqLink
+      }
+    },
   }
 };
 

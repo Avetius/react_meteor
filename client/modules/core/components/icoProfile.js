@@ -13,20 +13,15 @@ export default class IcoProfile extends React.Component {
   }
 
   makeLink ({linkName, link, icon, placeholder, required}) {
-    if (!link && !placeholder) {
-      console.error('could not build link');
-    }
-    if (required && !link && this.props.icoEntity.entityState.state !== 'concept') {
-      console.error(`Required Link (${linkName}) is not provided.`);
-    }
-
-    if (!link) {
+    if (!link && required) {
       return (
         <div>
           <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
           <span>{placeholder}</span>
         </div>
       )
+    } else if (!link && !required) {
+       return '';
     }
 
     return (
@@ -67,79 +62,115 @@ export default class IcoProfile extends React.Component {
 
               <hr className="margin-vertical-xs" />
 
-              <div className="row">
+              <div className="row row-vertical-center">
 
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-home', linkName: 'Main website',
+                    link: ico.officialWebsiteLink, placeholder: 'Main website not provided', required: true })
+                  }
+                </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-money', linkName: 'Ico website',
                     link: ico.icoWebsiteLink, placeholder: 'Ico website not provided', required: true })
                   }
                 </div>
-
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
-
-                  { this.makeLink({ icon: 'fa fa-home', linkName: 'Main website',
-                    link: ico.officialWebsiteLink, placeholder: 'Main website not provided', required: true })
-                  }
-                </div>
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
+                <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-file-text-o', linkName: 'Whitepaper',
-                    link: ico.whitePaperLink, placeholder: 'Whitepaper link not provided' })
+                    link: ico.whitePaperLink, placeholder: 'Whitepaper link not provided', required: true })
                   }
                 </div>
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
+                <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Blog',
-                    link: ico.blogLink, placeholder: 'Blog link not provided' })
+                  { this.makeLink({ icon: 'fa fa-money', linkName: 'Business Plan',
+                    link: ico.businessPlanLink, placeholder: 'Business Plan link not provided.', required: true })
                   }
                 </div>
 
               </div>
 
-              <div className="row">
+              <div className="row row-vertical-center">
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-github', linkName: 'Github',
-                    link: ico.githubLink, placeholder: 'Github link not provided' })
+                    link: ico.githubLink, placeholder: 'Github link not provided', required: true })
                   }
                 </div>
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
-
-                  { this.makeLink({ icon: 'fa fa-twitter', linkName: 'Twitter',
-                    link: ico.twitterLink, placeholder: 'Twitter link not provided' })
-                  }
-                </div>
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
-
-                  { this.makeLink({ icon: 'fa fa-facebook-official', linkName: 'Facebook',
-                    link: ico.facebookLink, placeholder: 'Facebook link not provided' })
-                  }
-                </div>
-
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
-
-                  { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
-                    link: ico.redditLink, placeholder: 'Reddit link not provided' })
-                  }
-                </div>
-              </div>
-
-              <div className="row">
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-slack', linkName: 'Slack',
-                    link: ico.slackLink, placeholder: 'Slack link not provided' })
+                  { this.makeLink({ icon: 'fa fa-twitter', linkName: 'Twitter',
+                    link: ico.twitterLink, placeholder: 'Twitter link not provided', required: true })
                   }
                 </div>
-                <div className="col-xs-4 col-md-3 padding-horizontal-xs">
+                <div className="col-xs-4 col-md-3 padding-right-xs">
 
-                  { this.makeLink({ icon: 'fa fa-telegram', linkName: 'Telegram',
-                    link: ico.telegramLink, placeholder: 'Telegram link not provided' })
+                  { this.makeLink({ icon: 'fa fa-facebook-official', linkName: 'Facebook',
+                    link: ico.facebookLink, placeholder: 'Facebook link not provided', required: true })
                   }
                 </div>
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Blog',
+                    link: ico.blogLink, placeholder: 'Blog link not provided.', required: true })
+                  }
+                </div>
+
               </div>
 
+              <div className="row row-vertical-center">
+
+                { ico.slackLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({ icon: 'fa fa-slack', linkName: 'Slack',
+                      link: ico.slackLink })
+                    }
+                  </div>
+                  : ''
+                }
+
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-btc', linkName: 'Bitcoin Talk',
+                    link: ico.bitcoinTalkLink })
+                  }
+                </div>
+
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
+                    link: ico.redditLink })
+                  }
+                </div>
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-telegram', linkName: 'Telegram',
+                    link: ico.telegramLink })
+                  }
+                </div>
+
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-weibo', linkName: 'Weibo',
+                    link: ico.weiboLink })
+                  }
+                </div>
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-weixin', linkName: 'WeChat',
+                    link: ico.weChatLink })
+                  }
+                </div>
+                <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                  { this.makeLink({ icon: 'fa fa-qq', linkName: 'QQ',
+                    link: ico.qqLink })
+                  }
+                </div>
+
+              </div>
             </div>
           </div>
 
