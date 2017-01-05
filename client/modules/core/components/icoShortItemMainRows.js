@@ -166,7 +166,7 @@ export default class IcoShortItemMainRows extends React.Component {
             </ContentWithPopover>
             {ico.fundKeeper ? i18next.t('ico.fundKeeper.' + ico.fundKeeper): i18next.t('ico.rendering.fieldNA')}
           </div>
-          <div className="col-xs-12 col-md-4">
+          <div className="col-xs-12 col-md-3">
 
             <ContentWithPopover fieldLabel="Project status"
                                 helpText={ProjectStatusHelpBody}>
@@ -179,9 +179,9 @@ export default class IcoShortItemMainRows extends React.Component {
           </div>
 
           { this.props.isProfile ?
-            <div className="col-xs-12 col-md-2 tmp-relative-top-minus-5px">
+            <div className="col-xs-12 col-md-3 tmp-relative-top-minus-5px">
               <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink}
-                 rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Invest</a>
+                 rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
             </div>
            : ''
           }

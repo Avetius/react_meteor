@@ -26,7 +26,7 @@ export default class IcoFrontItem extends React.Component {
 
             <div className="row row-vertical-center">
 
-              <div className="col-xs-12 col-md-3 col-md-offset-5 padding-top-sm">
+              <div className="col-xs-12 col-md-3 col-md-offset-4 padding-top-sm">
                 { AccountsMgmt.isAdmin() ? (
                   <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
                     <span className="h4">
@@ -40,9 +40,9 @@ export default class IcoFrontItem extends React.Component {
               <div className="col-xs-12 col-md-2">
                 <a className="btn btn-darkblue" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">Details</a>
               </div>
-              <div className="col-xs-12 col-md-2">
+              <div className="col-xs-12 col-md-3">
                 <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
-                   rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Invest</a>
+                   rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Participate in ICO</a>
               </div>
             </div>
 
