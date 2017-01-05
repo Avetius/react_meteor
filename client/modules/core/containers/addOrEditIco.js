@@ -12,8 +12,7 @@ export const composer = ({context, editMode}, onData) => {
       if (icoEntity) {
         onData(null, {icoEntity});
       } else {
-        // todo move error message to i18n
-        onData(null, {error: true, errorMessage: 'Editing ICO not found.'});
+        FlowRouter.go('404');
       }
 
     } else {

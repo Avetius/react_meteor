@@ -10,9 +10,9 @@ class NotFound extends React.Component {
             <div className="col-sm-12 text-center">
               <i className="icon icon--lg icon-Compass-4"></i>
               <h1>Error 404 - Page Not Found</h1>
+              <img src="/starwars_404.jpg" />
               <p>
-                The page you were looking for wasn't found, if you think this might be a mistake
-                <a href="#">drop us a line</a>
+                The page you were looking for wasn't found.
               </p>
             </div>
           </div>

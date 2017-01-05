@@ -76,13 +76,20 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/:callback', {
+  FlowRouter.route('/not-found', {
     name: '404',
     action() {
       mount(MainLayoutCtx, {
         content: () => (<NotFound/>),
         context: () => context
       });
+    }
+  });
+
+  FlowRouter.route('/:fallback', {
+    name: 'fallback',
+    action() {
+      FlowRouter.go('404');
     }
   });
 }

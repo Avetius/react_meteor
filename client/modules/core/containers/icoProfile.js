@@ -13,8 +13,7 @@ export const composer = ({context, icoSlug}, onData) => {
     if (icoEntity) {
       onData(null, {icoEntity});
     } else {
-      // todo move error message to i18n
-      onData(null, {error: true, errorMessage: 'Editing ICO not found.'});
+      FlowRouter.go('404');
     }
 
   } else {
