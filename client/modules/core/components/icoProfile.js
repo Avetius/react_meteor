@@ -144,11 +144,41 @@ export default class IcoProfile extends React.Component {
                   : ''
                 }
 
+                { ico.youtubeLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({ icon: 'fa fa-youtube', linkName: 'Youtube',
+                      link: ico.youtubeLink })
+                    }
+                  </div>
+                  : ''
+                }
+
+                { ico.linkedinLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({ icon: 'fa fa-linkedin-square', linkName: 'LinkedIn',
+                      link: ico.linkedinLink })
+                    }
+                  </div>
+                  : ''
+                }
+
                 { ico.redditLink ?
                   <div className="col-xs-4 col-md-3 padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
                       link: ico.redditLink })
+                    }
+                  </div>
+                  : ''
+                }
+
+                { ico.steemitLink ?
+                  <div className="col-xs-4 col-md-3 padding-right-xs">
+
+                    { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Steemit',
+                      link: ico.steemitLink })
                     }
                   </div>
                   : ''

@@ -70,13 +70,21 @@ const formLayout = (locals) => {
 
       {locals.inputs.blogLink}
 
+      {locals.inputs.youtubeLink}
+
+      {locals.inputs.linkedinLink}
+
       {locals.inputs.telegramLink}
+
+      {locals.inputs.steemitLink}
 
       {locals.inputs.weiboLink}
 
       {locals.inputs.weChatLink}
 
       {locals.inputs.qqLink}
+
+      {locals.inputs.otherLinks}
 
     </div>
   );
@@ -110,10 +118,13 @@ const addonIcons = {
   facebookLink: <i className="fa fa-facebook-official" aria-hidden="true"></i>,
   redditLink: <i className="fa fa-reddit" aria-hidden="true"></i>,
   blogLink: <i className="fa fa-newspaper-o" aria-hidden="true"></i>,
+  youtubeLink: <i className="fa fa-youtube" aria-hidden="true"></i>,
+  linkedinLink: <i className="fa fa-linkedin-square" aria-hidden="true"></i>,
   telegramLink: <i className="fa fa-telegram" aria-hidden="true"></i>,
+  steemitLink: <i className="fa fa-newspaper-o" aria-hidden="true"></i>,
   weiboLink: <i className="fa fa-weibo" aria-hidden="true"></i>,
   weChatLink: <i className="fa fa-weixin" aria-hidden="true"></i>,
-  qqLink: <i className="fa fa-qq" aria-hidden="true"></i>,
+  qqLink: <i className="fa fa-qq" aria-hidden="true"></i>
 };
 
 
@@ -281,10 +292,28 @@ const renderOptions = {
         addonBefore: addonIcons.blogLink
       }
     },
+    youtubeLink: {
+      legend: 'Youtube link',
+      config: {
+        addonBefore: addonIcons.youtubeLink
+      }
+    },
+    linkedinLink: {
+      legend: 'LinkedIn link',
+      config: {
+        addonBefore: addonIcons.linkedinLink
+      }
+    },
     telegramLink: {
       legend: 'Telegram link',
       config: {
         addonBefore: addonIcons.telegramLink
+      }
+    },
+    steemitLink: {
+      legend: 'Steemit link',
+      config: {
+        addonBefore: addonIcons.steemitLink
       }
     },
     weiboLink: {
@@ -305,6 +334,16 @@ const renderOptions = {
         addonBefore: addonIcons.qqLink
       }
     },
+    otherLinks: {
+      disableOrder: true,
+      legend: <h4>Other Links</h4>,
+      item: {
+        fields: {
+          linkName: {},
+          linkUrl: {}
+        }
+      }
+    }
   }
 };
 
