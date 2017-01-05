@@ -14,6 +14,7 @@ export default () => {
               finished: 'Finished'
             },
             projectStatus: {
+              unknown: 'Concept',
               concept: 'Concept',
               workingPrototype: 'Working prototype',
               privateDemo: 'Private demo',

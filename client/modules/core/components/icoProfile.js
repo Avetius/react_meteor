@@ -218,7 +218,7 @@ export default class IcoProfile extends React.Component {
                       <h4 className="display-inline-block margin-right-xs"> {coFounder.name} </h4>
                       {this.makeLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl })}
                       {this.makeLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl })}
-                      <h5> {coFounder.roleDescription}</h5>
+                      <h5><strong>{coFounder.roleDescription}</strong></h5>
                       <p> {coFounder.personalBackground} </p>
                     </div>
 

@@ -3,11 +3,10 @@ import { OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
 const ContentWithPopover = (props) => {
   return (
-    <OverlayTrigger trigger={['hover', 'click']} placement="left"
+    <OverlayTrigger trigger={['hover', 'click']} placement="bottom"
                     overlay={
-                            <Popover id='popover-left-0' title="Details">
-                              <strong>{props.fieldLabel}</strong>
-                              <span className="padding-horizontal-sm">
+                            <Popover id='popover-bottom-0' title={<strong>{props.fieldLabel}</strong>}>
+                              <span className="">
                                 {props.helpText}
                               </span>
                             </Popover>

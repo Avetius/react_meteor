@@ -83,18 +83,20 @@ export default class IcoShortItemMainRows extends React.Component {
 
     const FundKeeperHelpBody =
       <span>
-        Fund keeper describes who will be in the possession of the funds collected from the initial coin offering. <br />
-        - Developing team: You are sending the money directly to the team. In case this project turns out to be a scam, it will be almost impossible to refund the money. (Not secure) <br />
-        - Exchange: You are sending the money to a crypto-currency exchange. (Not secure) <br />
-        - Escrow: You are sending the money to an escrow service which will be locked by a 3rd party. If the ICO is not successful or the project is a scam and the 3rd party is a reliable person then the money will most probably be refunded to the ICO participants. (Most secure option)
+        <p> Fund keeper describes who will be in the possession of the funds collected from the initial coin offering.</p>
+        <p> - Developing team: You are sending the money directly to the team. In case this project turns out to be a scam, it will be almost impossible to refund the money. (Not secure) </p>
+        <p> - Exchange: You are sending the money to a crypto-currency exchange. (Not secure) </p>
+        <p> - Escrow: You are sending the money to an escrow service which will be locked by a 3rd party. If the ICO is not successful or the project is a scam and the 3rd party is a reliable person then the money will most probably be refunded to the ICO participants. (Most secure option) </p>
       </span>;
+
     const ProjectStatusHelpBody =
-      <span>Project status describes in which stage of development the project is. Projects start their ICO  during different stages of the project development. Putting money in to an ICO with only a concept means that you are actually giving money to someone who might not be even capable of developing something.<br />
-        - Concept: The team has developed a concept of an idea which is described usually in a whitepaper. The team is raising money through ICO to start developing their project. At this stage there is no working prototype.<br />
-        - Working prototype: The team has already developed working prototype in order to prove that the team is capable of developing something. (Usually the prototype has very limited features)<br />
-        - Private demo: The team has already developed a demo but the demo has not been released to the everyone yet. <br />
-        - Public demo: The team has already developed a demo which is available to everyone to try out. <br />
-        - Live: The team has already developed something that actually works and the team is looking for additional funding to further develop and grow their project <br />
+      <span>
+        <p> Project status describes in which stage of development the project is. Projects start their ICO  during different stages of the project development. Putting money in to an ICO with only a concept means that you are actually giving money to someone who might not be even capable of developing something.</p>
+        <p> - Concept: The team has developed a concept of an idea which is described usually in a whitepaper. The team is raising money through ICO to start developing their project. At this stage there is no working prototype.</p>
+        <p> - Working prototype: The team has already developed working prototype in order to prove that the team is capable of developing something. (Usually the prototype has very limited features)</p>
+        <p> - Private demo: The team has already developed a demo but the demo has not been released to the everyone yet. </p>
+        <p> - Public demo: The team has already developed a demo which is available to everyone to try out. </p>
+        <p> - Live: The team has already developed something that actually works and the team is looking for additional funding to further develop and grow their project </p>
       </span>;
 
     return (

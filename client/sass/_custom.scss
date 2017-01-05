@@ -44,6 +44,10 @@ footer {
   background-color: $footer-background-color;
 }
 
+.popover {
+  max-width: 500px !important;
+}
+
 /* word wrapping for long strings*/
 h1, h2, h3, h4, h5, h6, div, span, p {
   //noinspection CssInvalidPropertyValue
