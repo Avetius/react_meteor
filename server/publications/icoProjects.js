@@ -1,6 +1,7 @@
-import {IcoProjects} from '/lib/collections';
+import {IcoProjects, Counts} from '/lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
+import {Counter} from 'meteor/natestrauser:publish-performant-counts';
 
 export default function () {
   Meteor.publish('ico.list', function (limit) {
@@ -37,5 +38,44 @@ export default function () {
 
     const selector = {_id: icoId};
     return IcoProjects.find(selector, options);
+  });
+
+
+  /**
+   * global counts part
+   *
+   *  we're using publish-performant-counts (https://github.com/nate-strauser/meteor-publish-performant-counts)
+   implementation is not complicated: https://github.com/nate-strauser/meteor-publish-performant-counts/blob/master/lib/server.js
+   */
+
+  const counter = new Counter('concepts-prod', IcoProjects.find({
+    'meta.dataStatus': 'production',
+    'entityState.state': 'concept'
+  }));
+
+  const counter2 = new Counter('published-prod', IcoProjects.find({
+    'meta.dataStatus': 'production',
+    'entityState.state': 'published'
+  }));
+
+  const counter3 = new Counter('all-test', IcoProjects.find({
+    'meta.dataStatus': 'test'
+  }));
+
+  Meteor.publish('ico.global-counts', function() {
+    if (this.userId) {
+      return [counter, counter2, counter3];
+    } else {
+      return [counter2];
+    }
+  });
+
+  /**
+   *   category counts part
+   *
+   *   for categories counts we using own separate collection; we compute those data in Methods
+   */
+  Meteor.publish('ico.category-counts', function() {
+    return Counts.find({_id: 'categories'});
   });
 }

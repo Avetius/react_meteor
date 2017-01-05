@@ -26,7 +26,12 @@ export default class IcoShortItemMainRows extends React.Component {
     let icoEndDatetime = this.props.ico.icoEndDatetime;
     let icoCountdownState;
 
-    if (IcoStatus.isUpcoming(this.props.ico)) {
+    if (IcoStatus.isWithoutDate(this.props.ico)) {
+      icoCountdownState = {
+        icoCountdown: {
+          enable: false }
+      };
+    } else if (IcoStatus.isUpcoming(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : {
           enable: true, message: 'ICO will start in ', date: icoStartDatetime }
@@ -136,7 +141,7 @@ export default class IcoShortItemMainRows extends React.Component {
                            message={this.state.icoCountdown.message}
                            help={{ enable: false }}
                            afterTimeout={this.reComputeCountdowns.bind(this)}/>
-              ) : ''
+              ) : 'One of date is not set'
             }
           </div>
           <div className="col-xs-12 col-md-6">

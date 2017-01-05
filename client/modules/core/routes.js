@@ -10,14 +10,18 @@ import IcoProfile from './containers/icoProfile'
 import NotFound from './containers/notFound';
 
 
-export default function (injectDeps, {FlowRouter}) {
-  const MainLayoutCtx = injectDeps(MainLayout);
+export default function (inject, context, actions) {
+  const {FlowRouter, LocalState} = context;
+
+  // inject function doesn't work as expected and it will not provide context object to MainLayout so we need it inject explicitly in route defs
+  const MainLayoutCtx = inject(MainLayout);
 
   FlowRouter.route('/', {
-    name: 'ico.list',
+    name: 'ico.home',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList />)
+        content: () => (<IcoFrontList mode="published"  />),
+        context: () => context
       });
     }
   });
@@ -26,7 +30,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.concepts',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList mode="concepts" />)
+        content: () => (<IcoFrontList mode="concepts" />),
+        context: () => context
       });
     }
   });
@@ -35,7 +40,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.profile',
     action({icoSlug}) {
       mount(MainLayoutCtx, {
-        content: () => (<IcoProfile icoSlug={icoSlug} />)
+        content: () => (<IcoProfile icoSlug={icoSlug} />),
+        context: () => context
       })
     }
   });
@@ -44,7 +50,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.add',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={{active: false}} />)
+        content: () => (<AddOrEditIco editMode={{active: false}} />),
+        context: () => context
       });
     }
   });
@@ -53,7 +60,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'ico.edit',
     action({icoSlug}) {
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoSlug}} />)
+        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoSlug}} />),
+        context: () => context
       });
     }
   });
@@ -62,7 +70,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'login',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<Accounts.ui.LoginForm />)
+        content: () => (<Accounts.ui.LoginForm />),
+        context: () => context
       });
     }
   });
@@ -71,7 +80,8 @@ export default function (injectDeps, {FlowRouter}) {
     name: '404',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<NotFound/>)
+        content: () => (<NotFound/>),
+        context: () => context
       });
     }
   });

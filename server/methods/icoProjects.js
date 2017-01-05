@@ -1,5 +1,6 @@
-import {IcoProjects} from '/lib/collections';
+import {IcoProjects, Counts} from '/lib/collections';
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
+import CountsCompute from '/lib/countsCompute';
 import createInitialTestData from '/server/configs/initial_adds';
 
 import {Meteor} from 'meteor/meteor';
@@ -10,6 +11,7 @@ import t from 'tcomb-validation';
 
 export default function () {
   Meteor.methods({
+    // todo remove this
     'ico.add'(_id, icoProject) {
       check(_id, String);
       check(icoProject, Object);
@@ -41,6 +43,9 @@ export default function () {
       icoEntity.coFounders = icoEntity.coFounders || [];
 
       IcoProjects.insert(icoEntity);
+
+      // update appropriate category counts
+      CountsCompute.compute();
     },
 
     'ico.edit' (_id, icoProject) {
@@ -100,6 +105,9 @@ export default function () {
       icoEntity.coFounders = icoEntity.coFounders || [];
 
       IcoProjects.insert(icoEntity);
+
+      // update appropriate category counts
+      CountsCompute.compute();
     },
 
     'ico.publish' (_id) {
@@ -114,6 +122,9 @@ export default function () {
       if (this.userId) {
         IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published' } });
       }
+
+      // update appropriate category counts
+      CountsCompute.compute();
     },
 
     'ico.unPublish' (_id) {
@@ -122,6 +133,9 @@ export default function () {
       if (this.userId) {
         IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept' } });
       }
+
+      // update appropriate category counts
+      CountsCompute.compute();
     },
 
     'ico.importConcepts' (icoProjects) {
@@ -154,13 +168,15 @@ export default function () {
         IcoProjects.insert(icoEntity);
       });
 
+      // update appropriate category counts
+      CountsCompute.compute();
     },
 
-    // TODO remove in production
     'ico.remove'(_id) {
       check(_id, String);
-      console.log(`ICO project with _id: ${_id} removed`);
-      IcoProjects.remove(_id);
+      // commented as it is not safe method
+      //console.log(`ICO project with _id: ${_id} removed`);
+      //IcoProjects.remove(_id);
     },
 
     'ico.redeployTestData'() {

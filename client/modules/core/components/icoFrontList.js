@@ -27,6 +27,10 @@ export default class IcoFrontList extends React.Component  {
     return _.filter(_.filter(this.props.icoEntities, IcoStatus.isFinished), AppUtils.getProdPredicate(!this.state.showTestData));
   }
 
+  getIcoEntitiesWithoutDate () {
+    return _.filter(_.filter(this.props.icoEntities, IcoStatus.isWithoutDate), AppUtils.getProdPredicate(!this.state.showTestData));
+  }
+
   handleSelect(selectedKey) {
     this.setState({ activeTab: selectedKey });
   }
@@ -36,6 +40,11 @@ export default class IcoFrontList extends React.Component  {
   }
 
   render () {
+    const ongoingTitle = `Ongoing (${this.props.categoryCounts[this.props.mode].ongoing})`;
+    const upcomingTitle = `Upcoming (${this.props.categoryCounts[this.props.mode].upcoming})`;
+    const finishedTitle = `Finished (${this.props.categoryCounts[this.props.mode].finished})`;
+    const withoutDateTitle = `Without Date (${this.props.categoryCounts[this.props.mode]['without-date']})`;
+
     return (
       <div className="margin-top-md">
 
@@ -44,7 +53,7 @@ export default class IcoFrontList extends React.Component  {
             <div className="checkbox">
               <label>
                 <input type="checkbox"
-                     checked={this.state.showTestData} onChange={this.showTestData.bind(this)} />
+                     checked={this.state.showTestData} onChange={this.showTestData.bind(this)} disabled />
                 Show Test only
               </label>
             </div>
@@ -53,9 +62,9 @@ export default class IcoFrontList extends React.Component  {
 
         <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect.bind(this)} id="controlled-tab-example">
 
-          <Tab eventKey={'ongoing'} title="Ongoing">
+          <Tab eventKey={'ongoing'} title={ongoingTitle}>
 
-            <h3>Ongoing</h3>
+            <h3>Ongoing ICO</h3>
             <ListGroup componentClass="ul">
               {
                 this.getOngoingIcoEntities().map((icoEntity) => {
@@ -65,9 +74,9 @@ export default class IcoFrontList extends React.Component  {
 
           </Tab>
 
-          <Tab eventKey={'upcoming'} title="Upcoming">
+          <Tab eventKey={'upcoming'} title={upcomingTitle}>
 
-            <h3>Upcoming</h3>
+            <h3>Upcoming ICO</h3>
             <ListGroup componentClass="ul">
               {
                 this.getUpcomingIcoEntities().map((icoEntity) => {
@@ -77,9 +86,9 @@ export default class IcoFrontList extends React.Component  {
 
           </Tab>
 
-          <Tab eventKey={'finished'} title="Finished">
+          <Tab eventKey={'finished'} title={finishedTitle}>
 
-            <h3>Finished</h3>
+            <h3>Finished ICO</h3>
             <ListGroup componentClass="ul">
               {
                 this.getFinishedIcoEntities().map((icoEntity) => {
@@ -88,6 +97,23 @@ export default class IcoFrontList extends React.Component  {
             </ListGroup>
 
           </Tab>
+
+          { this.props.mode === 'concepts' ?
+
+            <Tab eventKey={'no-date'} title={withoutDateTitle}>
+
+              <h3>Without dates ICO</h3>
+              <ListGroup componentClass="ul">
+                {
+                  this.getIcoEntitiesWithoutDate().map((icoEntity) => {
+                    return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
+                  })}
+              </ListGroup>
+
+            </Tab>
+          : ''
+          }
+
         </Tabs>
 
       </div>

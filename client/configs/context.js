@@ -4,6 +4,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import {Tracker} from 'meteor/tracker';
 import {Accounts} from 'meteor/std:accounts-ui';
+import globalSubscriptions from './globalSubscriptions';
 
 export default function () {
 
@@ -19,11 +20,15 @@ export default function () {
     onSignedOutHook: () => FlowRouter.go('/')
   });
 
-  return {
+  const context = {
     Meteor,
     FlowRouter,
     Collections,
     LocalState: new ReactiveDict(),
     Tracker
   };
+
+  globalSubscriptions(context);
+
+  return context;
 }
