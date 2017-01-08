@@ -1,6 +1,7 @@
 import {IcoProjects, Counts} from '/lib/collections';
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
+import PostValidation from './serverPostValidation';
 import createInitialTestData from '/server/configs/initial_adds';
 
 import {Meteor} from 'meteor/meteor';
@@ -24,6 +25,8 @@ export default function () {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
 
+      icoProject = PostValidation.normalizeIcoProject(icoProject);
+
       const createdAt = new Date();
       const icoEntity = {
         _id,
@@ -37,10 +40,6 @@ export default function () {
         },
         ...icoProject
       };
-
-      // post-process -- todo put into separate class
-      icoEntity.icoEvents = icoEntity.icoEvents || [];
-      icoEntity.coFounders = icoEntity.coFounders || [];
 
       IcoProjects.insert(icoEntity);
 
@@ -60,16 +59,14 @@ export default function () {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
 
+      icoProject = PostValidation.normalizeIcoProject(icoProject);
+
       // pick only those fields which are present in IcoTypeDef and set values from icoEntity
       const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
         return icoProject[key];
       });
 
       objectToSet.updateAt = new Date();
-
-      // post-process -- todo put into separate class
-      objectToSet.icoEvents = objectToSet.icoEvents || [];
-      objectToSet.coFounders = objectToSet.coFounders || [];
 
       IcoProjects.update({ _id: _id },{ $set: objectToSet });
     },
@@ -86,6 +83,8 @@ export default function () {
       //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       //}
 
+      icoProject = PostValidation.normalizeIcoProject(icoProject);
+
       const createdAt = new Date();
       const icoEntity = {
         _id,
@@ -99,10 +98,6 @@ export default function () {
         },
         ...icoProject
       };
-
-      // post-process -- todo put into separate class
-      icoEntity.icoEvents = icoEntity.icoEvents || [];
-      icoEntity.coFounders = icoEntity.coFounders || [];
 
       IcoProjects.insert(icoEntity);
 
@@ -143,6 +138,8 @@ export default function () {
       console.log('icoProject 1: ', icoProjects[0]);
       const icoEntities = icoProjects.map((icoProject) => {
 
+        icoProject = PostValidation.normalizeIcoProject(icoProject);
+
         const createdAt = new Date();
         const icoEntity = {
           createdAt,
@@ -155,10 +152,6 @@ export default function () {
           },
           ...icoProject
         };
-
-        // post-process -- todo put into separate class
-        icoEntity.icoEvents = icoEntity.icoEvents || [];
-        icoEntity.coFounders = icoEntity.coFounders || [];
 
         return icoEntity;
       });

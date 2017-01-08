@@ -16,9 +16,11 @@ import {OneSentenceTextInput, MediumLengthDescriptionInput} from './limitedTextI
 const formLayout = (locals) => {
   return (
     <div>
-      <p></p>
 
       {/*not needed now: <CsvImportUploader />*/}
+      <CsvImportUploader />
+
+      <h4>Basic information section</h4>
 
       {locals.inputs.projectName}
 
@@ -42,11 +44,13 @@ const formLayout = (locals) => {
 
       {locals.inputs.icoStartDatetime}
 
+      {locals.inputs.icoStartDatetimeFormat}
+
       {locals.inputs.icoEndDatetime}
 
-      {locals.inputs.icoEvents}
+      {locals.inputs.icoEndDatetimeFormat}
 
-      {locals.inputs.maxSupply}
+      {locals.inputs.icoEvents}
 
       {locals.inputs.fundKeeper}
 
@@ -55,6 +59,9 @@ const formLayout = (locals) => {
       {locals.inputs.countryOfOrigin}
 
       {locals.inputs.underlyingCryptoPlatform}
+
+
+      <h4>Marketing section</h4>
 
       {locals.inputs.githubLink}
 
@@ -86,6 +93,47 @@ const formLayout = (locals) => {
 
       {locals.inputs.otherLinks}
 
+      {locals.inputs.bountyForPromoters}
+
+
+      <h4>Finance statistics section</h4>
+
+      {locals.inputs.icoMinimumThreshold}
+
+      {locals.inputs.icoMaximumThreshold}
+
+      {locals.inputs.icoThresholdCurrency}
+
+      {locals.inputs.bitcoinInvestments}
+
+      {locals.inputs.ethInvestments}
+
+      {locals.inputs.usdTotalInvestment}
+
+      {locals.inputs.participantsInIco}
+
+      {locals.inputs.pricePerCoin}
+
+      {locals.inputs.maxCurrencySupply}
+
+      {locals.inputs.totalEvaluation}
+
+      {locals.inputs.affiliate}
+
+      {locals.inputs.affiliateAmount}
+
+
+      <h4>Technical details section</h4>
+
+      {locals.inputs.icoSharedBitcoinAddress}
+
+      {locals.inputs.icoSharedEthereumAddress}
+
+
+      <h4>Assessment section</h4>
+
+      {locals.inputs.ratingScore}
+
     </div>
   );
 };
@@ -106,7 +154,6 @@ const addonIcons = {
   icoStartDatetime: null,
   icoEndDatetime: null,
   icoEvents: null,
-  maxSupply: null,
   fundKeeper: null,
   coFounders: <i className="fa fa-user-circle" aria-hidden="true"></i>,
   countryOfOrigin: null,
@@ -196,9 +243,15 @@ const renderOptions = {
       legend: 'ICO Start Datetime',
       factory: DateTimeStart
     },
+    icoStartDatetimeFormat: {
+
+    },
     icoEndDatetime: {
       legend: 'ICO End Datetime',
       factory: DateTimeEnd
+    },
+    icoEndDatetimeFormat: {
+
     },
     icoEvents: {
       disableOrder: true,
@@ -213,9 +266,6 @@ const renderOptions = {
           }
         }
       }
-    },
-    maxSupply: {
-      legend: 'Max currency supply (if any)',
     },
     fundKeeper: {
       legend: 'Fund keeper',
@@ -343,6 +393,60 @@ const renderOptions = {
           linkUrl: {}
         }
       }
+    },
+    bountyForPromoters: {
+      legend: 'Bounty'
+    },
+    // finance statistics section
+    icoMinimumThreshold: {
+      legend: 'ICO minimum threshold'
+    },
+    icoMaximumThreshold: {
+      legend: 'ICO minimum threshold'
+    },
+    icoThresholdCurrency: {
+      legend: 'ICO threshold currency'
+    },
+    bitcoinInvestments: {
+      legend: 'Bitcoin total investment'
+    },
+    ethInvestments: {
+      legend: 'ETH total investment'
+    },
+    usdTotalInvestment: {
+      legend: 'USD total investment'
+    },
+    participantsInIco: {
+      legend: 'Participants in ICO'
+    },
+    pricePerCoin: {
+      legend: 'Best price per coin during ICO (??)'
+    },
+    maxCurrencySupply: {
+      legend: 'Max currency supply (if any)'
+    },
+    totalEvaluation: {
+      legend: 'Total evaluation of ICO'
+    },
+
+    affiliate: {
+      legend: 'Is there affiliate?'
+    },
+    affiliateAmount: {
+      legend: 'Affiliate in percent'
+    },
+
+    // technical details section
+    icoSharedBitcoinAddress: {
+      legend: 'Master BTC ICO address'
+    },
+    icoSharedEthereumAddress: {
+      legend: 'Master ETH ICO address'
+    },
+
+    // assessment section
+    ratingScore: {
+      legend: 'Rating Score'
     }
   }
 };
@@ -397,7 +501,7 @@ export default class IcoForm extends React.Component {
                       context={{editMode: true}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
-          <Button onClick={this.edit.bind(this)} bsStyle="primary">Save edited ICO</Button>
+          <button onClick={this.edit.bind(this)} className="btn btn-primary margin-horizontal-md">Save edited ICO</button>
           <span> Save changes in either case - if it is concept or published ICO.</span>
         </div>;
     } else {
@@ -405,8 +509,8 @@ export default class IcoForm extends React.Component {
                      context={{editMode: false}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
-          <Button onClick={this.save.bind(this)} bsStyle="primary">Save and publish</Button>
-          <Button onClick={this.saveConcept.bind(this)} bsStyle="default">Save a concept</Button>
+          <button onClick={this.save.bind(this)} className="btn btn-primary margin-horizontal-md">Save and publish</button>
+          <button onClick={this.saveConcept.bind(this)} className="btn btn-default margin-horizontal-md">Save a concept</button>
         </div>;
     }
 
