@@ -4,6 +4,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 
 import AccountsMgmt from '/client/configs/accountsMgmt';
 import IcoShortItemMainRows from './icoShortItemMainRows';
+import IcoStatus from '/lib/icoStatus';
 
 export default class IcoFrontItem extends React.Component {
 
@@ -40,10 +41,13 @@ export default class IcoFrontItem extends React.Component {
               <div className="col-xs-12 col-md-2">
                 <a className="btn btn-darkblue" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">Details</a>
               </div>
-              <div className="col-xs-12 col-md-3">
-                <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
-                   rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Participate in ICO</a>
-              </div>
+              { IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico) ?
+                <div className="col-xs-12 col-md-3">
+                  <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
+                     rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Participate in ICO</a>
+                </div>
+                : ''
+              }
             </div>
 
           </div>

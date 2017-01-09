@@ -17,8 +17,9 @@ export default function () {
     };
     let selector;
     if (this.userId) {
-      selector = { $or: [ {'meta.dataStatus':'production'}, {'meta.dataStatus':'test'} ] };
+      selector = { 'meta.dataStatus':'production' };
     } else {
+      // todo add more constraints for non-logged in users
       selector = { 'meta.dataStatus': 'production'};
       options.fields = {...options.fields, entityState: 0 };
     }

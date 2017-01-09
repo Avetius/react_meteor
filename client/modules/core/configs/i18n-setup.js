@@ -29,6 +29,9 @@ export default () => {
             },
             rendering: {
               fieldNA: 'N/A'
+            },
+            dates: {
+              noDate: 'To be announced'
             }
           }
         }

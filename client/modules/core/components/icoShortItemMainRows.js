@@ -26,23 +26,23 @@ export default class IcoShortItemMainRows extends React.Component {
     let icoEndDatetime = this.props.ico.icoEndDatetime;
     let icoCountdownState;
 
-    if (IcoStatus.isWithoutDate(this.props.ico)) {
+    if (IcoStatus.isOneOfIcoDateEmpty(this.props.ico)) {
       icoCountdownState = {
         icoCountdown: {
           enable: false }
       };
-    } else if (IcoStatus.isUpcoming(this.props.ico)) {
+    } else if (IcoStatus.isDateRangeUpcoming(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : {
           enable: true, message: 'ICO will start in ', date: icoStartDatetime }
       };
-    } else if (IcoStatus.isOngoing(this.props.ico)) {
+    } else if (IcoStatus.isDateRangeOngoing(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : {
           enable: true, message: 'ICO ends in ', date: icoEndDatetime
         }
       };
-    } else if (IcoStatus.isFinished(this.props.ico)) {
+    } else if (IcoStatus.isDateRangeFinished(this.props.ico)) {
       icoCountdownState = {
         icoCountdown : { enable: true, message: 'ICO has finished.' }
       };
@@ -119,24 +119,32 @@ export default class IcoShortItemMainRows extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-5">
             <ContentWithPopover fieldLabel="Start Date"
                                 helpText="ICO start date is date and time when you will first be able to participate in this initial coin offering.">
               <span className="text-help margin-right-xs">Start Date:</span>
               </ContentWithPopover>
-              {moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm a")}
+              {
+                ico.icoStartDatetime ?
+                  moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm a") :
+                  i18next.t('ico.dates.noDate')
+              }
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-7">
             <ContentWithPopover fieldLabel="End Date"
                                 helpText="ICO end date is date and time after which you will not be able to participate in initial coin offering.">
               <span className="text-help margin-right-xs">End Date:</span>
             </ContentWithPopover>
-            {moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm a")}
+            {
+              ico.icoEndDatetime ?
+                moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm a") :
+                i18next.t('ico.dates.noDate')
+            }
           </div>
         </div>
 
         <div className="row">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-5">
             {
               this.state.icoCountdown.enable ? (
                 <Countdown givenDate={this.state.icoCountdown.date}
@@ -146,7 +154,7 @@ export default class IcoShortItemMainRows extends React.Component {
               ) : 'One of date is not set'
             }
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-7">
             {
               this.state.bonusCountdown.enable ? (
                 <Countdown givenDate={this.state.bonusCountdown.date}
@@ -159,14 +167,14 @@ export default class IcoShortItemMainRows extends React.Component {
 
 
         <div className="row">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-md-5">
             <ContentWithPopover fieldLabel="Fund keeper"
                                 helpText={FundKeeperHelpBody}>
               <span className="text-help margin-right-xs">Fund keeper:</span>
             </ContentWithPopover>
             {ico.fundKeeper ? i18next.t('ico.fundKeeper.' + ico.fundKeeper): i18next.t('ico.rendering.fieldNA')}
           </div>
-          <div className="col-xs-12 col-md-3">
+          <div className="col-xs-12 col-md-4">
 
             <ContentWithPopover fieldLabel="Project status"
                                 helpText={ProjectStatusHelpBody}>
@@ -178,7 +186,7 @@ export default class IcoShortItemMainRows extends React.Component {
 
           </div>
 
-          { this.props.isProfile ?
+          { this.props.isProfile && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
             <div className="col-xs-12 col-md-3 tmp-relative-top-minus-5px">
               <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink}
                  rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
