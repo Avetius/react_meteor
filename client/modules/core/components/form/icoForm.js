@@ -17,7 +17,8 @@ const formLayout = (locals) => {
   return (
     <div>
 
-      {/*not needed now: <CsvImportUploader />*/} 
+      {/*not needed now: <CsvImportUploader />*/}
+      <CsvImportUploader />
 
       <h4>Basic information section</h4>
 
@@ -64,7 +65,7 @@ const formLayout = (locals) => {
 
       {locals.inputs.githubLink}
 
-      {locals.inputs.bitcoinTalkLink}
+      {locals.inputs.bitcointalkLink}
 
       {locals.inputs.slackLink}
 
@@ -158,7 +159,7 @@ const addonIcons = {
   countryOfOrigin: null,
   underlyingCryptoPlatform: null,
   githubLink: <i className="fa fa-github" aria-hidden="true"></i>,
-  bitcoinTalkLink: <i className="fa fa-btc" aria-hidden="true"></i>,
+  bitcointalkLink: <i className="fa fa-btc" aria-hidden="true"></i>,
   slackLink: <i className="fa fa-slack" aria-hidden="true"></i>,
   twitterLink: <i className="fa fa-twitter" aria-hidden="true"></i>,
   facebookLink: <i className="fa fa-facebook-official" aria-hidden="true"></i>,
@@ -305,10 +306,10 @@ const renderOptions = {
         addonBefore: addonIcons.githubLink
       }
     },
-    bitcoinTalkLink: {
+    bitcointalkLink: {
       legend: 'Bitcoin Talk announcement link',
       config: {
-        addonBefore: addonIcons.bitcoinTalkLink
+        addonBefore: addonIcons.bitcointalkLink
       }
     },
     slackLink: {
