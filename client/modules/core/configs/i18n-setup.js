@@ -24,7 +24,8 @@ export default () => {
             fundKeeper: {
               escrow: 'Escrow',
               devs: 'Developing team',
-              exchange: 'Exchange'
+              exchange: 'Exchange',
+              unknown: 'Unknown'
             },
             rendering: {
               fieldNA: 'N/A'
