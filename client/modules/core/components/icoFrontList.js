@@ -31,6 +31,10 @@ export default class IcoFrontList extends React.Component  {
     return _.filter(_.filter(this.props.icoEntities, IcoStatus.isWithoutDate), AppUtils.getProdPredicate(!this.state.showTestData));
   }
 
+  getScamOrSuspiciousIcos () {
+    return _.filter(_.filter(this.props.icoEntities, IcoStatus.isScamOrSuspicious), AppUtils.getProdPredicate(!this.state.showTestData));
+  }
+
   handleSelect(selectedKey) {
     this.setState({ activeTab: selectedKey });
   }
@@ -44,6 +48,7 @@ export default class IcoFrontList extends React.Component  {
     const upcomingTitle = `Upcoming (${this.props.categoryCounts[this.props.mode].upcoming})`;
     const finishedTitle = `Finished (${this.props.categoryCounts[this.props.mode].finished})`;
     const withoutDateTitle = `Without Date (${this.props.categoryCounts[this.props.mode]['without-date']})`;
+    const scamOrSuspiciousTitle = `Scam or suspicious (${this.props.categoryCounts[this.props.mode]['scam-or-suspicious']})`;
 
     return (
       <div className="margin-top-md">
@@ -60,7 +65,7 @@ export default class IcoFrontList extends React.Component  {
           </div>
         </div>
 
-        <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect.bind(this)} id="controlled-tab-example">
+        <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect.bind(this)} id="controlled-tab">
 
           <Tab eventKey={'ongoing'} title={ongoingTitle}>
 
@@ -113,6 +118,19 @@ export default class IcoFrontList extends React.Component  {
             </Tab>
           : ''
           }
+
+          <Tab eventKey={'scam-suspicious'} title={scamOrSuspiciousTitle}>
+
+            <h3>Scam or suspicious</h3>
+            <ListGroup componentClass="ul">
+              {
+                this.getScamOrSuspiciousIcos().map((icoEntity) => {
+                  return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
+                })
+              }
+            </ListGroup>
+
+          </Tab>
 
         </Tabs>
 
