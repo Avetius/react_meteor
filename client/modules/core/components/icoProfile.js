@@ -122,12 +122,12 @@ export default class IcoProfile extends React.Component {
 
               <div className="row row-vertical-center">
 
-                { ico.bitcoinTalkLink ?
+                { ico.bitcointalkLink ?
                   <div className="col-xs-4 col-md-3 padding-right-xs">
 
                     { this.makeLink({
                       icon: 'fa fa-btc', linkName: 'Bitcoin Talk',
-                      link: ico.bitcoinTalkLink
+                      link: ico.bitcointalkLink
                     })
                     }
                   </div>

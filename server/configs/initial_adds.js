@@ -62,7 +62,6 @@ export default function ({redeploy = false}) {
     icoStartDatetime : genericIcoStartDate,
     icoEndDatetime : genericIcoEndDate,
     icoEvents: [],
-    maxSupply: null,
     fundKeeper: 'escrow',
     coFounders: [
       coFounder1, coFounder2, coFounder3
@@ -73,7 +72,7 @@ export default function ({redeploy = false}) {
     slackLink: 'https://test.com/test',
     twitterLink: 'https://twitter.com/DECENTplatform',
     facebookLink: null,
-    bitcoinTalkLink: 'https://test.com/test',
+    bitcointalkLink: 'https://test.com/test',
     redditLink: 'https://test.com/test',
     blogLink: 'https://test.com/test',
     telegramLink: 'https://test.com/test',

@@ -18,7 +18,6 @@ const formLayout = (locals) => {
     <div>
 
       {/*not needed now: <CsvImportUploader />*/}
-      <CsvImportUploader />
 
       <h4>Basic information section</h4>
 
