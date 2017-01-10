@@ -32,9 +32,9 @@ export const composer = ({context, editMode}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
-  saveNewIco: actions.icoProject.add,
   saveEditedIco: actions.icoProject.edit,
-  saveAsConcept: actions.icoProject.saveAsConcept,
+  addAsConcept: actions.icoProject.addAsConcept,
+  deleteIco: actions.icoProject.deleteIco,
   context: () => context
 });
 

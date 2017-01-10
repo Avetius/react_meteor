@@ -12,76 +12,18 @@ import t from 'tcomb-validation';
 
 export default function () {
   Meteor.methods({
-    // todo remove this
-    'ico.add'(_id, icoProject) {
+    'ico.addAsConcept' (_id, icoProject) {
       check(_id, String);
       check(icoProject, Object);
 
-      // todo allow this only for this.userId which is in admin group
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
+      }
 
-      // validation
       const validationResult = t.validate(icoProject, IcoType);
       if (!validationResult.isValid()) {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
-
-      icoProject = PostValidation.normalizeIcoProject(icoProject);
-
-      const createdAt = new Date();
-      const icoEntity = {
-        _id,
-        createdAt,
-        // meta info about app data
-        meta: {
-          dataStatus: 'production'
-        },
-        entityState: {
-          state: 'published'
-        },
-        ...icoProject
-      };
-
-      IcoProjects.insert(icoEntity);
-
-      // update appropriate category counts
-      CountsCompute.compute();
-    },
-
-    'ico.edit' (_id, icoProject) {
-      check(_id, String);
-      check(icoProject, Object);
-
-      // todo allow this only for this.userId which is in admin group
-
-      // validation
-      const validationResult = t.validate(icoProject, IcoType);
-      if (!validationResult.isValid()) {
-        throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
-      }
-
-      icoProject = PostValidation.normalizeIcoProject(icoProject);
-
-      // pick only those fields which are present in IcoTypeDef and set values from icoEntity
-      const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
-        return icoProject[key];
-      });
-
-      objectToSet.updateAt = new Date();
-
-      IcoProjects.update({ _id: _id },{ $set: objectToSet });
-    },
-
-    'ico.saveAsConcept' (_id, icoProject) {
-      check(_id, String);
-      check(icoProject, Object);
-
-      // todo allow this only for this.userId which is in admin group
-
-      // todo: find some minimum validation
-      //const validationResult = t.validate(icoProject, IcoType);
-      //if (!validationResult.isValid()) {
-      //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
-      //}
 
       icoProject = PostValidation.normalizeIcoProject(icoProject);
 
@@ -105,6 +47,32 @@ export default function () {
       CountsCompute.compute();
     },
 
+    'ico.edit' (_id, icoProject) {
+      check(_id, String);
+      check(icoProject, Object);
+
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
+      }
+
+      // validation
+      const validationResult = t.validate(icoProject, IcoType);
+      if (!validationResult.isValid()) {
+        throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
+      }
+
+      icoProject = PostValidation.normalizeIcoProject(icoProject);
+
+      // pick only those fields which are present in IcoTypeDef and set values from icoEntity
+      const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
+        return icoProject[key];
+      });
+
+      objectToSet.updatedAt = new Date();
+
+      IcoProjects.update({ _id: _id },{ $set: objectToSet });
+    },
+
     'ico.publish' (_id) {
       check(_id, String);
 
@@ -114,9 +82,11 @@ export default function () {
       //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       //}
 
-      if (this.userId) {
-        IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published' } });
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
+
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published', updatedAt: new Date() } });
 
       // update appropriate category counts
       CountsCompute.compute();
@@ -125,9 +95,24 @@ export default function () {
     'ico.unPublish' (_id) {
       check(_id, String);
 
-      if (this.userId) {
-        IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept' } });
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
+
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept', updatedAt: new Date() } });
+
+      // update appropriate category counts
+      CountsCompute.compute();
+    },
+
+    'ico.delete'(_id) {
+      check(_id, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
+      }
+
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'deleted', updatedAt: new Date() } });
 
       // update appropriate category counts
       CountsCompute.compute();
@@ -135,6 +120,11 @@ export default function () {
 
     'ico.importConcepts' (icoProjects) {
       check(icoProjects, Array);
+
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
+      }
+
       console.log('icoProject 1: ', icoProjects[0]);
       const icoEntities = icoProjects.map((icoProject) => {
 
@@ -165,18 +155,14 @@ export default function () {
       CountsCompute.compute();
     },
 
-    'ico.remove'(_id) {
-      check(_id, String);
-      // commented as it is not safe method
-      //console.log(`ICO project with _id: ${_id} removed`);
-      //IcoProjects.remove(_id);
-    },
-
     'ico.redeployTestData'() {
       // todo add admin check
-      if (this.userId) {
-        createInitialTestData({redeploy: true});
+      if (!this.userId) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
+
+      createInitialTestData({redeploy: true});
+
     }
   });
 }

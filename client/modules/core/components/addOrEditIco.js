@@ -34,10 +34,10 @@ export default class AddOrEditIco extends React.Component {
             </div>
           ) : (
             <IcoForm icoEntityValue={icoFormValue}
-                     save={this.props.saveNewIco}
                      edit={this.props.saveEditedIco}
-                     saveConcept={this.props.saveAsConcept}
+                     addAsConcept={this.props.addAsConcept}
                      editMode={this.props.editMode}
+                     deleteIco={this.props.deleteIco}
             />
           )
           }

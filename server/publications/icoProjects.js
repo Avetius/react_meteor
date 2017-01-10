@@ -15,13 +15,12 @@ export default function () {
         coFounders: 0,
       }
     };
-    let selector;
-    if (this.userId) {
-      selector = { 'meta.dataStatus':'production' };
-    } else {
-      // todo add more constraints for non-logged in users
-      selector = { 'meta.dataStatus': 'production'};
-      options.fields = {...options.fields, entityState: 0 };
+
+    let selector = { 'meta.dataStatus':'production',
+      $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }] };
+
+    if (!this.userId) {
+      options.fields = {...options.fields, entityState: 0};
     }
 
     return IcoProjects.find(selector, options);
@@ -33,11 +32,12 @@ export default function () {
       fields: {}
     };
 
+    const selector = { _id: icoId, $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }]};
+
     if (!this.userId) {
       options.fields = {...options.fields, entityState: 0 };
     }
 
-    const selector = {_id: icoId};
     return IcoProjects.find(selector, options);
   });
 

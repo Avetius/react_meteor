@@ -7,7 +7,7 @@ import { IcoType } from '/lib/icoProject';
 import CsvImportUploader from './csvImportUploader';
 
 // Rubix theme
-import { ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
+import { Modal, ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
@@ -452,6 +452,13 @@ const renderOptions = {
 
 export default class IcoForm extends React.Component {
 
+  constructor () {
+    super();
+    this.state = {
+      showDeleteModal: false
+    }
+  }
+
   save() {
     // if validation fails, value will be null
     const value = this.refs.icoForm.getValue();
@@ -475,11 +482,23 @@ export default class IcoForm extends React.Component {
     }
   }
 
-  saveConcept () {
+  deleteIco() {
+    this.props.deleteIco(this.props.editMode.icoId);
+  }
+
+  showModalToDeleteIco() {
+    this.setState({showDeleteModal: true});
+  }
+
+  close () {
+    this.setState({showDeleteModal: false});
+  }
+
+  addAsConcept () {
     const value = this.refs.icoForm.getValue();
     console.log('saving concept..', value);
     if (value) {
-      this.props.saveConcept(value);
+      this.props.addAsConcept(value);
     } else {
       console.warn('upps, something happened. Validation failed?');
     }
@@ -500,16 +519,16 @@ export default class IcoForm extends React.Component {
                       context={{editMode: true}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
-          <button onClick={this.edit.bind(this)} className="btn btn-primary margin-horizontal-md">Save edited ICO</button>
+          <button onClick={this.edit.bind(this)} className="btn btn-primary margin-left-md margin-right-xs">Save edited ICO</button>
           <span> Save changes in either case - if it is concept or published ICO.</span>
+          <button onClick={this.showModalToDeleteIco.bind(this)} className="btn btn-danger margin-left-xl">Delete ICO</button>
         </div>;
     } else {
       icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions}
                      context={{editMode: false}} onChange={this.onChange.bind(this)} />;
       saveButtons =
         <div>
-          <button onClick={this.save.bind(this)} className="btn btn-primary margin-horizontal-md">Save and publish</button>
-          <button onClick={this.saveConcept.bind(this)} className="btn btn-default margin-horizontal-md">Save a concept</button>
+          <button onClick={this.addAsConcept.bind(this)} className="btn btn-primary margin-horizontal-md">Add as concept</button>
         </div>;
     }
 
@@ -530,6 +549,20 @@ export default class IcoForm extends React.Component {
             </ButtonToolbar>
           </div>
         </div>
+
+        <Modal show={this.state.showDeleteModal} onHide={this.close.bind(this)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete ICO</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h3>Do you want to really delete ICO?</h3>
+            <em>ICO can be restored only by manually manipulating DB by admin.</em>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-danger" onClick={this.deleteIco.bind(this)}>Delete</button>
+            <button className="btn btn-default" onClick={this.close.bind(this)}>Close</button>
+          </Modal.Footer>
+        </Modal>
 
       </div>
     );

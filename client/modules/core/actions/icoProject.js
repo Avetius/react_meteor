@@ -1,44 +1,30 @@
 export default {
-  add({Meteor, FlowRouter}, icoProject) {
+  addAsConcept ({Meteor}, icoProject) {
     if (!icoProject) {
-      return console.warn('ADD_ICO_ERROR', 'icoProject is required.');
+      return console.warn('ADD_AS_CONCEPT_ERROR', 'icoProject is required.');
     }
 
-    const id = Meteor.uuid();
-    console.log('ico.add is calling..');
-    Meteor.call('ico.add', id, icoProject, (err) => {
+    const _id = Meteor.uuid();
+    console.log('ico.addAsConcept is calling..');
+    Meteor.call('ico.addAsConcept', _id, icoProject, (err) => {
       if (err) {
-        return console.error('ADD_ICO_ERROR', err.error, err.reason);
+        return console.error('ADD_AS_CONCEPT_ERROR', err.error, err.reason);
       } else {
-        FlowRouter.go('ico.profile', { icoSlug: id });
+        FlowRouter.go('ico.profile', { icoSlug: _id });
       }
     });
   },
 
-  edit({Meteor, FlowRouter}, id, icoProject) {
+  edit({Meteor, FlowRouter}, _id, icoProject) {
     if (!icoProject) {
       return console.warn('EDIT_ICO_ERROR', 'icoProject is required.');
     }
 
-    Meteor.call('ico.edit', id, icoProject, (err) => {
+    Meteor.call('ico.edit', _id, icoProject, (err) => {
       if (err) {
         return console.error('EDIT_ICO_ERROR', err.error, err.reason);
       } else {
-        FlowRouter.go('ico.profile', { icoSlug: id });
-      }
-    });
-  },
-
-  saveAsConcept ({Meteor}, icoProject) {
-    if (!icoProject) {
-      return console.warn('SAVE_AS_CONCEPT_ERROR', 'icoProject is required.');
-    }
-
-    const id = Meteor.uuid();
-    console.log('ico.saveAsConcept is calling..');
-    Meteor.call('ico.saveAsConcept', id, icoProject, (err) => {
-      if (err) {
-        return console.error('SAVE_AS_CONCEPT_ERROR', err.error, err.reason);
+        FlowRouter.go('ico.profile', { icoSlug: _id });
       }
     });
   },
@@ -67,6 +53,20 @@ export default {
         return console.error('UN_PUBLISH_CONCEPT', err.error, err.reason);
       }
     });
+  },
+
+  deleteIco({Meteor}, _id) {
+    console.log('ico.delete is calling..');
+    if (!_id) {
+      return console.warn('DELETE_ICO', 'Id of icoProject is required.');
+    }
+
+    Meteor.call('ico.delete', _id, (err) => {
+      if (err) {
+        return console.error('DELETE_ICO', err.error, err.reason);
+      }
+    });
+    FlowRouter.go('ico.concepts', {});
   },
 
   clearErrors({LocalState}) {
