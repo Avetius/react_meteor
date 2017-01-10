@@ -12,24 +12,49 @@ export default class IcoProfile extends React.Component {
     super(props);
   }
 
-  makeLink ({linkName, link, icon, placeholder, required}) {
+  makeLink ({linkName, link, icon, placeholder, required, container}) {
     if (!link && required) {
+      //return (
+      //  <div>
+      //    <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
+      //    <span>{placeholder}</span>
+      //  </div>
+      //)
       return (
-        <div>
-          <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
-          <span>{placeholder}</span>
+        <div className="row row-vertical-center">
+          <div className="col-md-2 padding-right-xs">
+            <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
+          </div>
+          <div className="col-md-8 padding-right-xs padding-left-md">
+            <span className="">{placeholder}</span>
+          </div>
         </div>
-      )
+      );
     } else if (!link && !required) {
        return '';
     }
 
+    //return (
+    //  <a className="" target="_blank" href={link} rel="noopener noreferrer">
+    //    <span className="h4 fg-black margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
+    //    {linkName}
+    //  </a>
+    //)
+
     return (
-      <a className="" target="_blank" href={link} rel="noopener noreferrer">
-        <span className="h4 fg-black margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
-        {linkName}
-      </a>
-    )
+      <div className="row row-vertical-center">
+        <div className="col-md-2 padding-right-xs">
+          <a className="" target="_blank" href={link} rel="noopener noreferrer">
+            <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
+          </a>
+        </div>
+        <div className="col-md-8 padding-right-xs padding-left-md">
+          <a className="" target="_blank" href={link} rel="noopener noreferrer">
+            <span className="">{linkName}</span>
+          </a>
+        </div>
+      </div>
+    );
   }
 
   render () {
@@ -67,25 +92,25 @@ export default class IcoProfile extends React.Component {
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-home', linkName: 'Main website',
-                    link: ico.officialWebsiteLink, placeholder: 'Main website not provided', required: true })
+                    link: ico.officialWebsiteLink, placeholder: 'No Main website', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-money', linkName: 'Ico website',
-                    link: ico.icoWebsiteLink, placeholder: 'Ico website not provided', required: true })
+                    link: ico.icoWebsiteLink, placeholder: 'No Ico website', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-file-text-o', linkName: 'Whitepaper',
-                    link: ico.whitePaperLink, placeholder: 'Whitepaper link not provided', required: true })
+                    link: ico.whitePaperLink, placeholder: 'No Whitepaper', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-money', linkName: 'Business Plan',
-                    link: ico.businessPlanLink, placeholder: 'Business Plan link not provided.', required: true })
+                    link: ico.businessPlanLink, placeholder: 'No Business Plan', required: true })
                   }
                 </div>
 
@@ -96,25 +121,25 @@ export default class IcoProfile extends React.Component {
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-github', linkName: 'Github',
-                    link: ico.githubLink, placeholder: 'Github link not provided', required: true })
+                    link: ico.githubLink, placeholder: 'No Github', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-twitter', linkName: 'Twitter',
-                    link: ico.twitterLink, placeholder: 'Twitter link not provided', required: true })
+                    link: ico.twitterLink, placeholder: 'No Twitter', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-facebook-official', linkName: 'Facebook',
-                    link: ico.facebookLink, placeholder: 'Facebook link not provided', required: true })
+                    link: ico.facebookLink, placeholder: 'No Facebook  ', required: true })
                   }
                 </div>
                 <div className="col-xs-4 col-md-3 padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Blog',
-                    link: ico.blogLink, placeholder: 'Blog link not provided.', required: true })
+                    link: ico.blogLink, placeholder: 'No Blog', required: true })
                   }
                 </div>
 
