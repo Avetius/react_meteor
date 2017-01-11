@@ -164,24 +164,24 @@ export default function () {
       createInitialTestData({redeploy: true});
 
     },
-    // look on tokes
-    'fix.maxCurrencySupply'() {
+    // temp method
+    'fix.icoDates'() {
       IcoProjects.find({}).fetch().forEach((ico) => {
-        let maxCurrencySupplyNew, wasError;
-        if (typeof ico.maxCurrencySupply === 'number') {
-          console.log('is number: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName);
-          maxCurrencySupplyNew = ico.maxCurrencySupply.toString();
-          if (typeof maxCurrencySupplyNew !== 'string') {
-            wasError = true;
-          }
-        } else {
-          console.log('is not number: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName);
+        let changed;
+        if (ico.icoStartDatetime === "") {
+          console.log('is empty str: ', ico.icoStartDatetime, ' for Ico name:', ico.projectName);
+          ico.icoStartDatetime = null;
+          changed = true;
         }
 
-        wasError ? console.log('Was error for value: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName) : void(0);
+        if (ico.icoEndDatetime === "") {
+          console.log('is empty str: ', ico.icoEndDatetime, ' for Ico name:', ico.projectName);
+          ico.icoEndDatetime = null;
+          changed = true;
+        }
 
-        if (maxCurrencySupplyNew && !wasError) {
-          IcoProjects.update({_id: ico._id}, {$set: {maxCurrencySupply: maxCurrencySupplyNew}})
+        if (changed) {
+          IcoProjects.update({ _id: ico._id }, { $set: { icoStartDatetime: ico.icoStartDatetime, icoEndDatetime: ico.icoEndDatetime }})
         }
       });
 

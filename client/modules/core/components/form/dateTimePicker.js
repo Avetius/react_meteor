@@ -18,6 +18,8 @@ class DateTimePicker extends t.form.Component { // extend the base class
 
     return (locals) => {
       this.interceptedOnChange = locals.onChange;
+      console.log(locals.value);
+      console.log(locals);
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
