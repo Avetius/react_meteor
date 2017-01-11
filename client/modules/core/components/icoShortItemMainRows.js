@@ -77,6 +77,16 @@ export default class IcoShortItemMainRows extends React.Component {
     }
   }
 
+  renderDatetime (datetime, datetimeFormat) {
+    if (!datetimeFormat || datetimeFormat === 'dateTime') {
+      return moment(datetime).format('dddd, MMMM Do YYYY, h:mm a');
+    } else if (datetimeFormat === 'dateOnly') {
+      return moment(datetime).format('dddd, MMMM Do YYYY');
+    } else {
+      console.error('Date could not be rendered.');
+    }
+  }
+
   render() {
 
     const ico = this.props.ico;
@@ -126,7 +136,7 @@ export default class IcoShortItemMainRows extends React.Component {
               </ContentWithPopover>
               {
                 ico.icoStartDatetime ?
-                  moment(ico.icoStartDatetime).format("dddd, MMMM Do YYYY, h:mm a") :
+                  this.renderDatetime(ico.icoStartDatetime, ico.icoStartDatetimeFormat) :
                   i18next.t('ico.dates.noDate')
               }
           </div>
@@ -137,7 +147,7 @@ export default class IcoShortItemMainRows extends React.Component {
             </ContentWithPopover>
             {
               ico.icoEndDatetime ?
-                moment(ico.icoEndDatetime).format("dddd, MMMM Do YYYY, h:mm a") :
+                this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) :
                 i18next.t('ico.dates.noDate')
             }
           </div>
