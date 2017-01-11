@@ -17,7 +17,7 @@ export default class AddOrEditIco extends React.Component {
   // todo extract this method to separate object and as a static method
   extractIcoFormValue (icoEntity) {
     // todo whitelist instead of blacklist
-    return _.omit(icoEntity, 'entityState', '_id', 'createdAt');
+    return _.omit(icoEntity, 'entityState', 'meta', '_id', 'createdAt', 'updatedAt');
   }
 
   render() {

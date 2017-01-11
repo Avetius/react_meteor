@@ -1,5 +1,6 @@
 import React from 'react';
 import t from 'tcomb-form';
+import _ from 'lodash';
 const Form = t.form.Form;
 import S3FileUploader from './s3fileUploader';
 import { IcoType } from '/lib/icoProject';
@@ -455,19 +456,8 @@ export default class IcoForm extends React.Component {
   constructor () {
     super();
     this.state = {
-      showDeleteModal: false
-    }
-  }
-
-  save() {
-    // if validation fails, value will be null
-    const value = this.refs.icoForm.getValue();
-
-    console.log('saved value:', value);
-    if (value) {
-      this.props.save(value);
-    } else {
-      console.warn('upps, something happened. Validation failed?');
+      showDeleteModal: false,
+      formErrors: null
     }
   }
 
@@ -498,10 +488,26 @@ export default class IcoForm extends React.Component {
     const value = this.refs.icoForm.getValue();
     console.log('saving concept..', value);
     if (value) {
+      this.hideErrorMessages();
       this.props.addAsConcept(value);
     } else {
+      const validationResult = this.refs.icoForm.validate();
       console.warn('upps, something happened. Validation failed?');
+      this.showErrorMessages(validationResult);
     }
+  }
+
+  showErrorMessages (validationResult) {
+    const messages = _.map(validationResult.errors, (errorObj) => {
+      let messageObj = _.pick(errorObj, ['message']);
+      messageObj.key = errorObj.path[0];
+      return messageObj;
+    });
+    this.setState({ formErrors: messages });
+  }
+
+  hideErrorMessages () {
+    this.setState({ formErrors: null });
   }
 
   onChange(icoEntityValue, path) {
@@ -539,6 +545,19 @@ export default class IcoForm extends React.Component {
           <div className="col-md-10">
             { this.props.editMode.active ? <h3>Edit ICO</h3> : <h3>New Ico</h3>}
             {icoForm}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-10">
+            { this.state.formErrors ?
+              this.state.formErrors.map((errMessage) => {
+                return (
+                  <h5 key={errMessage.key} className="text-danger"><strong>{errMessage.message}</strong></h5>
+                );
+              })
+              : ''
+            }
           </div>
         </div>
 
