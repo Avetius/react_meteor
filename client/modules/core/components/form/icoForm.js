@@ -463,11 +463,13 @@ export default class IcoForm extends React.Component {
 
   edit() {
     const value = this.refs.icoForm.getValue();
-
     console.log('saved edited value:', value);
     if (value) {
+      this.hideErrorMessages();
       this.props.edit(this.props.editMode.icoId, value);
     } else {
+      const validationResult = this.refs.icoForm.validate();
+      this.showErrorMessages(validationResult);
       console.warn('upps, something happened. Validation failed?');
     }
   }
@@ -491,8 +493,8 @@ export default class IcoForm extends React.Component {
       this.hideErrorMessages();
       this.props.addAsConcept(value);
     } else {
-      const validationResult = this.refs.icoForm.validate();
       console.warn('upps, something happened. Validation failed?');
+      const validationResult = this.refs.icoForm.validate();
       this.showErrorMessages(validationResult);
     }
   }

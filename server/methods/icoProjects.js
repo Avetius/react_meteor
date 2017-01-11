@@ -163,6 +163,28 @@ export default function () {
 
       createInitialTestData({redeploy: true});
 
+    },
+    // look on tokes
+    'fix.maxCurrencySupply'() {
+      IcoProjects.find({}).fetch().forEach((ico) => {
+        let maxCurrencySupplyNew, wasError;
+        if (typeof ico.maxCurrencySupply === 'number') {
+          console.log('is number: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName);
+          maxCurrencySupplyNew = ico.maxCurrencySupply.toString();
+          if (typeof maxCurrencySupplyNew !== 'string') {
+            wasError = true;
+          }
+        } else {
+          console.log('is not number: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName);
+        }
+
+        wasError ? console.log('Was error for value: ', ico.maxCurrencySupply, ' for Ico name:', ico.projectName) : void(0);
+
+        if (maxCurrencySupplyNew && !wasError) {
+          IcoProjects.update({_id: ico._id}, {$set: {maxCurrencySupply: maxCurrencySupplyNew}})
+        }
+      });
+
     }
   });
 }
