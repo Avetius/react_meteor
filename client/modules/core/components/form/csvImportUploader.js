@@ -38,7 +38,6 @@ class csvImportUploader extends React.Component {
           obj.bitcoinInvestments = obj.bitcoinInvestments ? customParseFloat(obj.bitcoinInvestments) : null;
           obj.ethInvestments = obj.ethInvestments ? customParseFloat(obj.ethInvestments) : null;
           obj.usdTotalInvestment = obj.usdTotalInvestment ? customParseFloat(obj.usdTotalInvestment) : null;
-          obj.maxCurrencySupply = obj.maxCurrencySupply ? customParseFloat(obj.maxCurrencySupply) : null;
           obj.icoMinimumThreshold = obj.icoMinimumThreshold ? customParseFloat(obj.icoMinimumThreshold) : null;
           obj.icoMaximumThreshold = obj.icoMaximumThreshold ? customParseFloat(obj.icoMaximumThreshold) : null;
           obj.participantsInIco = obj.participantsInIco ? customParseFloat(obj.participantsInIco) : null;

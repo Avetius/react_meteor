@@ -14,12 +14,6 @@ export default class IcoProfile extends React.Component {
 
   makeLink ({linkName, link, icon, placeholder, required, container}) {
     if (!link && required) {
-      //return (
-      //  <div>
-      //    <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
-      //    <span>{placeholder}</span>
-      //  </div>
-      //)
       return (
         <div className="row row-vertical-center">
           <div className="col-md-2 padding-right-xs">
@@ -33,13 +27,6 @@ export default class IcoProfile extends React.Component {
     } else if (!link && !required) {
        return '';
     }
-
-    //return (
-    //  <a className="" target="_blank" href={link} rel="noopener noreferrer">
-    //    <span className="h4 fg-black margin-horizontal-xs"><i className={icon} aria-hidden="true"></i></span>
-    //    {linkName}
-    //  </a>
-    //)
 
     return (
       <div className="row row-vertical-center">
@@ -145,7 +132,7 @@ export default class IcoProfile extends React.Component {
 
               </div>
 
-              <div className="row row-vertical-center">
+              <div className="row">
 
                 { ico.bitcointalkLink ?
                   <div className="col-xs-4 col-md-3 padding-right-xs">
