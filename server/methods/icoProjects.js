@@ -163,28 +163,6 @@ export default function () {
 
       createInitialTestData({redeploy: true});
 
-    },
-    // temp method
-    'fix.icoDates'() {
-      IcoProjects.find({}).fetch().forEach((ico) => {
-        let changed;
-        if (ico.icoStartDatetime === "") {
-          console.log('is empty str: ', ico.icoStartDatetime, ' for Ico name:', ico.projectName);
-          ico.icoStartDatetime = null;
-          changed = true;
-        }
-
-        if (ico.icoEndDatetime === "") {
-          console.log('is empty str: ', ico.icoEndDatetime, ' for Ico name:', ico.projectName);
-          ico.icoEndDatetime = null;
-          changed = true;
-        }
-
-        if (changed) {
-          IcoProjects.update({ _id: ico._id }, { $set: { icoStartDatetime: ico.icoStartDatetime, icoEndDatetime: ico.icoEndDatetime }})
-        }
-      });
-
     }
   });
 }

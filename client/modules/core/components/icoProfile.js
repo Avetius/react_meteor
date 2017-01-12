@@ -6,13 +6,80 @@ import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 import AccountsMgmt from '/client/configs/accountsMgmt';
 
+
+const CoFounders = (props) => {
+
+  // put on every 5th place bootstrap clearboth class delimiter visible in md
+  const coFoundersWithDelimiters1 = props.coFounders.map((couFounder, index) => {
+    const pos = index + 1;
+    if (pos % 5 === 0) {
+      return { delimiter: 'md' };
+    } else {
+      return couFounder;
+    }
+  });
+
+  // put on every 2nd place of coFounder object bootstrap clearboth class delimiter visible in sm;
+  let pos2 = 0, coFoundersWithAllDelimiters2 = [];
+  coFoundersWithDelimiters1.forEach((obj) => {
+    if (obj.delimiter) {
+      coFoundersWithAllDelimiters2.push(obj);
+    } else {
+      pos2 ++;
+      if (pos2 % 2 === 0) {
+        coFoundersWithAllDelimiters2.push(obj);
+        coFoundersWithAllDelimiters2.push({ delimiter: 'sm' });
+      } else {
+        coFoundersWithAllDelimiters2.push(obj);
+      }
+    }
+  });
+
+  const makeCoFounderLink = ({ linkName, link, icon }) => {
+    return (
+      <a className="" target="_blank" href={link} rel="noopener noreferrer">
+        <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
+        {linkName}
+      </a>
+    )
+  };
+
+
+  const coFoundersColumns = coFoundersWithAllDelimiters2.map((coFounderOrDelimiter) => {
+
+    if (coFounderOrDelimiter.delimiter && coFounderOrDelimiter.delimiter === 'md' ) {
+      return (
+        <div key={Math.random().toString()} className="clearfix visible-md-block"></div>
+      );
+    } else if (coFounderOrDelimiter.delimiter && coFounderOrDelimiter.delimiter === 'sm') {
+      return (
+        <div key={Math.random().toString()} className="clearfix visible-sm-block"></div>
+      );
+    } else {
+      const coFounder = coFounderOrDelimiter;
+      return (
+        <div key={Math.random().toString()} className="col-xs-6 col-md-3">
+          <p> <img className="img-responsive" src={coFounder.photoUrl} /> </p>
+          <h4 className="display-inline-block margin-right-xs"> {coFounder.name} </h4>
+          { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
+          { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
+          <h5><strong>{coFounder.roleDescription}</strong></h5>
+          <p> {coFounder.personalBackground} </p>
+        </div>
+      )
+    }
+  });
+  return ( <div>{coFoundersColumns}</div> );
+};
+
+
 export default class IcoProfile extends React.Component {
 
   constructor (props) {
     super(props);
   }
 
-  makeLink ({linkName, link, icon, placeholder, required, container}) {
+  makeLink ({linkName, link, icon, placeholder, required}) {
     if (!link && required) {
       return (
         <div className="row row-vertical-center">
@@ -45,8 +112,8 @@ export default class IcoProfile extends React.Component {
   }
 
   render () {
-
     const ico = this.props.icoEntity;
+    ico.coFounders = ico.coFounders || [];
 
     return (
       <div className="panel panel-default">
@@ -252,20 +319,7 @@ export default class IcoProfile extends React.Component {
 
               <h3>Team</h3>
               <div className="row">
-
-                {ico.coFounders.map((coFounder)=> {
-                  return (
-                    <div key={Math.random().toString()} className="col-xs-6 col-md-3">
-                      <p> <img className="img-responsive" src={coFounder.photoUrl} /> </p>
-                      <h4 className="display-inline-block margin-right-xs"> {coFounder.name} </h4>
-                      {this.makeLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl })}
-                      {this.makeLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl })}
-                      <h5><strong>{coFounder.roleDescription}</strong></h5>
-                      <p> {coFounder.personalBackground} </p>
-                    </div>
-
-                  )
-                })}
+                {<CoFounders coFounders={ico.coFounders} />}
               </div>
               <hr />
               { /* <h4>Marketing & community</h4>*/}
