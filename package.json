@@ -42,7 +42,9 @@
     "react-datetime": "https://registry.npmjs.org/react-datetime/-/react-datetime-2.6.2.tgz",
     "react-dom": "^15.0.0",
     "react-dropzone-s3-uploader": "^0.8.1",
+    "react-markdown": "^2.4.2",
     "react-mounter": "^1.2.0",
+    "react-rte": "^0.11.0",
     "tcomb-form": "^0.9.10"
   },
   "private": true

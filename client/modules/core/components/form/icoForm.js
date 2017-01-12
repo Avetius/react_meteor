@@ -12,7 +12,7 @@ import { Modal, ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpi
 
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
-import {OneSentenceTextInput, MediumLengthDescriptionInput} from './limitedTextInput';
+import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput } from './limitedTextInput';
 
 const formLayout = (locals) => {
   return (
@@ -229,15 +229,15 @@ const renderOptions = {
       factory: OneSentenceTextInput
     },
     mediumLengthDescription: {
-      type: 'textarea',
       legend: 'Medium length description',
       config: {
         customAttrs: {
-          rows:5
+          rows:20
         },
         addonBefore: addonIcons.mediumLengthDescription
       },
       factory: MediumLengthDescriptionInput
+      //todo: factory: MarkDownEditor (find some)
     },
     icoStartDatetime: {
       legend: 'ICO Start Datetime',
@@ -282,10 +282,13 @@ const renderOptions = {
             }
           },
           personalBackground: {
-            type: 'textarea',
-            attrs: {
-              rows:3
-            }
+            config: {
+              customAttrs: {
+                rows:7
+              },
+            },
+            factory: PersonalBackgroundInput
+            //todo: factory: MarkDownEditor (find some)
           },
           photoUrl: {
             factory: CoFounderPhotoUploader
@@ -402,7 +405,7 @@ const renderOptions = {
       legend: 'ICO minimum threshold'
     },
     icoMaximumThreshold: {
-      legend: 'ICO minimum threshold'
+      legend: 'ICO maximum threshold'
     },
     icoThresholdCurrency: {
       legend: 'ICO threshold currency'

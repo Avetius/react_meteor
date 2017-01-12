@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import ReactMarkdown from 'react-markdown';
 
 import IcoShortItemMainRows from './icoShortItemMainRows';
 import Countdown from './dateTimeCountdown';
@@ -64,7 +65,7 @@ const CoFounders = (props) => {
           { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
           { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
           <h5><strong>{coFounder.roleDescription}</strong></h5>
-          <p> {coFounder.personalBackground} </p>
+          <div> <ReactMarkdown source={coFounder.personalBackground} /> </div>
         </div>
       )
     }
@@ -312,9 +313,9 @@ export default class IcoProfile extends React.Component {
               <hr />
 
               <h3>ICO overview</h3>
-              <p>
-                {ico.mediumLengthDescription}
-              </p>
+              <div>
+                <ReactMarkdown source={ico.mediumLengthDescription} />
+              </div>
               <hr />
 
               <h3>Team</h3>
