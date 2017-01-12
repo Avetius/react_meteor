@@ -1,9 +1,10 @@
 import React from 'react';
-import Papa from 'papaparse';
+// to enable this: meteor npm install --save papaparse
+// import Papa from 'papaparse';
 
 class csvImportUploader extends React.Component {
 
-  handleChange (event) {
+  /* handleChange (event) {
     console.log(event.target.files[0]);
 
     const removeCurrencySign = (strField) => {
@@ -69,7 +70,7 @@ class csvImportUploader extends React.Component {
       <input type="file" name="uploadCSV" onChange={this.handleChange.bind(this)} />
     );
   }
-
+  */
 }
 
 export default csvImportUploader;
