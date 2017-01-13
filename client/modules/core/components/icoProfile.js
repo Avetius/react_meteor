@@ -37,14 +37,18 @@ const CoFounders = (props) => {
   });
 
   const makeCoFounderLink = ({ linkName, link, icon }) => {
-    return (
-      <a className="" target="_blank" href={link} rel="noopener noreferrer">
-        <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
-        {linkName}
-      </a>
-    )
+    if (link) {
+      return (
+        <a className="" target="_blank" href={link} rel="noopener noreferrer">
+          <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
+          {linkName}
+        </a>
+      )
+    } else {
+      return '';
+    }
   };
-
+  console.log('coFoundersWithAllDelimiters2:', coFoundersWithAllDelimiters2);
 
   const coFoundersColumns = coFoundersWithAllDelimiters2.map((coFounderOrDelimiter) => {
 
@@ -60,8 +64,8 @@ const CoFounders = (props) => {
       const coFounder = coFounderOrDelimiter;
       return (
         <div key={Math.random().toString()} className="col-xs-6 col-md-3">
-          <p> <img className="img-responsive" src={coFounder.photoUrl} /> </p>
-          <h4 className="display-inline-block margin-right-xs"> {coFounder.name} </h4>
+          <p> <img className="img-responsive" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} /> </p>
+          <h4 className="display-inline-block margin-right-xs text-uppercase"> {coFounder.name} </h4>
           { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
           { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
           <h5><strong>{coFounder.roleDescription}</strong></h5>
@@ -70,6 +74,7 @@ const CoFounders = (props) => {
       )
     }
   });
+  console.log('coFoundersColumns', coFoundersColumns);
   return ( <div>{coFoundersColumns}</div> );
 };
 
@@ -312,7 +317,7 @@ export default class IcoProfile extends React.Component {
             <div className="col-md-12">
               <hr />
 
-              <h3>ICO overview</h3>
+              <h3>Project description</h3>
               <div>
                 <ReactMarkdown source={ico.mediumLengthDescription} />
               </div>
@@ -328,21 +333,34 @@ export default class IcoProfile extends React.Component {
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-md-12">
+          { AccountsMgmt.isAdmin() ? (
+            <div className="row">
+              <div className="col-md-12">
 
-              <h3>Admin section</h3>
+                <h3>Admin section</h3>
 
-              <button className="btn btn-primary margin-horizontal-xs" type="button"
-                      disabled={ico.entityState.state === 'published' ? true : ''} onClick={this.props.publishConcept.bind(this, ico._id)}>
-                Publish
-              </button>
-              <button className="btn btn-secondary margin-horizontal-xs" type="button"
-                      disabled={ico.entityState.state === 'concept' ? true : ''} onClick={this.props.unPublish.bind(this, ico._id)}>
-                UnPublish
-              </button>
-            </div>
-          </div>
+                <button className="btn btn-primary margin-horizontal-xs" type="button"
+                        disabled={ico.entityState.state === 'published' ? true : ''} onClick={this.props.publishConcept.bind(this, ico._id)}>
+                  Publish
+                </button>
+                <button className="btn btn-secondary margin-horizontal-xs" type="button"
+                        disabled={ico.entityState.state === 'concept' ? true : ''} onClick={this.props.unPublish.bind(this, ico._id)}>
+                  UnPublish
+                </button>
+
+
+                <div className="display-inline-block margin-all-md">
+                  <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
+                    <span className="h4">
+                      <i className="fa fa-pencil margin-right-sm" />
+                      Edit ICO
+                    </span>
+                  </a>
+                </div>
+
+              </div>
+            </div> ) : ''
+          }
 
         </div>
       </div>

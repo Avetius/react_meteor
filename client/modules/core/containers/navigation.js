@@ -5,8 +5,9 @@ import Navigation from '../components/navigation';
 export const composer = ({context, icoSlug}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
-  if (Meteor.userId() || LocalState.get('globalCounts')) {
-    onData( null, { globalCounts: LocalState.get('globalCounts'), userId: Meteor.userId() });
+  if (Meteor.userId() || LocalState.get('globalCounts') || FlowRouter.getRouteName()) {
+    onData( null, { globalCounts: LocalState.get('globalCounts'), userId: Meteor.userId(),
+      activeKey: FlowRouter.getRouteName() });
   }
 
 };

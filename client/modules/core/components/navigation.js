@@ -16,10 +16,6 @@ class Navigation extends React.Component {
     };
   }
 
-  handleSelect(selectedKey) {
-    this.setState({ activeKey: selectedKey });
-  }
-
   render () {
     let publishedCountStr, conceptsCountStr;
     if (!this.props.globalCounts) {
@@ -36,7 +32,7 @@ class Navigation extends React.Component {
       navigation =
         <Nav bsStyle="pills" justified
               className='nav-orange75 padding-vertical-sm padding-horizontal-sm content-elem-bg-color'
-              activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+              activeKey={this.props.activeKey}>
 
           <NavItem eventKey={'ico.home'} href="/">ICO index {publishedCountStr}</NavItem>
           <NavItem eventKey={'ico.favourites'} href="#">Favourites</NavItem>
@@ -47,7 +43,7 @@ class Navigation extends React.Component {
     } else {
       navigation =
         <Nav bsStyle="pills" justified className='nav-orange75 padding-vertical-sm padding-horizontal-sm content-elem-bg-color'
-            activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+            activeKey={this.props.activeKey}>
         <NavItem eventKey={'ico.home'} href="/">ICO index {publishedCountStr}</NavItem>
         <NavItem eventKey={'ico.favourites'} href="#">Favourites</NavItem>
       </Nav>;

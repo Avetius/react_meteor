@@ -2,6 +2,8 @@
 $body-background-color: #f6f9fc;
 $footer-background-color: #89949B;
 $content-elem-bg-color: #fff;
+
+$btn-extra-size-font-size: 22px;
 /* custom variables - end */
 
 
@@ -71,6 +73,10 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 .image-uploader-preview {
   position: absolute;
   max-height: 100%;
+}
+
+.btn-extra-size {
+  font-size: $btn-extra-size-font-size;
 }
 
 /* generateColors re-included

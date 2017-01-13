@@ -121,6 +121,9 @@ export default function () {
     'ico.importConcepts' (icoProjects) {
       check(icoProjects, Array);
 
+      // now disabled:
+      return;
+
       if (!this.userId) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
