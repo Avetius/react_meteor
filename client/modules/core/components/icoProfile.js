@@ -10,17 +10,19 @@ import AccountsMgmt from '/client/configs/accountsMgmt';
 
 const CoFounders = (props) => {
 
-  // put on every 5th place bootstrap clearboth class delimiter visible in md
-  const coFoundersWithDelimiters1 = props.coFounders.map((couFounder, index) => {
+  // insert after every 4th coFounder bootstrap clearboth class delimiter visible in md
+  const coFoundersWithDelimiters1 = [];
+    props.coFounders.forEach((couFounder, index) => {
     const pos = index + 1;
-    if (pos % 5 === 0) {
-      return { delimiter: 'md' };
+    if (pos % 4 === 0) {
+      coFoundersWithDelimiters1.push(couFounder);
+      coFoundersWithDelimiters1.push({ delimiter: 'md' });
     } else {
-      return couFounder;
+      coFoundersWithDelimiters1.push(couFounder);
     }
   });
 
-  // put on every 2nd place of coFounder object bootstrap clearboth class delimiter visible in sm;
+  // insert after every 2th coFounder object bootstrap clearboth class delimiter visible in sm;
   let pos2 = 0, coFoundersWithAllDelimiters2 = [];
   coFoundersWithDelimiters1.forEach((obj) => {
     if (obj.delimiter) {
@@ -48,7 +50,6 @@ const CoFounders = (props) => {
       return '';
     }
   };
-  console.log('coFoundersWithAllDelimiters2:', coFoundersWithAllDelimiters2);
 
   const coFoundersColumns = coFoundersWithAllDelimiters2.map((coFounderOrDelimiter) => {
 
@@ -74,7 +75,6 @@ const CoFounders = (props) => {
       )
     }
   });
-  console.log('coFoundersColumns', coFoundersColumns);
   return ( <div>{coFoundersColumns}</div> );
 };
 
