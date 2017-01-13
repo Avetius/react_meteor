@@ -20,7 +20,8 @@ export default function () {
       $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }] };
 
     if (!this.userId) {
-      options.fields = {...options.fields, entityState: 0};
+      // todo make some omits for admin data for non-admins?
+      //options.fields = {...options.fields};
     }
 
     return IcoProjects.find(selector, options);
