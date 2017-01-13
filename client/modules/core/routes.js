@@ -86,10 +86,11 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/:fallback', {
-    name: 'fallback',
-    action() {
+  FlowRouter.notFound = {
+    // Subscriptions registered here don't have Fast Render support.
+    subscriptions: () => {},
+    action: () => {
       FlowRouter.go('404');
     }
-  });
+  };
 }
