@@ -26,9 +26,11 @@ class Navigation extends React.Component {
              className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
              activeKey={this.props.view}>
           <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
+            <i className="fa fa-bars margin-right-sm" aria-hidden="true" />
             ICO index {publishedCountStr}
           </NavItem>
           <NavItem className="h4" eventKey={'ico.favourites'} href="#">
+            <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
             Favourites
           </NavItem>
           <NavItem className="h4" eventKey={'ico.concepts'} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
@@ -44,11 +46,16 @@ class Navigation extends React.Component {
     } else {
       navigation =
         <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
-            activeKey={this.props.view}>
-          <NavItem className="h4" eventKey={'ico.home'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
+           id="main-nav"
+           activeKey={this.props.view}>
+          <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
+            <i className="fa fa-bars margin-right-sm" aria-hidden="true" />
             ICO index {publishedCountStr}
           </NavItem>
-          <NavItem className="h4" eventKey={'ico.favourites'} href="#">Favourites</NavItem>
+          <NavItem className="h4" eventKey={'ico.favourites'} href="#">
+            <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
+            Favourites
+          </NavItem>
         </Nav>;
     }
 
@@ -57,7 +64,8 @@ class Navigation extends React.Component {
       const ongoingTitle = `Ongoing (${this.props.subNav.categoryCounts.ongoing})`;
       const upcomingTitle = `Upcoming (${this.props.subNav.categoryCounts.upcoming})`;
       const finishedTitle = `Finished (${this.props.subNav.categoryCounts.finished})`;
-      const scamOrSuspiciousTitle = `Scam or suspicious (${this.props.subNav.categoryCounts['scam-or-suspicious']})`;
+      const scamTitle = `Scam (${this.props.subNav.categoryCounts.scam})`;
+      const suspiciousTitle = `Suspicious (${this.props.subNav.categoryCounts.suspicious})`;
 
       subNavigation =
         <div className="row fg-tab-active-theme-darkblue">
@@ -66,20 +74,25 @@ class Navigation extends React.Component {
                  className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
                  activeKey={this.props.subNav.subView}>
               <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
+                <i className="fa fa-arrow-right margin-right-sm" aria-hidden="true" />
                 <strong>{ongoingTitle}</strong>
               </NavItem>
               <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
+                <i className="fa fa-arrow-up margin-right-sm" aria-hidden="true" />
                 <strong>{upcomingTitle}</strong>
               </NavItem>
               <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
+                <i className="fa fa-arrow-down margin-right-sm" aria-hidden="true" />
                 <strong>{finishedTitle}</strong>
               </NavItem>
-              <NavItem className="pull-right" eventKey={'scam-or-suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam-or-suspicious' })}>
-                <em>{scamOrSuspiciousTitle}</em>
+              <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>
+                <i className="fa fa-exclamation-triangle margin-right-sm" aria-hidden="true" />
+                <em>{scamTitle}</em>
               </NavItem>
-              { /*<NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.view, { subView: 'suspicious' })}>
-               <em>Suspicious</em>
-               </NavItem> */ }
+              <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'suspicious' })}>
+                <i className="fa fa-question-circle margin-right-sm" aria-hidden="true" />
+                <em>{suspiciousTitle}</em>
+              </NavItem>
             </Nav>
           </div>
         </div>

@@ -319,7 +319,7 @@ export default class IcoProfile extends React.Component {
 
               <h3>Project description</h3>
               <div>
-                <ReactMarkdown source={ico.mediumLengthDescription} />
+                <ReactMarkdown source={ico.mediumLengthDescription || ''} />
               </div>
               <hr />
 

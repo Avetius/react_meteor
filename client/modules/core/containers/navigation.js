@@ -49,7 +49,8 @@ export const composer = ({context}, onData) => {
           ongoing: categoryCountsObj[icoEntityState].ongoing,
           upcoming: categoryCountsObj[icoEntityState].upcoming,
           finished: categoryCountsObj[icoEntityState].finished,
-          'scam-or-suspicious': categoryCountsObj[icoEntityState]['scam-or-suspicious']
+          scam: categoryCountsObj[icoEntityState].scam,
+          suspicious: categoryCountsObj[icoEntityState].suspicious
         };
       }
 
