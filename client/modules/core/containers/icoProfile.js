@@ -3,12 +3,13 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 import IcoProfile from '../components/icoProfile';
 
 export const composer = ({context, icoSlug}, onData) => {
-  const {Meteor, Collections} = context();
+  const {Meteor, Collections, LocalState} = context();
 
   // todo implement real slug
   const icoId = icoSlug;
 
   if (Meteor.subscribe('ico.single', icoId).ready()) {
+    LocalState.set({'ico.single-sub-ready': true});
     const icoEntity = Collections.IcoProjects.findOne(icoId);
     if (icoEntity) {
       onData(null, {icoEntity});

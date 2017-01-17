@@ -20,17 +20,42 @@ export default function (inject, context, actions) {
     name: 'ico.home',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList mode="published"  />),
+        content: () => (<IcoFrontList entityStateQuery="published"  />),
         context: () => context
       });
     }
   });
 
-  FlowRouter.route('/admin/concepts', {
-    name: 'ico.concepts',
-    action() {
+  /**
+   * :subView is ongoing | upcoming | finished | suspicious | scam
+   * :category is like fintech | healthcare | media
+   * next parameters will be queries
+   */
+  FlowRouter.route('/index/:subView', {
+    name: 'ico.index',
+    action({subView}) {
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList mode="concepts" />),
+        content: () => (<IcoFrontList entityStateQuery="published" subView={subView} />),
+        context: () => context
+      });
+    }
+  });
+
+  FlowRouter.route('/favourites/:subView', {
+    name: 'ico.favourites',
+    action({subView}) {
+      mount(MainLayoutCtx, {
+        content: () => (<IcoFrontList entityStateQuery="published" subView={subView} />),
+        context: () => context
+      });
+    }
+  });
+
+  FlowRouter.route('/admin/concepts/:subView', {
+    name: 'ico.concepts',
+    action({subView}) {
+      mount(MainLayoutCtx, {
+        content: () => (<IcoFrontList entityStateQuery="concept" subView={subView} />),
         context: () => context
       });
     }

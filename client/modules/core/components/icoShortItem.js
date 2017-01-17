@@ -39,11 +39,11 @@ export default class IcoFrontItem extends React.Component {
               </div>
 
               <div className="col-xs-12 col-md-2">
-                <a className="btn btn-darkblue" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">Details</a>
+                <a className="btn btn-theme-darkblue" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">Details</a>
               </div>
               { IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico) ?
                 <div className="col-xs-12 col-md-3">
-                  <a className="btn btn-warning" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
+                  <a className="btn btn-theme-orange" target="_blank" href={this.props.icoEntity.icoWebsiteLink}
                      rel="noopener noreferrer" disabled={!this.props.icoEntity.icoWebsiteLink}>Participate in ICO</a>
                 </div>
                 : ''

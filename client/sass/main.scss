@@ -1,8 +1,9 @@
+/* we use and change variables as we need */
 @import "variables";
+
+/* other rubix theme imports */
 @import "../../node_modules/@sketchpixy/rubix/sass/rubix";
 @import "../../node_modules/@sketchpixy/rubix/sass/vendor";
-// doesn't work here:
-//@import "colors";
 @import "theme";
 
 /* fonts */
@@ -26,4 +27,5 @@
 @import "pages/home";
 
 /* project custom styles */
+@import "./colors";
 @import "custom";

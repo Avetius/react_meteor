@@ -10,7 +10,7 @@ const Layout = ({content = () => null, context}) => {
   return (
     <div className="">
 
-      <header>
+      <header className="bg-theme-darkblue fg-white border-brightblue border-bottom-1-solid">
         <Grid className="">
           <Row className="margin-vertical-lg">
             <Col sm={6} md={4}>
@@ -21,11 +21,11 @@ const Layout = ({content = () => null, context}) => {
             </Col>
           </Row>
 
-          <Row className="">
-            <Col sm={12} md={10} mdPush={1}>
+          <div className="row">
+            <div className="col-xs-12 col-md-10 col-md-push-1">
               <Navigation/>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Grid>
       </header>
 

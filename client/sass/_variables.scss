@@ -1,4 +1,13 @@
-$img-path: '/imgs/common';
+/* default rubix colors which was hardcoded in _colors.scss.
+   By declare it here, we can use it also in this file.
+*/
+$white: #fff;
+$brightblue: #003BFF;
+
+
+/* basic rubix scss variables for change & use */
+
+$img-path: '/';
 $bootstrap-sass-asset-helper: true;
 $icon-font-path: '/fonts/glyphicon/'; // only for glyphicon
 $grid-gutter-width: 50px;
@@ -64,14 +73,29 @@ $btn-danger-color: $brand-danger;
 $dropdown-link-color: rgb(137, 148, 155);
 $dropdown-link-hover-bg: rgba(180, 183, 185, 0.05);
 
-$link-color: #2EB398;
+$link-color: #4A90E2;
 $link-hover-color: #2e6b5e;
 $link-hover-decoration: none;
 
-$nav-link-color: #aaa;
+$nav-link-color: $white;
+$nav-tabs-border-color: $brightblue;
 $nav-disabled-link-color: #777777;
-$nav-link-hover-bg: #f5f5f5;
-$nav-tabs-link-hover-border-color: #f5f5f5;
+$nav-link-hover-bg: transparent;
+$nav-tabs-link-hover-border-color: transparent;
 
 $navbar-default-bg: #fff;
 $breadcrumb-bg: #fff;
+
+
+/* next custom variables */
+$body-background-color: #f6f9fc;
+$footer-background-color: #89949B;
+$content-elem-bg-color: #fff;
+$main-theme-green: #1C8B71;
+$main-theme-darkblue: #4A90E2;
+
+$main-theme-pinkorange: #e45f56;
+// used for hover state on button
+$main-theme-pinkorange2: #eb8982;
+
+$btn-extra-size-font-size: 22px;

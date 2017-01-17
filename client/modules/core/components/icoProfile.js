@@ -70,7 +70,7 @@ const CoFounders = (props) => {
           { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
           { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
           <h5><strong>{coFounder.roleDescription}</strong></h5>
-          <div> <ReactMarkdown source={coFounder.personalBackground} /> </div>
+          <div> <ReactMarkdown source={coFounder.personalBackground || ''} /> </div>
         </div>
       )
     }
@@ -339,7 +339,7 @@ export default class IcoProfile extends React.Component {
 
                 <h3>Admin section</h3>
 
-                <button className="btn btn-primary margin-horizontal-xs" type="button"
+                <button className="btn btn-theme-orange margin-horizontal-xs" type="button"
                         disabled={ico.entityState.state === 'published' ? true : ''} onClick={this.props.publishConcept.bind(this, ico._id)}>
                   Publish
                 </button>

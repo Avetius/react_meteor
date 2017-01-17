@@ -198,7 +198,7 @@ export default class IcoShortItemMainRows extends React.Component {
 
           { this.props.isProfile && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
             <div className="col-xs-12 col-md-3 tmp-relative-top-minus-5px">
-              <a className="btn btn-warning" target="_blank" href={ico.icoWebsiteLink}
+              <a className="btn btn-theme-orange" target="_blank" href={ico.icoWebsiteLink}
                  rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
             </div>
            : ''

@@ -1,55 +1,27 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 
+import IcoStatus from '/lib/icoStatus';
 import IcoFrontList from '../components/icoFrontList';
 
-export const composer = ({context, mode}, onData) => {
+export const composer = ({context, entityStateQuery, subView}, onData) => {
   const {Meteor, Collections, LocalState} = context();
-  let selector;
 
-  if (mode === 'concepts') {
-    selector = { 'entityState.state': 'concept' };
-  } else {
-    selector = { 'entityState.state': 'published' };
-  }
-
+  const selector = { 'entityState.state': entityStateQuery };
   const icoListSub = Meteor.subscribe('ico.list', 120);
-  const categoryCountsSub = Meteor.subscribe('ico.category-counts');
 
   // without passing empty data we will show loading component automatically until subscription is ready
   if (icoListSub.ready()) {
-    const icoEntities = Collections.IcoProjects.find(selector).fetch();
-    if (icoEntities) {
-      LocalState.set({icoEntities: icoEntities});
-    } else {
-      // todo move error message to i18n
-      onData(null, {error: true, errorMessage: 'ico.list publication likely didn\'t provide any data.'});
-    }
-  }
-
-  if (categoryCountsSub.ready()) {
-    const categoryCounts = Collections.Counts.findOne({_id: 'categories'});
-    if (categoryCounts) {
-      LocalState.set({ categoryCounts: categoryCounts });
-    } else {
-      // todo move error message to i18n
-      onData(null, {error: true, errorMessage: 'ico.category-counts publication likely didn\'t provide any data.'});
-    }
-  }
-
-  if (icoListSub.ready() && categoryCountsSub.ready()) {
+    let icoEntities = Collections.IcoProjects.find(selector).fetch();
+    icoEntities = IcoStatus.filter(icoEntities, subView);
     onData(null, {
-      icoEntities: LocalState.get('icoEntities'),
-      // subscribed in globalSubscriptions
-      globalCounts: LocalState.get('globalCounts'),
-      categoryCounts: LocalState.get('categoryCounts'),
-      mode: mode
+      icoEntities: icoEntities
     });
   }
 };
 
 export const depsMapper = (context, actions) => ({
-  // todo implement actions.icoProject.watch,
-  //toWatch: actions.icoProject.addToWatchList,
+  // todo implement actions.icoProject.addToWatchList,
+  //addToWatchList: actions.icoProject.addToWatchList,
   context: () => context
 });
 

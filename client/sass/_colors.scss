@@ -1,3 +1,5 @@
+@import "variables";
+
 @include generateColors("primary", $brand-primary, white);
 @include generateColors("success", $brand-success, white);
 @include generateColors("info", $brand-info, white);
@@ -9,7 +11,7 @@
 @include generateColors("deepred", #D71F4B, white);
 @include generateColors("red", #EA7882, white);
 @include generateColors("lightred", #F09FA6, white);
-@include generateColors("brightblue", #003BFF, white);
+@include generateColors("brightblue", $brightblue, white);
 @include generateColors("darkblue", #4A90E2, white);
 @include generateColors("blue", #79B0EC, white);
 @include generateColors("lightblue50", #D2E0EB, white);
@@ -74,3 +76,13 @@
 @include generateColors("desaturateddarkblue75", #3B465C, white);
 @include generateColors("darkcyan", #68A0A5, white);
 @include generateColors("grayishcyan", #92BDC1, white);
+
+
+/* our custom colors: */
+
+/* we should choose green or darkblue */
+@include generateColors("theme-green", $main-theme-green, white);
+@include generateColors("theme-darkblue", $main-theme-darkblue, white);
+
+/*secondary theme color*/
+@include generateColors("theme-orange", $main-theme-pinkorange, white);

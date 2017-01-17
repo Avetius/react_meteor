@@ -7,7 +7,7 @@ export default ({ LocalState }) => {
 
     if (Meteor.subscribe('ico.global-counts').ready()) {
       const globalCounts = {
-        concepts: Counter.get('concepts-prod'),
+        concept: Counter.get('concepts-prod'),
         published: Counter.get('published-prod')
       };
 
