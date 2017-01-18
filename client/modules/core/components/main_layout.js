@@ -14,7 +14,7 @@ const Layout = ({content = () => null, context}) => {
         <Grid className="">
           <Row className="margin-vertical-lg">
             <Col sm={6} md={4}>
-              <img className="img-responsive" src="/logo1_min.png" />
+              <img className="img-responsive" src="/ICOindex.com-white.png" />
             </Col>
             <Col sm={6} md={3} mdPush={5}>
               <Accounts.ui.LoginForm />

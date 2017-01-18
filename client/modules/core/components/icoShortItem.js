@@ -16,7 +16,7 @@ export default class IcoFrontItem extends React.Component {
         <div className="row row-vertical-center">
           <div className="col-xs-12 col-md-2 padding-right-xs">
             <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">
-              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo1_min.png'} />
+              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo.svg'} />
             </a>
           </div>
           <div className="col-xs-12 col-md-10 padding-left-sm">

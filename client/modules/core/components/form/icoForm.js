@@ -134,6 +134,8 @@ const formLayout = (locals) => {
 
       {locals.inputs.ratingScore}
 
+      {locals.inputs.ratingExplanation}
+
     </div>
   );
 };
@@ -450,6 +452,9 @@ const renderOptions = {
     // assessment section
     ratingScore: {
       legend: 'Rating Score'
+    },
+    ratingExplanation: {
+      legend: 'Rating Explanation'
     }
   }
 };

@@ -26,7 +26,8 @@ export const composer = ({context}, onData) => {
     let subNav;
     const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts'];
     if (_.includes(allowedRouteNames, routeName)) {
-      let subView = FlowRouter.getParam('subView');
+      // if ico.home routename is active then ongoing tab is default subView
+      let subView = FlowRouter.getParam('subView') || 'ongoing';
 
       // for this route we want to highlight nav items which belongs to view/subview of current shown ICO
       if (routeName === 'ico.profile' && LocalState.get('ico.single-sub-ready')) {

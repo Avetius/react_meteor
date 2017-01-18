@@ -26,7 +26,7 @@ class Navigation extends React.Component {
              className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
              activeKey={this.props.view}>
           <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
-            <i className="fa fa-bars margin-right-sm" aria-hidden="true" />
+            <i className="fa fa-list margin-right-sm" aria-hidden="true" />
             ICO index {publishedCountStr}
           </NavItem>
           <NavItem className="h4" eventKey={'ico.favourites'} href="#">
@@ -74,7 +74,7 @@ class Navigation extends React.Component {
                  className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
                  activeKey={this.props.subNav.subView}>
               <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
-                <i className="fa fa-arrow-right margin-right-sm" aria-hidden="true" />
+                <i className="fa fa-clock-o margin-right-sm" aria-hidden="true" />
                 <strong>{ongoingTitle}</strong>
               </NavItem>
               <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
@@ -82,7 +82,7 @@ class Navigation extends React.Component {
                 <strong>{upcomingTitle}</strong>
               </NavItem>
               <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
-                <i className="fa fa-arrow-down margin-right-sm" aria-hidden="true" />
+                <i className="fa fa-check-square-o margin-right-sm" aria-hidden="true" />
                 <strong>{finishedTitle}</strong>
               </NavItem>
               <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>

@@ -20,7 +20,7 @@ export default function (inject, context, actions) {
     name: 'ico.home',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList entityStateQuery="published"  />),
+        content: () => (<IcoFrontList entityStateQuery="published" subView='ongoing' />),
         context: () => context
       });
     }

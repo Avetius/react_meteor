@@ -127,13 +127,7 @@ export default class IcoProfile extends React.Component {
         <div className="row">
           <div className="col-md-12">
             <h4>Why is this project scam?</h4>
-            <p>
-              <em>
-                Why is this project scam. Why is this project scam. Why is this project scam.
-                Why is this project scam. Why is this project scam. Why is this project scam.
-                Why is this project scam.
-              </em>
-            </p>
+              <ReactMarkdown source={ico.ratingExplanation || ''} />
           </div>
         </div>
     }
@@ -142,13 +136,7 @@ export default class IcoProfile extends React.Component {
         <div className="row">
           <div className="col-md-12">
             <h4>Why is this project suspicious?</h4>
-            <p>
-              <em>
-                Why is this project suspicious. Why is this project suspicious. Why is this project suspicious.
-                Why is this project suspicious. Why is this project suspicious. Why is this project suspicious.
-                Why is this project suspicious.
-              </em>
-            </p>
+              <ReactMarkdown source={ico.ratingExplanation || ''} />
           </div>
         </div>
     }
@@ -160,7 +148,7 @@ export default class IcoProfile extends React.Component {
           <div className="row row-vertical-center">
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
-              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo1_min.png'} />
+              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo.svg'} />
               { AccountsMgmt.isAdmin() ? (
                 <div className="margin-vertical-md">
                   <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
