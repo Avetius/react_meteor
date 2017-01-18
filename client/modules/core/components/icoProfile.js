@@ -121,6 +121,38 @@ export default class IcoProfile extends React.Component {
     const ico = this.props.icoEntity;
     ico.coFounders = ico.coFounders || [];
 
+    let note;
+    if (ico.ratingScore === 'scam') {
+      note =
+        <div className="row">
+          <div className="col-md-12">
+            <h4>Why is this project scam?</h4>
+            <p>
+              <em>
+                Why is this project scam. Why is this project scam. Why is this project scam.
+                Why is this project scam. Why is this project scam. Why is this project scam.
+                Why is this project scam.
+              </em>
+            </p>
+          </div>
+        </div>
+    }
+    if (ico.ratingScore === 'suspicious') {
+      note =
+        <div className="row">
+          <div className="col-md-12">
+            <h4>Why is this project suspicious?</h4>
+            <p>
+              <em>
+                Why is this project suspicious. Why is this project suspicious. Why is this project suspicious.
+                Why is this project suspicious. Why is this project suspicious. Why is this project suspicious.
+                Why is this project suspicious.
+              </em>
+            </p>
+          </div>
+        </div>
+    }
+
     return (
       <div className="panel panel-default">
         <div className="panel-body padding-all-sm">
@@ -316,6 +348,8 @@ export default class IcoProfile extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <hr />
+
+              { note }
 
               <h3>Project description</h3>
               <div>
