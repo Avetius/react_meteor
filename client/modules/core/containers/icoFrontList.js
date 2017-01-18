@@ -15,16 +15,42 @@ export const composer = ({context, entityStateQuery, subView}, onData) => {
     let icoEntities = Collections.IcoProjects.find(selector).fetch();
     icoEntities = IcoStatus.filter(icoEntities, subView);
 
-    //icoEntities = icoEntities.sort((a,b) => {
-    //  // negative number = a first, positive number = b first, 0 means unchanged
-    //
-    //  if (_.includes(['ongoing', 'finished', 'scam', 'suspicious'], subView)) {
-    //    return new Date(b.icoEndDatetime) - new Date(a.icoEndDatetime);
-    //  } else if (subView === 'upcoming') {
-    //    return new Date(a.icoStartDatetime) - new Date(b.icoStartDatetime);
-    //  }
-    //
-    //});
+
+    icoEntities = icoEntities.sort((a,b) => {
+      /**
+       * Negative number = a first, positive number = b first, 0 means unchanged;
+       *
+       * In other words date 'a' on the right side means - dates later in time go first,
+       * date 'a' on left means dates sooner go first.
+       *
+       */
+
+      if (_.includes(['scam', 'suspicious'], subView)) {
+        return b.createdAt - a.createdAt;
+      } else if (subView === 'ongoing') {
+        return a.icoEndDatetime - b.icoEndDatetime;
+      } else if (subView === 'finished') {
+        return b.icoEndDatetime - a.icoEndDatetime;
+
+      } else if (subView === 'upcoming') {
+        // if dates missing show it at last
+
+        if (!a.icoStartDatetime && !a.icoEndDatetime) {
+          return 1;
+        }
+        if (!b.icoStartDatetime && !b.icoEndDatetime) {
+          return -1;
+        }
+        if (!a.icoStartDatetime) {
+          return 1;
+        }
+        if (!b.icoStartDatetime) {
+          return -1;
+        }
+        return a.icoStartDatetime - b.icoStartDatetime;
+      }
+
+    });
 
     onData(null, {
       icoEntities: icoEntities,
