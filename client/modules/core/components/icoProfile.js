@@ -67,8 +67,11 @@ const CoFounders = (props) => {
         <div key={Math.random().toString()} className="col-xs-6 col-md-3">
           <p> <img className="img-responsive" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} /> </p>
           <h4 className="display-inline-block margin-right-xs text-uppercase"> {coFounder.name} </h4>
-          { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
           { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
+          { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
+          { makeCoFounderLink({ icon: 'fa fa-facebook-official', linkName: '', link: coFounder.facebookProfileUrl }) }
+          { makeCoFounderLink({ icon: 'fa fa-github', linkName: '', link: coFounder.githubProfileUrl }) }
+
           <h5><strong>{coFounder.roleDescription}</strong></h5>
           <div> <ReactMarkdown source={coFounder.personalBackground || ''} /> </div>
         </div>

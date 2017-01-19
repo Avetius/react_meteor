@@ -1,18 +1,18 @@
 import React from 'react';
 import t from 'tcomb-form';
-import _ from 'lodash';
 const Form = t.form.Form;
-import S3FileUploader from './s3fileUploader';
-import { IcoType } from '/lib/icoProject';
 
-import CsvImportUploader from './csvImportUploader';
-
+import _ from 'lodash';
 // Rubix theme
 import { Modal, ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
 
+import S3FileUploader from './s3fileUploader';
+import { IcoType } from '/lib/icoProject';
+import CsvImportUploader from './csvImportUploader';
+
 import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
 import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
-import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput } from './limitedTextInput';
+import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput, RatingExplanationInput } from './limitedTextInput';
 
 const formLayout = (locals) => {
   return (
@@ -39,6 +39,8 @@ const formLayout = (locals) => {
       {locals.inputs.projectStatus}
 
       {locals.inputs.oneSentenceExplanation}
+
+      {locals.inputs.ratingExplanation}
 
       {locals.inputs.mediumLengthDescription}
 
@@ -133,8 +135,6 @@ const formLayout = (locals) => {
       <h4>Assessment section</h4>
 
       {locals.inputs.ratingScore}
-
-      {locals.inputs.ratingExplanation}
 
     </div>
   );
@@ -294,7 +294,11 @@ const renderOptions = {
           },
           photoUrl: {
             factory: CoFounderPhotoUploader
-          }
+          },
+          linkedInProfileUrl: {},
+          twitterProfileUrl: {},
+          facebookProfileUrl: {},
+          githubProfileUrl: {}
         }
       }
     },
@@ -454,7 +458,13 @@ const renderOptions = {
       legend: 'Rating Score'
     },
     ratingExplanation: {
-      legend: 'Rating Explanation'
+      legend: 'Rating Explanation',
+      config: {
+        customAttrs: {
+          rows:7
+        },
+      },
+      factory: RatingExplanationInput
     }
   }
 };

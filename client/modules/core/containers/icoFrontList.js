@@ -41,12 +41,6 @@ export const composer = ({context, entityStateQuery, subView}, onData) => {
         if (!b.icoStartDatetime && !b.icoEndDatetime) {
           return -1;
         }
-        if (!a.icoStartDatetime) {
-          return 1;
-        }
-        if (!b.icoStartDatetime) {
-          return -1;
-        }
         return a.icoStartDatetime - b.icoStartDatetime;
       }
 

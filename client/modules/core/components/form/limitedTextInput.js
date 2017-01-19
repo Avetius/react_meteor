@@ -109,3 +109,10 @@ export class PersonalBackgroundInput extends LimitedTextInput {
     this.customProps = { limit: PersonalBackground.limit, type: 'textarea', markdownPreview: true };
   }
 }
+
+export class RatingExplanationInput extends LimitedTextInput {
+  constructor (props) {
+    super(props);
+    this.customProps = { limit: MediumLengthDescription.limit, type: 'textarea', markdownPreview: true };
+  }
+}
