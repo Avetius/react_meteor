@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
-import AccountsMgmt from '/client/configs/accountsMgmt';
+import AccountsMgmt from '/lib/accountsMgmt';
 import IcoShortItemMainRows from './icoShortItemMainRows';
 import IcoStatus from '/lib/icoStatus';
 

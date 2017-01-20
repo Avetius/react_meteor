@@ -2,7 +2,7 @@ import React from 'react';
 // Rubix theme
 import { Tab, Row, Col, Nav, NavItem } from '@sketchpixy/rubix';
 import {Meteor} from 'meteor/meteor';
-import AccountsMgmt from '/client/configs/accountsMgmt';
+import AccountsMgmt from '/lib/accountsMgmt';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
 class Navigation extends React.Component {

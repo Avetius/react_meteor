@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import IcoShortItemMainRows from './icoShortItemMainRows';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
-import AccountsMgmt from '/client/configs/accountsMgmt';
+import AccountsMgmt from '/lib/accountsMgmt';
 
 
 const CoFounders = (props) => {
