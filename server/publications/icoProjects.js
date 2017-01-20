@@ -1,11 +1,14 @@
 import {IcoProjects, Counts} from '/lib/collections';
 import {Meteor} from 'meteor/meteor';
-import {check} from 'meteor/check';
+import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
+import AccountsMgmt from '/lib/accountsMgmt';
 
 export default function () {
-  Meteor.publish('ico.list', function (limit) {
+  Meteor.publish('ico.list', function (userId, limit) {
     check(limit, Number);
+    // userId is mock for signaling that user proceeded auth on client
+    check(userId, Match.Any);
 
     let options = {
       sort: { createdAt: -1 },
@@ -16,12 +19,18 @@ export default function () {
       }
     };
 
-    let selector = { 'meta.dataStatus':'production',
-      $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }] };
-
-    if (!this.userId) {
+    let selector;
+    let user;
+    if (this.userId) {
+      user = Meteor.users.findOne({_id: this.userId});
+    }
+    if (this.userId && user && AccountsMgmt.isAdmin(this.userId, user)) {
+      selector = { 'meta.dataStatus':'production',
+        $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }] };
+    } else {
       // todo make some omits for admin data for non-admins?
       //options.fields = {...options.fields};
+      selector = { 'meta.dataStatus':'production', 'entityState.state': 'published' };
     }
 
     return IcoProjects.find(selector, options);

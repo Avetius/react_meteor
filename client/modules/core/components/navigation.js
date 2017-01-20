@@ -19,7 +19,7 @@ class Navigation extends React.Component {
     }
 
     let navigation;
-    if (AccountsMgmt.isAdmin()) {
+    if (AccountsMgmt.isCurrentUserAdmin()) {
       navigation =
         <Nav bsStyle="pills"
              id="main-nav"

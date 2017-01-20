@@ -28,7 +28,7 @@ export default class IcoFrontItem extends React.Component {
             <div className="row row-vertical-center">
 
               <div className="col-xs-12 col-md-3 col-md-offset-4 padding-top-sm">
-                { AccountsMgmt.isAdmin() ? (
+                { AccountsMgmt.isCurrentUserAdmin() ? (
                   <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
                     <span className="h4">
                       <i className="fa fa-pencil margin-right-sm" />

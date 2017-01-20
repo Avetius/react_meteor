@@ -8,7 +8,7 @@ export const composer = ({context, entityStateQuery, subView}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
   const selector = { 'entityState.state': entityStateQuery };
-  const icoListSub = Meteor.subscribe('ico.list', 140);
+  const icoListSub = Meteor.subscribe('ico.list', Meteor.userId(), 140);
 
   // without passing empty data we will show loading component automatically until subscription is ready
   if (icoListSub.ready()) {

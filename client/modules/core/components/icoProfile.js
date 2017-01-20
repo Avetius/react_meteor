@@ -152,7 +152,7 @@ export default class IcoProfile extends React.Component {
 
             <div className="col-xs-12 col-md-2 padding-right-xs">
               <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo.svg'} />
-              { AccountsMgmt.isAdmin() ? (
+              { AccountsMgmt.isCurrentUserAdmin() ? (
                 <div className="margin-vertical-md">
                   <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
                     <span className="h4">
@@ -358,7 +358,7 @@ export default class IcoProfile extends React.Component {
             </div>
           </div>
 
-          { AccountsMgmt.isAdmin() ? (
+          { AccountsMgmt.isCurrentUserAdmin() ? (
             <div className="row">
               <div className="col-md-12">
 
