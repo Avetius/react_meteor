@@ -6,9 +6,9 @@ import AccountsMgmt from '/lib/accountsMgmt';
 
 export default function () {
   Meteor.publish('ico.list', function (userId, limit) {
-    check(limit, Number);
     // userId is mock for signaling that user proceeded auth on client
     check(userId, Match.Any);
+    check(limit, Number);
 
     let options = {
       sort: { createdAt: -1 },

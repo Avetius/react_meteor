@@ -13,4 +13,24 @@ export default () => {
     update() { return true; },
     remove() { return true; }
   });
+
+  /**
+   * Lets rewrite url of meteor assets (JS, CSS) to using CDN.
+   * See http://joshowens.me/using-a-cdn-with-your-production-meteor-app/
+   * or different implementation in https://github.com/Nitrolabs/meteor-cdn
+   *
+   */
+  Meteor.startup(function() {
+
+    WebAppInternals.setBundledJsCssUrlRewriteHook((asset) => {
+      console.log('setBundledJsCssUrlRewriteHook hook has run:', asset);
+    });
+
+    console.log('cdnPrefix:', Meteor.settings.cdnPrefix);
+    if (Meteor.settings.cdnPrefix) {
+      WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
+    }
+
+
+  });
 }
