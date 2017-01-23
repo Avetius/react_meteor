@@ -26,6 +26,11 @@ export default () => {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
       BrowserPolicy.content.allowOriginForAll(Meteor.settings.cdnPrefix);
     }
+    BrowserPolicy.content.allowOriginForAll('http://premvp.icoindex.com');
+    BrowserPolicy.content.allowImageOrigin('*');
+    //BrowserPolicy.content.allowSameOriginForAll()
+    // todo allow only one host
+    //BrowserPolicy.content.allowFontOrigin('*');
 
   });
 }
