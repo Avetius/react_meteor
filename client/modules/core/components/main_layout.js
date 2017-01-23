@@ -1,4 +1,6 @@
 import React from 'react';
+import {FlowRouter} from 'meteor/kadira:flow-router';
+
 import Navigation from '../containers/navigation';
 import * as Rb from 'react-bootstrap';
 import {Accounts} from 'meteor/std:accounts-ui';
@@ -11,22 +13,9 @@ const Layout = ({content = () => null, context}) => {
     <div className="">
 
       <header className="bg-theme-darkblue fg-white border-brightblue border-bottom-1-solid">
-        <Grid className="">
-          <Row className="margin-vertical-lg">
-            <Col sm={6} md={4}>
-              <img className="img-responsive" src="/ICOindex.com-white.png" />
-            </Col>
-            <Col sm={6} md={3} mdPush={5}>
-              <Accounts.ui.LoginForm />
-            </Col>
-          </Row>
-
-          <div className="row">
-            <div className="col-xs-12 col-md-10 col-md-push-1">
+        <div className="container-fluid">
               <Navigation/>
-            </div>
-          </div>
-        </Grid>
+        </div>
       </header>
 
       <div className="container-fluid min-height-51rem margin-vertical-md">
@@ -38,13 +27,22 @@ const Layout = ({content = () => null, context}) => {
       </div>
 
       <footer>
-        <Grid className="">
-          <Row className="">
-            <Col sm={12} md={10} mdPush={1}>
-              <small>Footer placeholder.</small>
-            </Col>
-          </Row>
-        </Grid>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xs-12 col-md-10 col-md-push-1">
+
+              <div className="row">
+                <div className="col-xs-12 col-md-5">
+                  IcoIndex.com
+                </div>
+                <div className="col-xs-12 col-md-5">
+                  <a className="hidden-link" href={FlowRouter.path('login')}>Login</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </footer>
 
     </div>

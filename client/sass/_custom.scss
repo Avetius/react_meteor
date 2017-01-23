@@ -1,13 +1,6 @@
 @import "./variables";
 
 
-//.header-background {
-//  background-color: $main-theme-green;
-//}
-//.header-background2 {
-//  background-color: $main-theme-darkblue;
-//}
-
 /* helper classes */
 .cursor-pointer {
   cursor: pointer;
@@ -91,4 +84,19 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 /* main navigation component */
 #main-nav li.active {
   font-weight: bold;
+}
+
+.hidden-link, .hidden-link:hover, .hidden-link:active {
+  color: $hidden-link-color;
+  cursor: text;
+}
+
+.main-fixed-nav-panel {
+  position: fixed;
+  top: 0;
+  z-index: 65300;
+}
+
+.main-fixed-nav-panel-placeholder {
+  height: 6.5rem;
 }

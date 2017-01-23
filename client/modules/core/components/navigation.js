@@ -18,9 +18,9 @@ class Navigation extends React.Component {
       conceptsCountStr = (!publishedCount && publishedCount !== 0) ? '' :` (${conceptsCount})`;
     }
 
-    let navigation;
+    let mainNavigation;
     if (AccountsMgmt.isCurrentUserAdmin()) {
-      navigation =
+      mainNavigation =
         <Nav bsStyle="pills"
              id="main-nav"
              className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
@@ -44,7 +44,7 @@ class Navigation extends React.Component {
           </NavItem>
         </Nav>
     } else {
-      navigation =
+      mainNavigation =
         <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
            id="main-nav"
            activeKey={this.props.view}>
@@ -59,7 +59,27 @@ class Navigation extends React.Component {
         </Nav>;
     }
 
-    let subNavigation;
+    const mainFixedNavPanel =
+      <div className="row main-fixed-nav-panel bg-theme-darkblue">
+        <div className="col-xs-12 col-md-10 col-md-push-1">
+
+          <div className="row row-vertical-center">
+            <div className="col-xs-2">
+              <img className="img-responsive" src="/ICOindex.com-white.png" />
+            </div>
+            <div className="col-xs-10">
+              {mainNavigation}
+            </div>
+          </div>
+
+        </div>
+      </div>;
+
+    const placeholderForFixedPanel =
+      <div className="main-fixed-nav-panel-placeholder"> </div>;
+
+
+    let subNavigationPanel;
     if (this.props.subNav) {
       const ongoingTitle = `Ongoing (${this.props.subNav.categoryCounts.ongoing})`;
       const upcomingTitle = `Upcoming (${this.props.subNav.categoryCounts.upcoming})`;
@@ -67,43 +87,50 @@ class Navigation extends React.Component {
       const scamTitle = `Scam (${this.props.subNav.categoryCounts.scam})`;
       const suspiciousTitle = `Suspicious (${this.props.subNav.categoryCounts.suspicious})`;
 
-      subNavigation =
-        <div className="row fg-tab-active-theme-darkblue">
-          <div className="col-md-10 col-md-push-1">
-            <Nav bsStyle="tabs"
-                 className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
-                 activeKey={this.props.subNav.subView}>
-              <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
-                <i className="fa fa-clock-o margin-right-sm" aria-hidden="true" />
-                <strong>{ongoingTitle}</strong>
-              </NavItem>
-              <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
-                <i className="fa fa-arrow-up margin-right-sm" aria-hidden="true" />
-                <strong>{upcomingTitle}</strong>
-              </NavItem>
-              <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
-                <i className="fa fa-check-square-o margin-right-sm" aria-hidden="true" />
-                <strong>{finishedTitle}</strong>
-              </NavItem>
-              <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>
-                <i className="fa fa-exclamation-triangle margin-right-sm" aria-hidden="true" />
-                <em>{scamTitle}</em>
-              </NavItem>
-              <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'suspicious' })}>
-                <i className="fa fa-question-circle margin-right-sm" aria-hidden="true" />
-                <em>{suspiciousTitle}</em>
-              </NavItem>
-            </Nav>
+      subNavigationPanel =
+        <div className="row">
+          <div className="col-xs-12 col-md-10 col-md-push-1">
+
+            <div className="row fg-tab-active-theme-darkblue">
+              <div className="col-md-10 col-md-push-1">
+                <Nav bsStyle="tabs"
+                     className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
+                     activeKey={this.props.subNav.subView}>
+                  <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
+                    <i className="fa fa-clock-o margin-right-sm" aria-hidden="true" />
+                    <strong>{ongoingTitle}</strong>
+                  </NavItem>
+                  <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
+                    <i className="fa fa-arrow-up margin-right-sm" aria-hidden="true" />
+                    <strong>{upcomingTitle}</strong>
+                  </NavItem>
+                  <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
+                    <i className="fa fa-check-square-o margin-right-sm" aria-hidden="true" />
+                    <strong>{finishedTitle}</strong>
+                  </NavItem>
+                  <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>
+                    <i className="fa fa-exclamation-triangle margin-right-sm" aria-hidden="true" />
+                    <em>{scamTitle}</em>
+                  </NavItem>
+                  <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'suspicious' })}>
+                    <i className="fa fa-question-circle margin-right-sm" aria-hidden="true" />
+                    <em>{suspiciousTitle}</em>
+                  </NavItem>
+                </Nav>
+              </div>
+            </div>
+
           </div>
-        </div>
+        </div>;
     }
 
 
 
     return (
       <div>
-        <div>{navigation}</div>
-        <div>{subNavigation}</div>
+        {placeholderForFixedPanel}
+        {mainFixedNavPanel}
+        {subNavigationPanel}
       </div>
     );
   }

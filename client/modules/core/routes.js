@@ -91,7 +91,7 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/login', {
+  FlowRouter.route('/admin/login', {
     name: 'login',
     action() {
       mount(MainLayoutCtx, {

@@ -15,7 +15,7 @@ export default function () {
       facebook: ['public_profile', 'email']
     },
     passwordSignupFields: 'EMAIL_ONLY_NO_PASSWORD',
-    loginPath: '/login',
+    loginPath: FlowRouter.path('login'),
     onSignedInHook: () => FlowRouter.go('/'),
     onSignedOutHook: () => FlowRouter.go('/')
   });
