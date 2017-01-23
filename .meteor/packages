@@ -34,3 +34,4 @@ service-configuration
 ccorcos:subs-cache
 natestrauser:publish-performant-counts
 meteorhacks:kadira
+browser-policy

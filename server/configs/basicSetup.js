@@ -22,15 +22,10 @@ export default () => {
    */
   Meteor.startup(function() {
 
-    WebAppInternals.setBundledJsCssUrlRewriteHook((asset) => {
-      console.log('setBundledJsCssUrlRewriteHook hook has run:', asset);
-    });
-
-    console.log('cdnPrefix:', Meteor.settings.cdnPrefix);
     if (Meteor.settings.cdnPrefix) {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
+      BrowserPolicy.content.allowOriginForAll(Meteor.settings.cdnPrefix);
     }
-
 
   });
 }
