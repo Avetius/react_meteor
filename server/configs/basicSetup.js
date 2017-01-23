@@ -17,6 +17,7 @@ export default () => {
   /**
    * Lets rewrite url of meteor assets (JS, CSS) to using CDN.
    * See http://joshowens.me/using-a-cdn-with-your-production-meteor-app/
+   * or https://dweldon.silvrback.com/browser-policy
    * or different implementation in https://github.com/Nitrolabs/meteor-cdn
    *
    */
@@ -26,9 +27,10 @@ export default () => {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
       BrowserPolicy.content.allowOriginForAll(Meteor.settings.cdnPrefix);
     }
-    // todo replace by rootUrl:
-    BrowserPolicy.content.allowOriginForAll('http://premvp.icoindex.com');
+    // more info: https://atmospherejs.com/meteor/browser-policy
+    BrowserPolicy.content.allowOriginForAll(Meteor.absoluteUrl());
     BrowserPolicy.content.allowImageOrigin('*');
+    console.log('rootUrl: ', Meteor.absoluteUrl());
 
     const fontRegExp = /\.(eot|ttf|otf|woff|woff2)$/;
     // todo test this more:
