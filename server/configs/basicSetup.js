@@ -26,11 +26,21 @@ export default () => {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
       BrowserPolicy.content.allowOriginForAll(Meteor.settings.cdnPrefix);
     }
+    // todo replace by rootUrl:
     BrowserPolicy.content.allowOriginForAll('http://premvp.icoindex.com');
     BrowserPolicy.content.allowImageOrigin('*');
-    //BrowserPolicy.content.allowSameOriginForAll()
-    // todo allow only one host
-    //BrowserPolicy.content.allowFontOrigin('*');
+
+    const fontRegExp = /\.(eot|ttf|otf|woff|woff2)$/;
+    // todo test this more:
+    WebApp.rawConnectHandlers.use('/', function(req, res, next) {
+      if (fontRegExp.test(req._parsedUrl.pathname)) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Vary', 'Origin');
+        res.setHeader('Pragma', 'public');
+        res.setHeader('Cache-Control', '"public"');
+      }
+      return next();
+    });
 
   });
 }
