@@ -60,7 +60,7 @@ class Navigation extends React.Component {
     }
 
     const mainFixedNavPanel =
-      <div className="row main-fixed-nav-panel bg-theme-darkblue">
+      <div className="row main-fixed-nav-panel full-width bg-theme-darkblue">
         <div className="col-xs-12 col-md-10 col-md-push-1">
 
           <div className="row row-vertical-center">
