@@ -11,6 +11,12 @@ import _ from 'lodash';
 
 import t from 'tcomb-validation';
 
+/**
+ * Note: for fetching data use this.unblock() (see https://meteorhacks.com/understanding-meteor-wait-time-and-this-unblock/)
+ *
+ * For each CountsCompute.compute() code block, try Meteor.defer(() => {}) for later optimization.
+ */
+
 export default function () {
   Meteor.methods({
     'ico.addAsConcept' (_id, icoProject) {
@@ -42,7 +48,11 @@ export default function () {
         ...icoProject
       };
 
-      IcoProjects.insert(icoEntity);
+      IcoProjects.insert(icoEntity, (err, _id) => {
+        if (err) {
+          console.error('Error during insert into IcoProjects collection in method ico.addAsConcept: ', err);
+        }
+      });
 
       // update appropriate category counts
       CountsCompute.compute();
@@ -71,7 +81,13 @@ export default function () {
 
       objectToSet.updatedAt = new Date();
 
-      IcoProjects.update({ _id: _id },{ $set: objectToSet });
+      IcoProjects.update({ _id: _id },{ $set: objectToSet },
+        (err, affectedDocsNumber) => {
+          if (err) {
+            console.error('Error during update IcoProjects collection in method ico.edit: ', err);
+          }
+        }
+      );
     },
 
     'ico.publish' (_id) {
@@ -87,7 +103,13 @@ export default function () {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
-      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published', updatedAt: new Date() } });
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'published', updatedAt: new Date() } },
+        (err, affectedDocsNumber) => {
+          if (err) {
+            console.error('Error during update IcoProjects collection in method ico.publish: ', err);
+          }
+        }
+      );
 
       // update appropriate category counts
       CountsCompute.compute();
@@ -100,7 +122,13 @@ export default function () {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
-      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept', updatedAt: new Date() } });
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'concept', updatedAt: new Date() } },
+        (err, affectedDocsNumber) => {
+          if (err) {
+            console.error('Error during update IcoProjects collection in method ico.unPublish: ', err);
+          }
+        }
+      );
 
       // update appropriate category counts
       CountsCompute.compute();
@@ -113,12 +141,20 @@ export default function () {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
-      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'deleted', updatedAt: new Date() } });
+      IcoProjects.update({ _id: _id}, { $set: {'entityState.state': 'deleted', updatedAt: new Date() } },
+        (err, affectedDocsNumber) => {
+          if (err) {
+            console.error('Error during update IcoProjects collection in method ico.delete: ', err);
+          }
+        }
+      );
 
       // update appropriate category counts
       CountsCompute.compute();
     },
 
+    // !! Warning: - if client which call this method will disconnect during call, this method will be re-called again once
+    // client will be online -- so it can happen that documents will be inserted twice. (put there _id into each doc to prevent this)
     'ico.importConcepts' (icoProjects) {
       check(icoProjects, Array);
 
@@ -152,7 +188,11 @@ export default function () {
 
       console.log('icoEntity 1:', icoEntities[0]);
       icoEntities.forEach((icoEntity) => {
-        IcoProjects.insert(icoEntity);
+        IcoProjects.insert(icoEntity, (err, _id) => {
+          if (err) {
+            console.error('Error during insert into IcoProjects collection in method ico.importConcepts: ', err);
+          }
+        });
       });
 
       // update appropriate category counts

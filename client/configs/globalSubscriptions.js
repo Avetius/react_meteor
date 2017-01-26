@@ -3,6 +3,8 @@ import { Tracker } from 'meteor/tracker'
 
 export default ({ LocalState }) => {
 
+  // for checking state of all subscriptions, run 'Meteor.default_connection._subscriptions'
+
   Tracker.autorun(() => {
 
     if (Meteor.subscribe('ico.global-counts').ready()) {

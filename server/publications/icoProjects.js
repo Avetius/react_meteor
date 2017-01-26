@@ -4,6 +4,14 @@ import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
 import AccountsMgmt from '/lib/accountsMgmt';
 
+/**
+ * Publications performances::
+ * if you want to unblock some heavy publications in future, try  https://github.com/meteorhacks/unblock
+ * but be careful according to this issue: https://github.com/meteorhacks/unblock/issues/11#issuecomment-266263478
+ *
+ * To be more effective, try adjusting sequence of subscribing.
+ */
+
 export default function () {
   Meteor.publish('ico.list', function (userId, limit) {
     // userId is mock for signaling that user proceeded auth on client
