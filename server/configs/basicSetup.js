@@ -29,6 +29,7 @@ export default () => {
     }
     // more info: https://atmospherejs.com/meteor/browser-policy
     BrowserPolicy.content.allowOriginForAll(Meteor.absoluteUrl());
+    // todo change this to our domains only
     BrowserPolicy.content.allowImageOrigin('*');
     console.log('rootUrl: ', Meteor.absoluteUrl());
 

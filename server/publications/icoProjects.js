@@ -44,6 +44,67 @@ export default function () {
     return IcoProjects.find(selector, options);
   });
 
+  const inIcoListUsableFields = {
+    _id: 1,
+    projectName: 1,
+    abbreviation: 1,
+    oneSentenceExplanation: 1,
+
+    icoStartDatetime: 1,
+    icoEndDatetime: 1,
+
+    icoEndDatetimeFormat: 1,
+    icoStartDatetimeFormat: 1,
+
+    icoEvents: 1,
+    fundKeeper: 1,
+    projectStatus: 1,
+    icoWebsiteLink: 1
+  };
+
+  const previewOptions = {
+    // set in specific publication!
+    sort: {},
+    // 2 * visible items = 6 (for now)
+    limit: 6,
+    fields: inIcoListUsableFields
+  };
+
+  // Ongoing ICOs shown on homepage
+  Meteor.publish('ico.list-preview-ongoing', function () {
+    const currentDate = new Date();
+
+    const options = { sort: { icoEndDatetime: 1 }, ...previewOptions };
+    // ongoing
+    const selector = { 'meta.dataStatus':'production', 'entityState.state': 'published',
+      'icoStartDatetime' : { '$lt' : currentDate }, icoEndDatetime: { '$gte' : currentDate } };
+
+    return IcoProjects.find(selector, options);
+  });
+
+  Meteor.publish('ico.list-preview-upcoming', function () {
+    const currentDate = new Date();
+
+    const options = { sort: { icoStartDatetime: 1 }, ...previewOptions };
+    // upcoming
+    const selector = { 'meta.dataStatus':'production', 'entityState.state': 'published',
+      'icoStartDatetime' : { '$gt' : currentDate } };
+
+    return IcoProjects.find(selector, options);
+  });
+
+  Meteor.publish('ico.list-preview-finished', function () {
+    const currentDate = new Date();
+
+    const options = { sort: { icoEndDatetime: -1 }, ...previewOptions };
+    // finished
+    const selector = { 'meta.dataStatus':'production', 'entityState.state': 'published',
+      'icoStartDatetime' : { '$lt' : currentDate }, icoEndDatetime: { '$lt' : currentDate } };
+
+    return IcoProjects.find(selector, options);
+  });
+
+
   Meteor.publish('ico.single', function (icoId) {
     check(icoId, String);
     let options = {
