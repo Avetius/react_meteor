@@ -22,6 +22,8 @@ export default () => {
    *
    */
   Meteor.startup(function() {
+    console.log('NODE_ENV: ', process.env.NODE_ENV);
+    console.log('rootUrl: ', Meteor.absoluteUrl());
 
     if (Meteor.settings.cdnPrefix) {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
@@ -31,7 +33,6 @@ export default () => {
     BrowserPolicy.content.allowOriginForAll(Meteor.absoluteUrl());
     // todo change this to our domains only
     BrowserPolicy.content.allowImageOrigin('*');
-    console.log('rootUrl: ', Meteor.absoluteUrl());
 
     const fontRegExp = /\.(eot|ttf|otf|woff|woff2)$/;
     // todo test this more:

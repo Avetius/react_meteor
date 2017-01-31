@@ -12,8 +12,7 @@ app.use('/s3', s3router({
   }
 }));
 
-
-app.listen(5001, function () {
-  console.log('AWS_ACCESS_KEY_ID: ', process.env.AWS_ACCESS_KEY_ID);
-
-});
+// todo fix upload bug (CORS or smth else..)
+//app.listen(5001, function () {
+//  console.log('AWS_ACCESS_KEY_ID: ', process.env.AWS_ACCESS_KEY_ID);
+//});
