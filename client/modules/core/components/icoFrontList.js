@@ -1,7 +1,13 @@
 import { ListGroup } from '@sketchpixy/rubix';
 import IcoShortItem from './icoShortItem';
+import Infinite from 'react-infinite';
 
 export default class IcoFrontList extends React.Component  {
+
+  loadMore () {
+    console.log('loading more icos..');
+    this.props.loadMore();
+  }
 
   render () {
     let note, subViewTitle;
@@ -44,19 +50,24 @@ export default class IcoFrontList extends React.Component  {
           </div>
         </div>;
     }
-
+    // note: try compute this value dynamically
+    const icoShortItemHeight = 194;
     return (
       <div>
         { subViewTitle }
         { note }
         <ListGroup componentClass="ul">
-          {
-            this.props.icoEntities.map((icoEntity) => {
-              return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
-            })
-          }
+          <Infinite elementHeight={icoShortItemHeight}
+                    onInfiniteLoad={this.loadMore.bind(this)}
+                    infiniteLoadBeginEdgeOffset={icoShortItemHeight * 3}
+                    useWindowAsScrollContainer>
+            {
+              this.props.icoEntities.map((icoEntity) => {
+                return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
+              })
+            }
+          </Infinite>
         </ListGroup>
-
       </div>
     );
   }

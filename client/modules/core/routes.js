@@ -11,7 +11,7 @@ import NotFound from './containers/notFound';
 
 
 export default function (inject, context, actions) {
-  const {FlowRouter, LocalState} = context;
+  const { FlowRouter } = context;
 
   // inject function doesn't work as expected and it will not provide context object to MainLayout so we need it inject explicitly in route defs
   const MainLayoutCtx = inject(MainLayout);
@@ -19,13 +19,13 @@ export default function (inject, context, actions) {
   FlowRouter.route('/', {
     name: 'ico.home',
     action() {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList entityStateQuery="published" subView='ongoing' />),
+        content: () => (<IcoFrontList entityState="published" subView='ongoing' />),
         context: () => context
       });
     }
   });
-
   /**
    * :subView is ongoing | upcoming | finished | suspicious | scam
    * :category is like fintech | healthcare | media
@@ -34,8 +34,9 @@ export default function (inject, context, actions) {
   FlowRouter.route('/index/:subView', {
     name: 'ico.index',
     action({subView}) {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList entityStateQuery="published" subView={subView} />),
+        content: () => (<IcoFrontList entityState="published" subView={subView} />),
         context: () => context
       });
     }
@@ -44,8 +45,9 @@ export default function (inject, context, actions) {
   FlowRouter.route('/favourites/:subView', {
     name: 'ico.favourites',
     action({subView}) {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList entityStateQuery="published" subView={subView} />),
+        content: () => (<IcoFrontList entityState="published" subView={subView} />),
         context: () => context
       });
     }
@@ -54,8 +56,9 @@ export default function (inject, context, actions) {
   FlowRouter.route('/admin/concepts/:subView', {
     name: 'ico.concepts',
     action({subView}) {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<IcoFrontList entityStateQuery="concept" subView={subView} />),
+        content: () => (<IcoFrontList entityState="concept" subView={subView} />),
         context: () => context
       });
     }
@@ -112,8 +115,6 @@ export default function (inject, context, actions) {
   });
 
   FlowRouter.notFound = {
-    // Subscriptions registered here don't have Fast Render support.
-    subscriptions: () => {},
     action: () => {
       FlowRouter.go('404');
     }

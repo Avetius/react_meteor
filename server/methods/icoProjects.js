@@ -1,4 +1,5 @@
 import {IcoProjects, Counts} from '/lib/collections';
+import { getSelector, getSort, inIcoListUsableFields } from '../icoProjects/queries'
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
 import PostValidation from './serverPostValidation';
@@ -19,6 +20,18 @@ import t from 'tcomb-validation';
 
 export default function () {
   Meteor.methods({
+
+    'ico.getByQuery' (query, skip, timestampToBound) {
+      check(query, Object);
+      check(skip, Number);
+      check(timestampToBound, Date);
+
+      const selector = getSelector({ icoStatus: query.icoStatus, entityState: query.entityState, timestampToBound });
+      const options = { sort: getSort({icoStatus: query.icoStatus}), skip: skip, limit: 10, fields: inIcoListUsableFields };
+
+      return IcoProjects.find(selector, options).fetch();
+    },
+
     'ico.addAsConcept' (_id, icoProject) {
       check(_id, String);
       check(icoProject, Object);
@@ -200,6 +213,10 @@ export default function () {
     },
 
     'ico.redeployTestData'() {
+
+      // now disabled:
+      return;
+
       if (!AccountsMgmt.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }

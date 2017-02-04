@@ -69,6 +69,38 @@ export default {
     FlowRouter.go('ico.concepts', {});
   },
 
+  loadMore ({LocalState, NonReactiveLocalState}) {
+    if (NonReactiveLocalState['icoProjects.infiniteScrollingEnd'] === true) {
+      return;
+    }
+
+    const currentSkip = LocalState.get('skipDocsNum');
+    // todo: put this number to global constant (same as with limit amount in db query)
+    LocalState.set('skipDocsNum', currentSkip + 10);
+  },
+
+  stopInfiniteScrolling({NonReactiveLocalState}) {
+    NonReactiveLocalState['icoProjects.infiniteScrollingEnd'] = true;
+  },
+
+  resetInfiniteScrolling ({LocalState, NonReactiveLocalState}) {
+    LocalState.set('skipDocsNum', 0);
+    NonReactiveLocalState['icoProjects.infiniteScrollingEnd'] = false;
+  },
+
+  clearCacheIfNeeded ({CacheCollections: {IcoProjectsCache}}) {
+    if (IcoProjectsCache.find({}).count() >= 120) {
+      console.log('clearing cache..');
+      const icosToRemove = IcoProjectsCache.find({}, { limit: 10, sort: { insertedAt: 1 }}).fetch();
+      const icoIdsToRemove = icosToRemove.map((ico) => {
+        return ico._id;
+      });
+      icoIdsToRemove.forEach((id) => {
+        IcoProjectsCache.remove(id);
+      });
+    }
+  },
+
   clearErrors({LocalState}) {
     //return LocalState.set('CREATE_COMMENT_ERROR', null);
   }

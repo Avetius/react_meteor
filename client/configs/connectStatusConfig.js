@@ -2,7 +2,7 @@
  * Based on / inspired by meteor-smart-disconnect package -- https://github.com/mixmaxhq/meteor-smart-disconnect
  *
  */
-export default ({Meteor}) => {
+export default ({Meteor, NonReactiveLocalState}) => {
   let disconnectTimer = null;
 
   // 60 seconds by default
@@ -26,6 +26,7 @@ export default ({Meteor}) => {
     removeDisconnectTimeout();
 
     disconnectTimer = setTimeout(function () {
+      cleanupState(NonReactiveLocalState);
       Meteor.disconnect();
     }, disconnectTime);
   }
@@ -36,3 +37,12 @@ export default ({Meteor}) => {
     }
   }
 }
+
+const cleanupState = (NonReactiveLocalState) => {
+  //cleanup icoProjects timestampToBound values in NonReactiveLocalState
+  Object.keys(NonReactiveLocalState).forEach((key) => {
+    if (key.includes('icoProjects.timestampToBound.')) {
+      NonReactiveLocalState[key] = null;
+    }
+  });
+};
