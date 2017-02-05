@@ -484,6 +484,17 @@ export default class IcoForm extends React.Component {
     console.log('saved edited value:', value);
     if (value) {
       this.hideErrorMessages();
+      // hack: try to fix the issue better way (there is problem with loading Date value into DatetimePicker cmp)
+      if (value.icoStartDatetime === undefined || value.icoEndDatetime === undefined) {
+        const message = `
+        Message to admin (prevented save the ICO):
+
+        One of ICO date is undefined (illegal value), and origin value could be lost. Please change any form field and save again to workaround this problem.
+        `;
+        console.warn(message);
+        alert(message);
+        return;
+      }
       this.props.edit(this.props.editMode.icoId, value);
     } else {
       const validationResult = this.refs.icoForm.validate();
@@ -532,7 +543,9 @@ export default class IcoForm extends React.Component {
 
   onChange(icoEntityValue, path) {
     // validate a field on every change -- consider implement this in onBlur field event handler
+    console.log('before getComponent');
     const formComponent = this.refs.icoForm.getComponent(path);
+    console.log('before validate');
     if (formComponent) {
       formComponent.validate();
     }

@@ -7,7 +7,7 @@ import Datetime from 'react-datetime';
 
 class DateTimePicker extends t.form.Component { // extend the base class
 
-  constructor (props) {
+  constructor (props, customProps) {
     super(props);
     this.state = {
       UTCRenderedDateTime: null
@@ -17,14 +17,21 @@ class DateTimePicker extends t.form.Component { // extend the base class
   getTemplate() {
 
     return (locals) => {
-      this.interceptedOnChange = locals.onChange;
-      console.log(locals.value);
+      this.interceptedOnChange = locals.onChange.bind(locals);
+      let valueToDisplay = locals.value;
+
+      // todo make it constant and move to separate file
+      if (new Date(valueToDisplay).getTime() === 2222222222222) {
+        valueToDisplay = null;
+      }
+
+      console.log(valueToDisplay);
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
-          <Datetime value={locals.value}
+          <Datetime value={valueToDisplay}
                     onChange={this.interceptorOnChange.bind(this)}
-                    inputProps={this.inputProps}
+                    inputProps={this.customProps}
           />
           { (this.state.UTCRenderedDateTime) ?
             (<div>
@@ -47,15 +54,13 @@ class DateTimePicker extends t.form.Component { // extend the base class
 
 export class DateTimeStart extends DateTimePicker  {
   constructor(props) {
-    super(props);
-    this.inputProps = { placeholder: 'Start Date Time' };
+    super(props, { placeholder: 'Start Date Time' });
   }
 }
 
 export class DateTimeEnd extends DateTimePicker  {
   constructor(props) {
-    super(props);
-    this.inputProps = { placeholder: 'End Date Time' };
+    super(props, { placeholder: 'End Date Time' });
   }
 }
 

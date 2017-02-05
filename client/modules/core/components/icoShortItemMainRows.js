@@ -78,12 +78,15 @@ export default class IcoShortItemMainRows extends React.Component {
   }
 
   renderDatetime (datetime, datetimeFormat) {
+    // todo make special pseudo date constant and move to separate file
+    if (!datetime || new Date(datetime).getTime() === 2222222222222) {
+      return i18next.t('ico.dates.noDate');
+    }
+
     if (!datetimeFormat || datetimeFormat === 'dateTime') {
       return moment(datetime).format('dddd, MMMM Do YYYY, h:mm a');
     } else if (datetimeFormat === 'dateOnly') {
       return moment(datetime).format('dddd, MMMM Do YYYY');
-    } else {
-      console.error('Date could not be rendered.');
     }
   }
 
@@ -133,23 +136,15 @@ export default class IcoShortItemMainRows extends React.Component {
             <ContentWithPopover fieldLabel="Start Date"
                                 helpText="ICO start date is date and time when you will first be able to participate in this initial coin offering.">
               <span className="text-help margin-right-xs">Start Date:</span>
-              </ContentWithPopover>
-              {
-                ico.icoStartDatetime ?
-                  this.renderDatetime(ico.icoStartDatetime, ico.icoStartDatetimeFormat) :
-                  i18next.t('ico.dates.noDate')
-              }
+            </ContentWithPopover>
+            { this.renderDatetime(ico.icoStartDatetime, ico.icoStartDatetimeFormat) }
           </div>
           <div className="col-xs-12 col-md-7">
             <ContentWithPopover fieldLabel="End Date"
                                 helpText="ICO end date is date and time after which you will not be able to participate in initial coin offering.">
               <span className="text-help margin-right-xs">End Date:</span>
             </ContentWithPopover>
-            {
-              ico.icoEndDatetime ?
-                this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) :
-                i18next.t('ico.dates.noDate')
-            }
+            { this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) }
           </div>
         </div>
 

@@ -125,3 +125,7 @@ export const inIcoListUsableFields = {
   // for client side filtering
   entityState: 1
 };
+
+export const isRestrictPropertyRequested = (query) => {
+  return query.entityState !== 'published';
+};

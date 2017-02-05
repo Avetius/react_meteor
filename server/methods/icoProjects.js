@@ -1,8 +1,8 @@
 import {IcoProjects, Counts} from '/lib/collections';
-import { getSelector, getSort, inIcoListUsableFields } from '../icoProjects/queries'
+import { getSelector, getSort, inIcoListUsableFields, isRestrictPropertyRequested } from '../icoProjects/queries'
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
-import PostValidation from './serverPostValidation';
+import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
 import AccountsMgmt from '/lib/accountsMgmt';
 
@@ -26,6 +26,10 @@ export default function () {
       check(skip, Number);
       check(timestampToBound, Date);
 
+      if (!AccountsMgmt.isCurrentUserAdmin() && isRestrictPropertyRequested(query)) {
+        throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
+      }
+
       const selector = getSelector({ icoStatus: query.icoStatus, entityState: query.entityState, timestampToBound });
       const options = { sort: getSort({icoStatus: query.icoStatus}), skip: skip, limit: 10, fields: inIcoListUsableFields };
 
@@ -45,7 +49,7 @@ export default function () {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
 
-      icoProject = PostValidation.normalizeIcoProject(icoProject);
+      icoProject = PostProcess.normalizeIcoProject(icoProject);
 
       const createdAt = new Date();
       const icoEntity = {
@@ -85,7 +89,7 @@ export default function () {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
 
-      icoProject = PostValidation.normalizeIcoProject(icoProject);
+      icoProject = PostProcess.normalizeIcoProject(icoProject);
 
       // pick only those fields which are present in IcoTypeDef and set values from icoEntity
       const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
@@ -181,7 +185,7 @@ export default function () {
       console.log('icoProject 1: ', icoProjects[0]);
       const icoEntities = icoProjects.map((icoProject) => {
 
-        icoProject = PostValidation.normalizeIcoProject(icoProject);
+        icoProject = PostProcess.normalizeIcoProject(icoProject);
 
         const createdAt = new Date();
         const icoEntity = {
