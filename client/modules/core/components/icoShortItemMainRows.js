@@ -7,6 +7,7 @@ import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 
 import IcoStatus from '/lib/icoStatus';
+import Constants from '/client/configs/constants';
 
 export default class IcoShortItemMainRows extends React.Component {
 
@@ -26,7 +27,7 @@ export default class IcoShortItemMainRows extends React.Component {
     let icoEndDatetime = this.props.ico.icoEndDatetime;
     let icoCountdownState;
 
-    if (IcoStatus.isOneOfIcoDateEmpty(this.props.ico)) {
+    if (IcoStatus.isOneOfIcoDateEmpty(this.props.ico) || new Date(icoStartDatetime).getTime() === Constants.pseudoDateTimeInFuture) {
       icoCountdownState = {
         icoCountdown: {
           enable: false }
@@ -78,8 +79,7 @@ export default class IcoShortItemMainRows extends React.Component {
   }
 
   renderDatetime (datetime, datetimeFormat) {
-    // todo make special pseudo date constant and move to separate file
-    if (!datetime || new Date(datetime).getTime() === 2222222222222) {
+    if (!datetime || new Date(datetime).getTime() === Constants.pseudoDateTimeInFuture) {
       return i18next.t('ico.dates.noDate');
     }
 
@@ -156,7 +156,7 @@ export default class IcoShortItemMainRows extends React.Component {
                            message={this.state.icoCountdown.message}
                            help={{ enable: false }}
                            afterTimeout={this.reComputeCountdowns.bind(this)}/>
-              ) : 'One of date is not set'
+              ) : ''
             }
           </div>
           <div className="col-xs-12 col-md-7">

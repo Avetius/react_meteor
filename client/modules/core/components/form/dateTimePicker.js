@@ -3,7 +3,7 @@ import t from 'tcomb-form';
 // react-datetime picker
 import '/node_modules/react-datetime/css/react-datetime.css';
 import Datetime from 'react-datetime';
-
+import Constants from '/client/configs/constants';
 
 class DateTimePicker extends t.form.Component { // extend the base class
 
@@ -20,8 +20,7 @@ class DateTimePicker extends t.form.Component { // extend the base class
       this.interceptedOnChange = locals.onChange.bind(locals);
       let valueToDisplay = locals.value;
 
-      // todo make it constant and move to separate file
-      if (new Date(valueToDisplay).getTime() === 2222222222222) {
+      if (new Date(valueToDisplay).getTime() === Constants.pseudoDateTimeInFuture) {
         valueToDisplay = null;
       }
 

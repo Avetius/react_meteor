@@ -26,6 +26,7 @@ const Layout = ({content = () => null, context}) => {
         </div>
       </div>
 
+      { /* todo: move it to separate cmp */ }
       <footer>
         <div className="container-fluid">
           <div className="row">
