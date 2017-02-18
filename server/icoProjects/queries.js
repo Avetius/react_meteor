@@ -109,6 +109,7 @@ export const inIcoListUsableFields = {
   projectName: 1,
   abbreviation: 1,
   oneSentenceExplanation: 1,
+  icoProjectLogo: 1,
 
   icoStartDatetime: 1,
   icoEndDatetime: 1,
