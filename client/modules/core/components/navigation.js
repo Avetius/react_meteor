@@ -81,40 +81,36 @@ class Navigation extends React.Component {
 
     let subNavigationPanel;
     if (this.props.subNav) {
-      const ongoingTitle = `Ongoing (${this.props.subNav.categoryCounts.ongoing})`;
-      const upcomingTitle = `Upcoming (${this.props.subNav.categoryCounts.upcoming})`;
-      const finishedTitle = `Finished (${this.props.subNav.categoryCounts.finished})`;
-      const scamTitle = `Scam (${this.props.subNav.categoryCounts.scam})`;
-      const suspiciousTitle = `Suspicious (${this.props.subNav.categoryCounts.suspicious})`;
 
       subNavigationPanel =
-        <div className="row">
+        <div className="row bg-primary-gradient">
           <div className="col-xs-12 col-md-10 col-md-push-1">
 
             <div className="row fg-tab-active-theme-darkblue">
               <div className="col-md-10 col-md-push-1">
                 <Nav bsStyle="tabs"
                      className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
+                     id="category-nav"
                      activeKey={this.props.subNav.subView}>
                   <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
-                    <i className="fa fa-clock-o margin-right-sm" aria-hidden="true" />
-                    <strong>{ongoingTitle}</strong>
+                    <strong>Ongoing</strong>
+                    <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.ongoing }</span>
                   </NavItem>
                   <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
-                    <i className="fa fa-arrow-up margin-right-sm" aria-hidden="true" />
-                    <strong>{upcomingTitle}</strong>
+                    <strong>Upcoming</strong>
+                    <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.upcoming }</span>
                   </NavItem>
                   <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
-                    <i className="fa fa-check-square-o margin-right-sm" aria-hidden="true" />
-                    <strong>{finishedTitle}</strong>
+                    <strong>Finished</strong>
+                    <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.finished }</span>
                   </NavItem>
                   <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>
-                    <i className="fa fa-exclamation-triangle margin-right-sm" aria-hidden="true" />
-                    <em>{scamTitle}</em>
+                    <em>Scam</em>
+                    <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.scam }</span>
                   </NavItem>
                   <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'suspicious' })}>
-                    <i className="fa fa-question-circle margin-right-sm" aria-hidden="true" />
-                    <em>{suspiciousTitle}</em>
+                    <em>Suspicious</em>
+                    <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.suspicious }</span>
                   </NavItem>
                 </Nav>
               </div>

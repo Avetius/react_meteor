@@ -101,7 +101,7 @@ $breadcrumb-bg: #fff;
 
 
 /* next custom variables */
-$body-background-color: #f6f9fc;
+$body-background-color: white;
 $footer-background-color: #89949B;
 $content-elem-bg-color: #fff;
 $main-theme-green: #1C8B71;
@@ -110,6 +110,11 @@ $main-theme-darkblue: #4A90E2;
 $main-theme-pinkorange: #e45f56;
 // used for hover state on button
 $main-theme-pinkorange2: #eb8982;
+
+/* new design here: */
+$lighter-ico-color: #00c1fa;
+$darker-ico-color: #6158ab;
+$ico-box-background-color: #eff4f7;
 
 $hidden-link-color: $gray-dark;
 

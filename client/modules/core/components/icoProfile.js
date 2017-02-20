@@ -145,7 +145,7 @@ export default class IcoProfile extends React.Component {
     }
 
     return (
-      <div className="panel panel-default">
+      <div className="panel panel-default ico-profile-box">
         <div className="panel-body padding-all-sm">
 
           <div className="row row-vertical-center">
@@ -157,7 +157,7 @@ export default class IcoProfile extends React.Component {
                   <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
                     <span className="h4">
                       <i className="fa fa-pencil margin-right-sm" />
-                      Edit ICO
+                        Edit ICO
                     </span>
                   </a>
                 </div> ) : ''

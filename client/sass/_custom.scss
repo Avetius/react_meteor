@@ -28,14 +28,6 @@
   margin-bottom: -1px;
 }
 
-/* tmp fix */
-@media (min-width: $screen-md-min) {
-  .tmp-relative-top-minus-5px {
-    position: relative;
-    top: -5px;
-  }
-}
-
 .row-all-center {
   display: flex;
   justify-content: center;
@@ -103,4 +95,89 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .main-fixed-nav-panel-placeholder {
   height: 6.5rem;
+}
+
+.max-width-22rem {
+  max-width: 22rem;
+}
+
+/* our basic design components */
+
+@mixin makePrimaryGradient ($use) {
+  $ms-linear-gradient: -ms-linear-gradient(45deg, $lighter-ico-color 0%, $darker-ico-color 100%); /* ie10+ */
+  $linear-gradient: linear-gradient(45deg, $lighter-ico-color 0%, $darker-ico-color 100%);
+
+  @if ($use == 'background') {
+    background: $ms-linear-gradient;
+    background: $linear-gradient;
+  } @else if ($use == 'border') {
+    // not needed now
+  }
+}
+
+.bg-primary-gradient {
+  @include makePrimaryGradient('background');
+}
+
+.btn-ico-primary {
+  @include makePrimaryGradient('background');
+  color: white;
+  border-radius: 23px;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  /* fixing basic .btn bootstrap class, where transparent border makes bad visual effect */
+  border-left: none;
+  border-right: none;
+
+  &:hover,
+  &:focus {
+    color: white;
+  }
+}
+
+
+.btn-ico-secondary {
+  max-height: 22px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: 0px;
+
+  color: $darker-ico-color;
+
+  &:hover,
+  &:focus {
+    color: $darker-ico-color;
+  }
+}
+
+.btn-ico-secondary-wrapper-outer {
+  @include makePrimaryGradient('background');
+  border-radius: 23px;
+
+  max-height: 30px;
+  padding: 3px;
+}
+
+.btn-ico-secondary-wrapper-inner {
+  border-radius: 23px;
+  background-color: $ico-box-background-color;
+}
+
+.ico-box {
+  background-color: $ico-box-background-color;
+}
+
+.ico-profile-box {
+  background-color: $ico-box-background-color;
+}
+
+.badge-ico {
+  background-color: white;
+  color: $darker-ico-color;
+}
+
+/* category navigation component */
+#category-nav li.active .badge-ico {
+  font-weight: bold;
+  border: 2px solid $darker-ico-color;
 }
