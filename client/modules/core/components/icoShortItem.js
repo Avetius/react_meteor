@@ -53,7 +53,7 @@ export default class IcoFrontItem extends React.Component {
               <div className="col-xs-12 col-md-2 padding-left-sm">
                 <div>
                   <a className="btn btn-ico-primary" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) }
-                     rel="noopener noreferrer"> Detail </a>
+                     rel="noopener noreferrer"> Details </a>
                 </div>
               </div>
             </div>

@@ -195,13 +195,13 @@ export default class IcoShortItemMainRows extends React.Component {
 
         <div className="row margin-top-lg margin-bottom-md">
 
-            { this.props.isProfile && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
-              <div className="col-xs-12 col-md-3 col-md-push-8">
-                <a className="btn btn-ico-primary" target="_blank" href={ico.icoWebsiteLink}
-                   rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
-              </div>
-              : ''
-            }
+          { this.props.isProfile && ico.icoWebsiteLink && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
+            <div className="col-xs-12 col-md-3 col-md-push-8">
+              <a className="btn btn-ico-primary" target="_blank" href={ico.icoWebsiteLink}
+                 rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
+            </div>
+            : ''
+          }
 
         </div>
 

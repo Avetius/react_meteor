@@ -22,7 +22,7 @@ class Navigation extends React.Component {
     if (AccountsMgmt.isCurrentUserAdmin()) {
       mainNavigation =
         <Nav bsStyle="pills"
-             id="main-nav"
+             id="user-util-nav"
              className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
              activeKey={this.props.view}>
           <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
@@ -46,7 +46,7 @@ class Navigation extends React.Component {
     } else {
       mainNavigation =
         <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
-           id="main-nav"
+           id="user-util-nav"
            activeKey={this.props.view}>
           <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
             <i className="fa fa-bars margin-right-sm" aria-hidden="true" />
@@ -86,10 +86,10 @@ class Navigation extends React.Component {
         <div className="row bg-primary-gradient">
           <div className="col-xs-12 col-md-10 col-md-push-1">
 
-            <div className="row fg-tab-active-theme-darkblue">
+            <div className="row">
               <div className="col-md-10 col-md-push-1">
                 <Nav bsStyle="tabs"
-                     className="padding-horizontal-sm tab-brightblue margin-bottom-negative-1"
+                     className="padding-horizontal-sm margin-bottom-negative-1"
                      id="category-nav"
                      activeKey={this.props.subNav.subView}>
                   <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>

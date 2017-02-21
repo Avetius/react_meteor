@@ -12,7 +12,7 @@ const Layout = ({content = () => null, context}) => {
   return (
     <div className="">
 
-      <header className="fg-white border-brightblue border-bottom-1-solid">
+      <header className="fg-white">
         <div className="container-fluid">
               <Navigation/>
         </div>

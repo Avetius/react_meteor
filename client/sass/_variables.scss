@@ -4,6 +4,11 @@
 $white: #fff;
 $brightblue: #003BFF;
 
+/* new design here: */
+$lighter-ico-color: #00c1fa;
+$darker-ico-color: #6158ab;
+$ico-box-background-color: #eff4f7;
+
 
 /* basic rubix scss variables for change & use */
 
@@ -26,8 +31,8 @@ $panel-body-padding: $line-height-computed;
 $navbar-height: 75px;
 $sidebar-controls-visibility: visible;
 
-$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-$headings-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  'PT Sans', Helvetica, Arial, sans-serif;
+$headings-font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 
 $screen-sm-min: 990px;
 $screen-md-min: 1152px;
@@ -86,12 +91,12 @@ $btn-danger-color: $brand-danger;
 $dropdown-link-color: rgb(137, 148, 155);
 $dropdown-link-hover-bg: rgba(180, 183, 185, 0.05);
 
-$link-color: #4A90E2;
+$link-color: $darker-ico-color;
 $link-hover-color: #2e6b5e;
 $link-hover-decoration: none;
 
 $nav-link-color: $white;
-$nav-tabs-border-color: $brightblue;
+$nav-tabs-border-color: transparent;
 $nav-disabled-link-color: #777777;
 $nav-link-hover-bg: transparent;
 $nav-tabs-link-hover-border-color: transparent;
@@ -110,11 +115,6 @@ $main-theme-darkblue: #4A90E2;
 $main-theme-pinkorange: #e45f56;
 // used for hover state on button
 $main-theme-pinkorange2: #eb8982;
-
-/* new design here: */
-$lighter-ico-color: #00c1fa;
-$darker-ico-color: #6158ab;
-$ico-box-background-color: #eff4f7;
 
 $hidden-link-color: $gray-dark;
 
