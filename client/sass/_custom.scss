@@ -82,24 +82,9 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   font-size: $btn-extra-size-font-size;
 }
 
-/* user util navigation component */
-#user-util-nav li.active {
-  font-weight: bold;
-}
-
 .hidden-link, .hidden-link:hover, .hidden-link:active {
   color: $hidden-link-color;
   cursor: text;
-}
-
-.main-fixed-nav-panel {
-  position: fixed;
-  top: 0;
-  z-index: 65300;
-}
-
-.main-fixed-nav-panel-placeholder {
-  height: 6.5rem;
 }
 
 .max-width-22rem {
@@ -128,8 +113,8 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   @include makePrimaryGradient('background');
   color: white;
   border-radius: 23px;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: $btn-horizontal-padding;
+  padding-right: $btn-horizontal-padding;
   /* fixing basic .btn bootstrap class, where transparent border makes bad visual effect */
   border-left: none;
   border-right: none;
@@ -143,8 +128,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .btn-ico-secondary {
   max-height: 22px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding: 0px $btn-horizontal-padding;
   border: 0px;
 
   color: $darker-ico-color;
@@ -205,15 +189,31 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   }
 }
 
-//  /* category navigation component */
-//#category-nav li.active .badge-ico {
-//  font-weight: bold;
-//  border: 2px solid $darker-ico-color;
-//}
-//
-///* category nav component */
-//#category-nav li a {
-//  height: 5.5rem;
-//  display: flex;
-//  align-items: center;
-//}
+#category-nav-wrapper {
+  .ico-logo {
+    width: 15rem;
+    margin-left: 1.5rem;
+
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  &.sticked {
+    z-index: 65300;
+    .ico-logo {
+      opacity: 1;
+    }
+  }
+}
+
+
+/* user util navigation component */
+#user-util-nav li.active {
+  font-weight: bold;
+}
+
+#top-header {
+
+}
+
+

@@ -4,14 +4,19 @@
 $white: #fff;
 $brightblue: #003BFF;
 
-/* new design here: */
+
+/* BEGIN -- new design here: */
 $lighter-ico-color: #00c1fa;
 $darker-ico-color: #6158ab;
 $ico-box-background-color: #eff4f7;
 
+$btn-horizontal-padding: 3rem;
 
-/* basic rubix scss variables for change & use */
+/* END -- new design here: */
 
+
+
+/* basic bootstrap scss variables (can be overwritten here, or by our custom class) */
 $img-path: '/';
 $bootstrap-sass-asset-helper: true;
 $icon-font-path: '/fonts/glyphicon/'; // only for glyphicon
