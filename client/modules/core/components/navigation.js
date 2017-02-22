@@ -8,21 +8,14 @@ import {Sticky} from 'react-sticky';
 
 class Navigation extends React.Component {
 
-  // todo remove:
-  onSticky () {
-    console.log('stickOn');
-  }
-
   render () {
 
-    let publishedCountStr, conceptsCountStr;
+    let conceptsCountStr;
     if (!this.props.globalCounts) {
-      publishedCountStr = conceptsCountStr = '';
+      conceptsCountStr = '';
     } else {
-      const publishedCount = this.props.globalCounts.published;
-      publishedCountStr = (!publishedCount && publishedCount !== 0) ? '': ` (${publishedCount})`;
       const conceptsCount = this.props.globalCounts.concept;
-      conceptsCountStr = (!publishedCount && publishedCount !== 0) ? '' :` (${conceptsCount})`;
+      conceptsCountStr = (!conceptsCount && conceptsCount !== 0) ? '' :` (${conceptsCount})`;
     }
 
     let userUtilNav;
@@ -30,12 +23,8 @@ class Navigation extends React.Component {
       userUtilNav =
         <Nav bsStyle="pills"
              id="user-util-nav"
-             className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
+             className='nav-theme-orange padding-vertical-sm padding-horizontal-sm pull-right'
              activeKey={this.props.view}>
-          <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
-            <i className="fa fa-list margin-right-sm" aria-hidden="true" />
-            ICO index {publishedCountStr}
-          </NavItem>
           <NavItem className="h4" eventKey={'ico.favourites'} href="#">
             <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
             Favourites
@@ -52,33 +41,35 @@ class Navigation extends React.Component {
         </Nav>
     } else {
       userUtilNav =
-        <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm'
+        <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm  pull-right'
            id="user-util-nav"
            activeKey={this.props.view}>
-          <NavItem className="h4" eventKey={'ico.index'} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
-            <i className="fa fa-bars margin-right-sm" aria-hidden="true" />
-            ICO index {publishedCountStr}
-          </NavItem>
-          <NavItem className="h4" eventKey={'ico.favourites'} href="#">
-            <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
-            Favourites
-          </NavItem>
+          {/* Favourites won't be public now
+            <NavItem className="h4" eventKey={'ico.favourites'} href="#">
+              <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
+              Favourites
+            </NavItem>
+          */}
         </Nav>;
     }
 
     const topHeaderPanel =
-      <div className="row full-width bg-theme-darkblue">
-        <div className="col-xs-12 col-md-10 col-md-push-1">
+      <div id="top-header" className="row bg-header-img">
+        <div className="opacity-plane row-vertical-center">
+          <div className="col-xs-12 col-md-10 col-md-push-1">
 
-          <div className="row row-vertical-center">
-            <div className="col-xs-2">
-              <img className="img-responsive" src="/ICOindex.com-white.png" />
+            <div className="row row-vertical-center">
+              <div className="col-xs-3 padding-right-none">
+                <a href={FlowRouter.path('ico.home')}>
+                  <img className="img-responsive" src="/ICOindex.com-white.png" />
+                </a>
+              </div>
+              <div className="col-xs-9">
+                {userUtilNav}
+              </div>
             </div>
-            <div className="col-xs-10">
-              {userUtilNav}
-            </div>
+
           </div>
-
         </div>
       </div>;
 
@@ -124,8 +115,6 @@ class Navigation extends React.Component {
           </div>
         </Sticky>;
     }
-
-
 
     return (
       <div>

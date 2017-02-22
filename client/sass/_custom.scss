@@ -208,12 +208,26 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 
 /* user util navigation component */
-#user-util-nav li.active {
-  font-weight: bold;
+#user-util-nav {
+
+  li.active {
+    font-weight: bold;
+    a {
+      background-color: unset;
+    }
+  }
 }
 
 #top-header {
 
-}
+  &.bg-header-img {
+    height: 12rem;
+    background-image: url('/header_bg1.jpg');
+  }
 
+  .opacity-plane {
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.7);
+  }
+}
 
