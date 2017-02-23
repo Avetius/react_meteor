@@ -5,7 +5,6 @@ import Infinite from 'react-infinite';
 export default class IcoFrontList extends React.Component  {
 
   loadMore () {
-    console.log('loading more icos..');
     this.props.loadMore();
   }
 
@@ -50,8 +49,10 @@ export default class IcoFrontList extends React.Component  {
           </div>
         </div>;
     }
-    // note: try compute this value dynamically
-    const icoShortItemHeight = 194;
+
+    // todo: try compute this value dynamically
+    // height of the ico-box (border included) plus vertical margin
+    const icoShortItemHeight = 221;
     return (
       <div>
         { subViewTitle }

@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import i18next from 'i18next';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import EllipsisText from 'react-ellipsis-text';
 
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
@@ -127,12 +128,19 @@ export default class IcoShortItemMainRows extends React.Component {
 
         <div className="row">
           <div className="col-xs-12">
-            <em>{ico.oneSentenceExplanation ? ico.oneSentenceExplanation : i18next.t('ico.rendering.fieldNA')}</em>
+            <div className="fixed-height">
+              <em>
+                <EllipsisText
+                  text={ico.oneSentenceExplanation ? ico.oneSentenceExplanation : i18next.t('ico.rendering.fieldNA')}
+                  length={200}>
+                </EllipsisText>
+              </em>
+            </div>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-xs-12 col-md-5">
+          <div className="col-xs-12 col-md-5 padding-right-none">
             <ContentWithPopover fieldLabel="Start Date"
                                 helpText="ICO start date is date and time when you will first be able to participate in this initial coin offering.">
               <span className="text-help margin-right-xs">Start Date:</span>
@@ -193,17 +201,15 @@ export default class IcoShortItemMainRows extends React.Component {
 
         </div>
 
-        <div className="row margin-top-lg margin-bottom-md">
-
-          { this.props.isProfile && ico.icoWebsiteLink && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
+        { this.props.isProfile && ico.icoWebsiteLink && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
+          <div className="row margin-top-lg margin-bottom-md">
             <div className="col-xs-12 col-md-3 col-md-push-8">
               <a className="btn btn-ico-primary" target="_blank" href={ico.icoWebsiteLink}
                  rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
             </div>
-            : ''
-          }
-
-        </div>
+          </div>
+          : ''
+        }
 
       </div>
     );

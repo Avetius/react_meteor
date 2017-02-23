@@ -1,9 +1,9 @@
 
 export default class BrowserViewUtils {
-
+  // todo make JSdoc
   static getOffsetObj (elem) {
     if (!elem) {
-      throw new Error('no element was found');
+      return {};
     }
     const rect = elem.getBoundingClientRect(),
       scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,

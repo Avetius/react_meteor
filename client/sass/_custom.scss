@@ -154,6 +154,13 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .ico-box {
   background-color: $ico-box-background-color;
+  // this height is part of the formula for compute total height of each infinite scrolled item (as react-infinite parameter)
+  height: 207px;
+
+  .fixed-height {
+    line-height: 2.4rem;
+    height: 4.8rem;
+  }
 }
 
 .ico-profile-box {
