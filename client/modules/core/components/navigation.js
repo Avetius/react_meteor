@@ -1,12 +1,24 @@
 import React from 'react';
+
 // Rubix theme
 import { Tab, Row, Col, Nav, NavItem } from '@sketchpixy/rubix';
-import {Meteor} from 'meteor/meteor';
-import AccountsMgmt from '/lib/accountsMgmt';
+
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import {Sticky} from 'react-sticky';
 
+import AccountsMgmt from '/lib/accountsMgmt';
+import BrowserViewUtils from '/client/lib/browserViewUtils';
+
 class Navigation extends React.Component {
+
+  componentDidMount () {
+    const {NonReactiveLocalState} = this.props.context();
+    NonReactiveLocalState['view.categoryNavTopPosition'] = BrowserViewUtils.getOffsetObj(this.categoryNavWrapper).top;
+  }
+
+  setCategoryNavWrapper (elem) {
+    this.categoryNavWrapper = elem;
+  }
 
   render () {
 
@@ -79,9 +91,11 @@ class Navigation extends React.Component {
 
       subNavigationPanel =
         <Sticky id="category-nav-wrapper" stickyClassName="sticked" onStickyStateChange={this.onSticky}>
-          <div className="row bg-primary-gradient row-vertical-center">
+          <div className="row bg-primary-gradient row-vertical-center" ref={this.setCategoryNavWrapper.bind(this)}>
             <div className="col-md-2">
-              <img className="ico-logo" src="/ICOindex.com-white.png" />
+              <a href={FlowRouter.path('ico.home')}>
+                <img className="ico-logo" src="/ICOindex.com-white.png" />
+              </a>
             </div>
             <div className="col-xs-12 col-md-9">
 

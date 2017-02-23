@@ -67,6 +67,7 @@ export default function (inject, context, actions) {
   FlowRouter.route('/profile/:icoSlug', {
     name: 'ico.profile',
     action({icoSlug}) {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
         content: () => (<IcoProfile icoSlug={icoSlug} />),
         context: () => context
@@ -77,6 +78,7 @@ export default function (inject, context, actions) {
   FlowRouter.route('/admin/add-ico', {
     name: 'ico.add',
     action() {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
         content: () => (<AddOrEditIco editMode={{active: false}} />),
         context: () => context
@@ -87,6 +89,7 @@ export default function (inject, context, actions) {
   FlowRouter.route('/admin/edit-ico/:icoSlug', {
     name: 'ico.edit',
     action({icoSlug}) {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
         content: () => (<AddOrEditIco editMode={{active: true, icoId: icoSlug}} />),
         context: () => context
@@ -97,6 +100,7 @@ export default function (inject, context, actions) {
   FlowRouter.route('/admin/login', {
     name: 'login',
     action() {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
         content: () => (<Accounts.ui.LoginForm />),
         context: () => context
@@ -107,6 +111,7 @@ export default function (inject, context, actions) {
   FlowRouter.route('/not-found', {
     name: '404',
     action() {
+      actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
         content: () => (<NotFound/>),
         context: () => context

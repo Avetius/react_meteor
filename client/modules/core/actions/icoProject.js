@@ -86,6 +86,7 @@ export default {
   resetInfiniteScrolling ({LocalState, NonReactiveLocalState}) {
     LocalState.set('skipDocsNum', 0);
     NonReactiveLocalState['icoProjects.infiniteScrollingEnd'] = false;
+    window.scrollTo(0, NonReactiveLocalState['view.categoryNavTopPosition']);
   },
 
   clearCacheIfNeeded ({CacheCollections: {IcoProjectsCache}}) {
