@@ -12,8 +12,6 @@ export const composer = ({context, entityState, subView }, onData) => {
    *  fast render block - these items are not saved anywhere, only rendered
    */
   if (!NonReactiveLocalState['icoProjects.fastRenderedInserted']) {
-    //console.log(FastRender.debugger.getPayload());
-    // todo fix FastRender to work it again
     const payload = FastRender.debugger.getPayload();
     if (payload) {
       const collections = FastRender.debugger.getPayload().collectionData;
