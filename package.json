@@ -48,7 +48,8 @@
     "react-mounter": "^1.2.0",
     "react-rte": "^0.11.0",
     "react-sticky": "^5.0.5",
-    "tcomb-form": "^0.9.10"
+    "tcomb-form": "^0.9.10",
+    "tracker-component": "^1.3.21"
   },
   "private": true
 }

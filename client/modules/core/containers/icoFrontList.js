@@ -12,18 +12,23 @@ export const composer = ({context, entityState, subView }, onData) => {
    *  fast render block - these items are not saved anywhere, only rendered
    */
   if (!NonReactiveLocalState['icoProjects.fastRenderedInserted']) {
-    const collections = FastRender.debugger.getPayload().collectionData;
-    const icoProjectsFastRendered = collections && collections.icoProjects && collections.icoProjects[0];
-    if (icoProjectsFastRendered) {
-      icoProjectsFastRendered.forEach(( icoProject) => {
-        icoProject._id = (Math.random()*1000).toString();
-      });
+    //console.log(FastRender.debugger.getPayload());
+    // todo fix FastRender to work it again
+    const payload = FastRender.debugger.getPayload();
+    if (payload) {
+      const collections = FastRender.debugger.getPayload().collectionData;
+      const icoProjectsFastRendered = collections && collections.icoProjects && collections.icoProjects[0];
+      if (icoProjectsFastRendered) {
+        icoProjectsFastRendered.forEach(( icoProject) => {
+          icoProject._id = (Math.random()*1000).toString();
+        });
 
-      NonReactiveLocalState['icoProjects.fastRenderedInserted'] = true;
-      onData(null, {
-        icoEntities: icoProjectsFastRendered,
-        subView
-      });
+        NonReactiveLocalState['icoProjects.fastRenderedInserted'] = true;
+        onData(null, {
+          icoEntities: icoProjectsFastRendered,
+          subView
+        });
+      }
     }
   }
 
