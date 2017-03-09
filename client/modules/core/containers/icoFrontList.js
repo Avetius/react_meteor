@@ -17,7 +17,7 @@ export const composer = ({context, entityState, subView }, onData) => {
       const collections = FastRender.debugger.getPayload().collectionData;
       const icoProjectsFastRendered = collections && collections.icoProjects && collections.icoProjects[0];
       if (icoProjectsFastRendered) {
-        icoProjectsFastRendered.forEach(( icoProject) => {
+        icoProjectsFastRendered.forEach((icoProject) => {
           icoProject._id = (Math.random()*1000).toString();
         });
 

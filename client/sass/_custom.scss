@@ -20,9 +20,18 @@
   align-items: center;
 }
 
-.vertical-center {
-  display: flex !important;
-  align-items: center !important;
+.flex-vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-horizontal-center {
+  display: flex;
+  justify-content: center;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
 }
 
 .border-bottom-1-solid {
@@ -87,10 +96,6 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   cursor: text;
 }
 
-.max-width-22rem {
-  max-width: 22rem;
-}
-
 /* our basic design components */
 
 @mixin makePrimaryGradient ($use) {
@@ -111,10 +116,19 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .btn-ico-primary {
   @include makePrimaryGradient('background');
-  color: white;
+  font-size: $font-size-h5;
   border-radius: 23px;
-  padding-left: $btn-horizontal-padding;
-  padding-right: $btn-horizontal-padding;
+  padding: 0 $btn-horizontal-padding;
+  height: 4rem;
+  color: white;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+
   /* fixing basic .btn bootstrap class, where transparent border makes bad visual effect */
   border-left: none;
   border-right: none;
@@ -127,10 +141,10 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 
 .btn-ico-secondary {
+  font-size: $font-size-h5;
   max-height: 22px;
-  padding: 0px $btn-horizontal-padding;
+  padding: 0;
   border: 0px;
-
   color: $darker-ico-color;
 
   &:hover,
@@ -141,25 +155,33 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .btn-ico-secondary-wrapper-outer {
   @include makePrimaryGradient('background');
-  border-radius: 23px;
-
-  max-height: 30px;
+  height: 4rem;
+  width: 90%;
+  border-radius: 25px;
   padding: 3px;
 }
 
 .btn-ico-secondary-wrapper-inner {
+  height: 3.4rem;
   border-radius: 23px;
   background-color: $ico-box-background-color;
 }
 
 .ico-box {
+  // overrided from rubix theme
+  padding: 10px ($grid-gutter-width / 2);
+  &:hover {
+    padding: 10px ($grid-gutter-width / 2);
+  }
+
   background-color: $ico-box-background-color;
   // this height is part of the formula for compute total height of each infinite scrolled item (as react-infinite parameter)
-  height: 207px;
+  // todo - change infinite scrolling to dynamic height
+  height: 271px;
 
   .fixed-height {
     line-height: 2.4rem;
-    height: 4.8rem;
+    height: 9.6rem;
   }
 }
 
@@ -228,13 +250,45 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 #top-header {
 
   &.bg-header-img {
-    height: 12rem;
+    height: 19rem;
     background-image: url('/header_bg1.jpg');
+    background-position: 50%;
+    background-size: 80% 400%;
   }
 
   .opacity-plane {
     height: 100%;
     background-color:rgba(0, 0, 0, 0.7);
   }
+}
+
+.ico-title-label {
+  color: $darker-ico-color;
+  text-transform: uppercase;
+  font-size: $font-size-h5;
+  font-weight: bold;
+}
+
+.ico-text-value {
+  color: $ico-text-value-color;
+}
+
+.ico-grey-text-value {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $ico-grey-color;
+  letter-spacing: 2px;
+}
+
+.ico-darker-grey-text-value {
+  color: $ico-dark-grey-color;
+}
+
+.hr-limiter {
+  border: 1px solid $ico-grey-color2;
+}
+
+.min-height-1-line {
+  min-height: $line-height-computed;
 }
 

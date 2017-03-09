@@ -7,7 +7,6 @@ import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 import AccountsMgmt from '/lib/accountsMgmt';
 
-
 const CoFounders = (props) => {
 
   // insert after every 4th coFounder bootstrap clearboth class delimiter visible in md
@@ -146,29 +145,14 @@ export default class IcoProfile extends React.Component {
 
     return (
       <div className="panel panel-default ico-profile-box">
-        <div className="panel-body padding-all-sm">
+        <div className="panel-body padding-vertical-sm">
+
+          <IcoShortItemMainRows ico={this.props.icoEntity} isProfile={true} />
+
+          <hr className="hr-limiter margin-vertical-xs" />
 
           <div className="row row-vertical-center">
-
-            <div className="col-xs-12 col-md-2 padding-right-xs">
-              <img className="img-responsive margin-top-sm" src={this.props.icoEntity.icoProjectLogo || '/logo.svg'} />
-              { AccountsMgmt.isCurrentUserAdmin() ? (
-                <div className="margin-vertical-md">
-                  <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
-                    <span className="h4">
-                      <i className="fa fa-pencil margin-right-sm" />
-                        Edit ICO
-                    </span>
-                  </a>
-                </div> ) : ''
-              }
-            </div>
-
-            <div className="col-xs-12 col-md-10 padding-left-sm">
-
-              <IcoShortItemMainRows ico={this.props.icoEntity} isProfile={true} />
-
-              <hr className="margin-vertical-xs" />
+            <div className="col-xs-12 col-md-12">
 
               <div className="row row-vertical-center">
 
@@ -338,7 +322,7 @@ export default class IcoProfile extends React.Component {
 
           <div className="row">
             <div className="col-md-12">
-              <hr />
+              <hr className="hr-limiter" />
 
               { note }
 
@@ -346,13 +330,13 @@ export default class IcoProfile extends React.Component {
               <div>
                 <ReactMarkdown source={ico.mediumLengthDescription || ''} />
               </div>
-              <hr />
+              <hr className="hr-limiter" />
 
               <h3>Team</h3>
               <div className="row">
                 {<CoFounders coFounders={ico.coFounders} />}
               </div>
-              <hr />
+              <hr className="hr-limiter" />
               { /* <h4>Marketing & community</h4>*/}
 
             </div>

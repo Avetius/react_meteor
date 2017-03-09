@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import EllipsisText from 'react-ellipsis-text';
 
+import AccountsMgmt from '/lib/accountsMgmt';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 
@@ -12,7 +13,7 @@ import Constants from '/client/configs/constants';
 
 export default class IcoShortItemMainRows extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     // todo move it to separate comp or LATER to redux
     this.state = this.getCountdownState();
@@ -85,15 +86,13 @@ export default class IcoShortItemMainRows extends React.Component {
     }
 
     if (!datetimeFormat || datetimeFormat === 'dateTime') {
-      return moment(datetime).format('dddd, MMMM Do YYYY, h:mm a');
+      return moment(datetime).format('MMMM Do YYYY, h:mm a');
     } else if (datetimeFormat === 'dateOnly') {
-      return moment(datetime).format('dddd, MMMM Do YYYY');
+      return moment(datetime).format('MMMM Do YYYY');
     }
   }
 
   render() {
-
-    const ico = this.props.ico;
 
     const FundKeeperHelpBody =
       <span>
@@ -113,106 +112,256 @@ export default class IcoShortItemMainRows extends React.Component {
         <p> - Live: The team has already developed something that actually works and the team is looking for additional funding to further develop and grow their project </p>
       </span>;
 
+    const ico = this.props.ico;
+
     return (
-      <div>
-        <div className="row">
-          <div className="col-xs-12 col-md-6">
-            <h4 className="margin-vertical-xs">
-              <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } className="cursor-pointer">
-                { ico.projectName ? ico.projectName: i18next.t('ico.rendering.fieldNA') }
-                <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
-              </a>
-            </h4>
-          </div>
-        </div>
+    <div>
 
-        <div className="row">
-          <div className="col-xs-12">
-            <div className="fixed-height">
-              <em>
-                <EllipsisText
-                  text={ico.oneSentenceExplanation ? ico.oneSentenceExplanation : i18next.t('ico.rendering.fieldNA')}
-                  length={200}>
-                </EllipsisText>
-              </em>
+      <div className="row">
+
+        <div className="col-xs-12 col-md-7 padding-right-xs">
+
+          <div className="row">
+            <div className="col-xs-12 col-md-5 padding-right-xs">
+
+              <div className="row">
+                <div className="col-xs-12 col-md-10 padding-right-none">
+                  {/*Logo*/}
+                  <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">
+                    <img className="img-responsive margin-top-sm" src={ico.icoProjectLogo || Constants.icoLogoPlaceholderURL} />
+                  </a>
+                </div>
+              </div>
+              <div className="row margin-top-sm">
+                <div className="col-xs-8 padding-right-none">
+
+                  {/* TODO: impl IcoStatus*/}
+                  <span className="ico-grey-text-value">Ongoing</span>
+                </div>
+                <div className="col-xs-4 padding-horizontal-none">
+
+                  {/*Edit ICO*/}
+                  { AccountsMgmt.isCurrentUserAdmin() ? (
+                    <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
+                      <span className="h5">
+                        <i className="fa fa-pencil margin-right-sm" />
+                        Edit ICO
+                      </span>
+                    </a> ) : ''
+                  }
+                </div>
+              </div>
+
+            </div>
+
+            <div className="col-xs-12 col-md-7 padding-right-xs">
+
+              <div className="row">
+                <div className="col-xs-12 padding-left-none">
+
+                  {/*Name - title*/}
+                  <span className="ico-title-label">Name</span>
+                </div>
+                <div className="col-xs-12 padding-left-none">
+
+                  {/*Name - value*/}
+                  <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } className="ico-text-value">
+                    { ico.projectName ? ico.projectName: i18next.t('ico.rendering.fieldNA') }
+                    <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
+                  </a>
+                </div>
+                <div className="col-xs-12 padding-left-none padding-right-xl">
+
+                  {/*One Sentence Explanation*/}
+                  <div className="fixed-height ico-darker-grey-text-value">
+                    <em>
+                      <EllipsisText
+                        text={ico.oneSentenceExplanation ? ico.oneSentenceExplanation : i18next.t('ico.rendering.fieldNA')}
+                        length={200}>
+                      </EllipsisText>
+                    </em>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 col-md-5 padding-right-none">
-            <ContentWithPopover fieldLabel="Start Date"
-                                helpText="ICO start date is date and time when you will first be able to participate in this initial coin offering.">
-              <span className="text-help margin-right-xs">Start Date:</span>
-            </ContentWithPopover>
-            { this.renderDatetime(ico.icoStartDatetime, ico.icoStartDatetimeFormat) }
-          </div>
-          <div className="col-xs-12 col-md-7">
-            <ContentWithPopover fieldLabel="End Date"
-                                helpText="ICO end date is date and time after which you will not be able to participate in initial coin offering.">
-              <span className="text-help margin-right-xs">End Date:</span>
-            </ContentWithPopover>
-            { this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) }
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 col-md-5">
-            {
-              this.state.icoCountdown.enable ? (
-                <Countdown givenDate={this.state.icoCountdown.date}
-                           message={this.state.icoCountdown.message}
-                           help={{ enable: false }}
-                           afterTimeout={this.reComputeCountdowns.bind(this)}/>
-              ) : ''
-            }
-          </div>
-          <div className="col-xs-12 col-md-7">
-            {
-              this.state.bonusCountdown.enable ? (
-                <Countdown givenDate={this.state.bonusCountdown.date}
-                           message={this.state.bonusCountdown.message}
-                           afterTimeout={this.reComputeCountdowns.bind(this)}/>
-              ) : ''
-            }
-          </div>
-        </div>
-
-
-        <div className="row">
-          <div className="col-xs-12 col-md-5">
-            <ContentWithPopover fieldLabel="Fund keeper"
-                                helpText={FundKeeperHelpBody}>
-              <span className="text-help margin-right-xs">Fund keeper:</span>
-            </ContentWithPopover>
-            {ico.fundKeeper ? i18next.t('ico.fundKeeper.' + ico.fundKeeper): i18next.t('ico.rendering.fieldNA')}
-          </div>
-          <div className="col-xs-12 col-md-4">
-
-            <ContentWithPopover fieldLabel="Project status"
-                                helpText={ProjectStatusHelpBody}>
-              <span className="text-help margin-right-xs">Project status:</span>
-            </ContentWithPopover>
-            <strong>
-              {ico.projectStatus ? i18next.t('ico.projectStatus.' + ico.projectStatus): i18next.t('ico.rendering.fieldNA')}
-            </strong>
-
-          </div>
 
         </div>
 
-        { this.props.isProfile && ico.icoWebsiteLink && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
+        <div className="col-xs-12 col-md-5 padding-right-xs">
+
+          <div className="row">
+            <div className="col-xs-12 col-md-6 padding-right-xs">
+
+              <div className="row">
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*Start Date - Title*/}
+                  <ContentWithPopover fieldLabel="Start Date"
+                                      helpText="ICO start date is date and time when you will first be able to participate in this initial coin offering.">
+                    <span className="ico-title-label text-help margin-right-xs">Start Date</span>
+                  </ContentWithPopover>
+
+                </div>
+                <div className="col-xs-12 padding-horizontal-none margin-bottom-md">
+
+                  {/*Start Date - Value*/}
+                  <span className="ico-text-value">
+                    { this.renderDatetime(ico.icoStartDatetime, ico.icoStartDatetimeFormat) }
+                  </span>
+                </div>
+
+                <div className="col-xs-12 padding-left-none">
+
+                  {/*ICO countdown - title*/}
+                  <span className="ico-title-label">
+                    {this.state.icoCountdown.message}
+                  </span>
+                </div>
+
+                <div className="col-xs-12 padding-horizontal-none min-height-1-line margin-bottom-md">
+
+                  {/*ICO countdown - value*/}
+                  {
+                    this.state.icoCountdown.enable ? (
+                      <Countdown givenDate={this.state.icoCountdown.date}
+                                 help={{ enable: false }}
+                                 afterTimeout={this.reComputeCountdowns.bind(this)}/>
+                    ) : ''
+                  }
+                </div>
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*Fund Keeper - Title*/}
+                  <ContentWithPopover fieldLabel="Fund keeper"
+                                      helpText={FundKeeperHelpBody}>
+                    <span className="ico-title-label text-help margin-right-xs">Fund keeper</span>
+                  </ContentWithPopover>
+
+                </div>
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*Fund Keeper - Value*/}
+                  <span className="ico-text-value">
+                    {ico.fundKeeper ? i18next.t('ico.fundKeeper.' + ico.fundKeeper): i18next.t('ico.rendering.fieldNA')}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="col-xs-12 col-md-6 padding-right-xs">
+
+              <div className="row">
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*End Date - Title*/}
+                  <ContentWithPopover fieldLabel="End Date"
+                                      helpText="ICO end date is date and time after which you will not be able to participate in initial coin offering.">
+                    <span className="ico-title-label text-help margin-right-xs">End Date</span>
+                  </ContentWithPopover>
+
+                </div>
+                <div className="col-xs-12 padding-horizontal-none margin-bottom-md">
+
+                  {/*End Date - Value*/}
+                  <span className="ico-text-value">
+                    { this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) }
+                  </span>
+                </div>
+                <div className="col-xs-12 padding-left-none">
+
+                  {/*Bonus countdown - title*/}
+                  <span className="ico-title-label">
+                    {this.state.bonusCountdown.message || '10% bonus ends in'}
+                  </span>
+                </div>
+                <div className="col-xs-12 padding-horizontal-none min-height-1-line margin-bottom-md">
+
+                  {/*Bonus countdown - value -- TODO replace this by real bonus value*/}
+                  {
+                    this.state.icoCountdown.enable ? (
+                      <Countdown givenDate={this.state.icoCountdown.date}
+                                 afterTimeout={this.reComputeCountdowns.bind(this)}/>
+                    ) : ''
+                  }
+
+                </div>
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*ProjectStatus - Title*/}
+                  <ContentWithPopover fieldLabel="Project status"
+                                      helpText={ProjectStatusHelpBody}>
+                    <span className="ico-title-label text-help margin-right-xs">Project status</span>
+                  </ContentWithPopover>
+
+                </div>
+                <div className="col-xs-12 padding-horizontal-none">
+
+                  {/*ProjectStatus - Value*/}
+                  <span className="ico-text-value">
+                    {ico.projectStatus ? i18next.t('ico.projectStatus.' + ico.projectStatus): i18next.t('ico.rendering.fieldNA')}
+                  </span>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
           <div className="row margin-top-lg margin-bottom-md">
-            <div className="col-xs-12 col-md-3 col-md-push-8">
-              <a className="btn btn-ico-primary" target="_blank" href={ico.icoWebsiteLink}
-                 rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
-            </div>
+
+            { this.props.isProfile ?
+              <div>
+                { ico.icoWebsiteLink && (IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico)) ?
+
+                  <div className="col-xs-12 col-md-6 col-md-push-4">
+                    {/*Participate in ICO - PRIMARY*/}
+                    <a className="btn btn-ico-primary" target="_blank" href={ico.icoWebsiteLink}
+                       rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>Participate in ICO</a>
+                  </div>
+                  : ''
+                }
+              </div>
+              :
+              <div>
+                <div className="col-xs-12 col-md-6 padding-horizontal-none">
+                  {/*Participate in ICO -- secondary*/}
+                  { IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico) ?
+                    <div className="btn-ico-secondary-wrapper-outer">
+                      <div className="btn-ico-secondary-wrapper-inner flex-vertical-center flex-horizontal-center">
+                        <a className="btn btn-ico-secondary" target="_blank" href={ico.icoWebsiteLink}
+                           rel="noopener noreferrer" disabled={!ico.icoWebsiteLink}>
+                          Participate in ICO
+                        </a>
+                      </div>
+                    </div>
+                    : ''
+                  }
+                </div>
+
+                <div className="col-xs-12 col-md-6 padding-left-none">
+                  {/*Detail button*/}
+                  <div>
+                    <a className="btn btn-ico-primary margin-left-sm" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) }
+                       rel="noopener noreferrer">
+                      <span className="vertical-align-middle">Details</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
-          : ''
-        }
+
+        </div>
 
       </div>
+
+    </div>
     );
+
+
   }
 }
 

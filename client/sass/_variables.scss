@@ -1,3 +1,10 @@
+@import '../../../node_modules/@sketchpixy/rubix/sass/bootstrap/bootstrap-variables';
+
+/*
+ Here we can override default bootstrap variables -- if we really need
+*/
+
+
 /* default rubix colors which was hardcoded in _colors.scss.
    By declare it here, we can use it also in this file.
 */
@@ -9,6 +16,10 @@ $brightblue: #003BFF;
 $lighter-ico-color: #00c1fa;
 $darker-ico-color: #6158ab;
 $ico-box-background-color: #eff4f7;
+$ico-grey-color2: #e7e8ea;
+$ico-grey-color: #cbcdcc;
+$ico-dark-grey-color: #666;
+$ico-text-value-color: $gray-base;
 
 $btn-horizontal-padding: 3rem;
 
@@ -39,7 +50,7 @@ $sidebar-controls-visibility: visible;
 $font-family-sans-serif:  'PT Sans', Helvetica, Arial, sans-serif;
 $headings-font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 
-$screen-sm-min: 990px;
+$screen-sm-min: 768px;
 $screen-md-min: 1152px;
 $screen-lg-min: 1366px;
 
@@ -71,19 +82,6 @@ $btn-font-size: 12px;
 $btn-font-weight: bold;
 $btn-font-size-small: 10px;
 $btn-font-size-xsmall: 8px;
-
-//== Colors
-//
-//## Gray and brand colors for use across Bootstrap.
-
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:              lighten($gray-base, 20%) !default;   // #333
-$gray:                   lighten($gray-base, 33.5%) !default; // #555
-$gray-light:             lighten($gray-base, 46.7%) !default; // #777
-$gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
-
-// ... other variables are in /node_modules/@sketchpixy/rubix/sass/bootstrap/_bootstrap-variables.scss
 
 $btn-link-color: #89949B;
 $btn-default-color: #B4B7B9;

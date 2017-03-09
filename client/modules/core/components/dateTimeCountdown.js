@@ -26,20 +26,20 @@ const App = React.createClass({displayName: "App",
     if (this.props.givenDate) {
       let formattedGivenDate = new Date(this.props.givenDate);
       let today = new Date();
-      let msDiff =formattedGivenDate - today;
-      let days = parseInt(msDiff/(24*3600*1000));
-      let hours = parseInt(msDiff/(3600*1000)-(days*24));
-      let mins = parseInt(msDiff/(60*1000)-(days*24*60)-(hours*60));
+      let msDiff = formattedGivenDate - today;
+      let days = parseInt(msDiff / (24 * 3600 * 1000));
+      let hours = parseInt(msDiff / (3600 * 1000) - (days * 24));
+      let mins = parseInt(msDiff / (60 * 1000) - (days * 24 * 60) - (hours * 60));
       // seconds variant:
       //let secs = parseInt(msDiff/(1000)-(mins*60)-(days*24*60*60)-(hours*60*60));
       //countdown = <span className="h4">{ days + " days " + hours + " hours " + mins + " mins " +  secs + " secs "}</span>;
-      countdown = <span className="h4">{ days + " days " + hours + " hours " + mins + " mins "}</span>;
+      countdown = <strong><small>{ days + " days " + hours + " hours " + mins + " mins "}</small></strong>;
     } else {
       countdown = '';
     }
 
     let message;
-    if (this.props.help.enable) {
+    if (this.props.help && this.props.help.enable) {
       message =
         <ContentWithPopover fieldLabel={this.props.help.field}
                             helpText={this.props.help.text}
@@ -47,12 +47,12 @@ const App = React.createClass({displayName: "App",
           <span className="text-help margin-right-xs">{this.props.message}</span>
         </ContentWithPopover>
 
-    } else {
+    } else if (message) {
       message = <span>{this.props.message}</span>;
     }
 
     return (
-      <div className="margin-vertical-xs">
+      <div className="ico-text-value">
         {message}
         {countdown}
       </div>
