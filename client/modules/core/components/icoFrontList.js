@@ -1,6 +1,6 @@
 import { ListGroup } from '@sketchpixy/rubix';
 import IcoShortItem from './icoShortItem';
-import Infinite from 'react-infinite';
+import Waypoint from 'react-waypoint';
 
 export default class IcoFrontList extends React.Component  {
 
@@ -50,24 +50,24 @@ export default class IcoFrontList extends React.Component  {
         </div>;
     }
 
-    // todo: try compute this value dynamically
-    // height of the ico-box (border included) plus vertical margin
-    const icoShortItemHeight = 221;
     return (
       <div>
         { subViewTitle }
         { note }
         <ListGroup componentClass="ul">
-          <Infinite elementHeight={icoShortItemHeight}
-                    onInfiniteLoad={this.loadMore.bind(this)}
-                    infiniteLoadBeginEdgeOffset={icoShortItemHeight * 3}
-                    useWindowAsScrollContainer>
-            {
-              this.props.icoEntities.map((icoEntity) => {
-                return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
-              })
-            }
-          </Infinite>
+
+          {
+            this.props.icoEntities.map((icoEntity) => {
+              return <IcoShortItem key={icoEntity._id} icoEntity={icoEntity} />
+            })
+          }
+
+          <Waypoint scrollableAncestor={window}
+                     onEnter={this.loadMore.bind(this)}
+                     bottomOffset='-400px'>
+            <div></div>
+          </Waypoint>
+
         </ListGroup>
       </div>
     );
