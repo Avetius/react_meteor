@@ -119,21 +119,21 @@ export default class IcoShortItemMainRows extends React.Component {
 
       <div className="row">
 
-        <div className="col-xs-12 col-md-7 padding-right-xs">
+        <div className="col-xs-12 col-md-7">
 
           <div className="row">
-            <div className="col-xs-12 col-md-5 padding-right-xs">
+            <div className="col-xs-12 col-sm-4 col-md-5">
 
               <div className="row">
-                <div className="col-xs-12 col-md-10 padding-right-none">
+                <div className="col-xs-12 col-md-12">
                   {/*Logo*/}
                   <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">
                     <img className="img-responsive margin-top-sm" src={ico.icoProjectLogo || Constants.icoLogoPlaceholderURL} />
                   </a>
                 </div>
               </div>
-              <div className="row margin-top-sm">
-                <div className="col-xs-8 padding-right-none">
+              <div className="row margin-vertical-sm">
+                <div className="col-xs-8">
 
                   {/* TODO: impl IcoStatus*/}
                   <span className="ico-grey-text-value">Ongoing</span>
@@ -145,7 +145,7 @@ export default class IcoShortItemMainRows extends React.Component {
                     <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
                       <span className="h5">
                         <i className="fa fa-pencil margin-right-sm" />
-                        Edit ICO
+                        Edit
                       </span>
                     </a> ) : ''
                   }
@@ -154,15 +154,15 @@ export default class IcoShortItemMainRows extends React.Component {
 
             </div>
 
-            <div className="col-xs-12 col-md-7 padding-right-xs">
+            <div className="col-xs-12 col-sm-6 col-md-7">
 
               <div className="row">
-                <div className="col-xs-12 padding-left-none">
+                <div className="col-xs-12">
 
                   {/*Name - title*/}
                   <span className="ico-title-label">Name</span>
                 </div>
-                <div className="col-xs-12 padding-left-none">
+                <div className="col-xs-12">
 
                   {/*Name - value*/}
                   <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } className="ico-text-value">
@@ -170,7 +170,7 @@ export default class IcoShortItemMainRows extends React.Component {
                     <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
                   </a>
                 </div>
-                <div className="col-xs-12 padding-left-none padding-right-xl">
+                <div className="col-xs-12">
 
                   {/*One Sentence Explanation*/}
                   <div className="fixed-height ico-darker-grey-text-value">
@@ -189,13 +189,13 @@ export default class IcoShortItemMainRows extends React.Component {
 
         </div>
 
-        <div className="col-xs-12 col-md-5 padding-right-xs">
+        <div className="col-xs-12 col-md-5">
 
-          <div className="row">
-            <div className="col-xs-12 col-md-6 padding-right-xs">
+          <div className="row ico-third-part-details">
+            <div className="col-xs-12 col-sm-6 col-md-6">
 
               <div className="row">
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*Start Date - Title*/}
                   <ContentWithPopover fieldLabel="Start Date"
@@ -204,7 +204,7 @@ export default class IcoShortItemMainRows extends React.Component {
                   </ContentWithPopover>
 
                 </div>
-                <div className="col-xs-12 padding-horizontal-none margin-bottom-md">
+                <div className="col-xs-12 margin-bottom-md">
 
                   {/*Start Date - Value*/}
                   <span className="ico-text-value">
@@ -212,15 +212,15 @@ export default class IcoShortItemMainRows extends React.Component {
                   </span>
                 </div>
 
-                <div className="col-xs-12 padding-left-none">
+                <div className="col-xs-12 min-height-1-line">
 
                   {/*ICO countdown - title*/}
                   <span className="ico-title-label">
-                    {this.state.icoCountdown.message}
+                    {this.state.icoCountdown.message || 'Countdown n/a'}
                   </span>
                 </div>
 
-                <div className="col-xs-12 padding-horizontal-none min-height-1-line margin-bottom-md">
+                <div className="col-xs-12 min-height-1-line margin-bottom-md">
 
                   {/*ICO countdown - value*/}
                   {
@@ -228,10 +228,10 @@ export default class IcoShortItemMainRows extends React.Component {
                       <Countdown givenDate={this.state.icoCountdown.date}
                                  help={{ enable: false }}
                                  afterTimeout={this.reComputeCountdowns.bind(this)}/>
-                    ) : ''
+                    ) : 'not available'
                   }
                 </div>
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*Fund Keeper - Title*/}
                   <ContentWithPopover fieldLabel="Fund keeper"
@@ -240,7 +240,7 @@ export default class IcoShortItemMainRows extends React.Component {
                   </ContentWithPopover>
 
                 </div>
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*Fund Keeper - Value*/}
                   <span className="ico-text-value">
@@ -251,10 +251,10 @@ export default class IcoShortItemMainRows extends React.Component {
 
             </div>
 
-            <div className="col-xs-12 col-md-6 padding-right-xs">
+            <div className="col-xs-12 col-sm-6 col-md-6">
 
               <div className="row">
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*End Date - Title*/}
                   <ContentWithPopover fieldLabel="End Date"
@@ -263,32 +263,32 @@ export default class IcoShortItemMainRows extends React.Component {
                   </ContentWithPopover>
 
                 </div>
-                <div className="col-xs-12 padding-horizontal-none margin-bottom-md">
+                <div className="col-xs-12 margin-bottom-md">
 
                   {/*End Date - Value*/}
                   <span className="ico-text-value">
                     { this.renderDatetime(ico.icoEndDatetime, ico.icoEndDatetimeFormat) }
                   </span>
                 </div>
-                <div className="col-xs-12 padding-left-none">
+                <div className="col-xs-12">
 
                   {/*Bonus countdown - title*/}
                   <span className="ico-title-label">
                     {this.state.bonusCountdown.message || '10% bonus ends in'}
                   </span>
                 </div>
-                <div className="col-xs-12 padding-horizontal-none min-height-1-line margin-bottom-md">
+                <div className="col-xs-12 min-height-1-line margin-bottom-md">
 
                   {/*Bonus countdown - value -- TODO replace this by real bonus value*/}
                   {
                     this.state.icoCountdown.enable ? (
                       <Countdown givenDate={this.state.icoCountdown.date}
                                  afterTimeout={this.reComputeCountdowns.bind(this)}/>
-                    ) : ''
+                    ) : 'not available'
                   }
 
                 </div>
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*ProjectStatus - Title*/}
                   <ContentWithPopover fieldLabel="Project status"
@@ -297,7 +297,7 @@ export default class IcoShortItemMainRows extends React.Component {
                   </ContentWithPopover>
 
                 </div>
-                <div className="col-xs-12 padding-horizontal-none">
+                <div className="col-xs-12">
 
                   {/*ProjectStatus - Value*/}
                   <span className="ico-text-value">
@@ -310,7 +310,7 @@ export default class IcoShortItemMainRows extends React.Component {
             </div>
           </div>
 
-          <div className="row margin-top-lg margin-bottom-md">
+          <div className="row margin-vertical-sm">
 
             { this.props.isProfile ?
               <div>
@@ -326,7 +326,7 @@ export default class IcoShortItemMainRows extends React.Component {
               </div>
               :
               <div>
-                <div className="col-xs-12 col-md-6 padding-horizontal-none">
+                <div className="col-xs-12 col-sm-6 col-md-6">
                   {/*Participate in ICO -- secondary*/}
                   { IcoStatus.isOngoing(ico) || IcoStatus.isUpcoming(ico) ?
                     <div className="btn-ico-secondary-wrapper-outer">
@@ -341,10 +341,10 @@ export default class IcoShortItemMainRows extends React.Component {
                   }
                 </div>
 
-                <div className="col-xs-12 col-md-6 padding-left-none">
+                <div className="col-xs-12 col-sm-6 col-md-6">
                   {/*Detail button*/}
                   <div>
-                    <a className="btn btn-ico-primary margin-left-sm" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) }
+                    <a className="btn btn-ico-primary" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) }
                        rel="noopener noreferrer">
                       <span className="vertical-align-middle">Details</span>
                     </a>

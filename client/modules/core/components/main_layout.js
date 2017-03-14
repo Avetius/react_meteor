@@ -26,7 +26,7 @@ class Layout extends React.Component {
 
           <div className="container-fluid min-height-51rem margin-vertical-md">
             <div className="row">
-              <div className="col-md-10 col-md-push-1">
+              <div className="col-xs-12 col-sm-10 col-sm-push-1">
                 {this.props.content()}
               </div>
             </div>

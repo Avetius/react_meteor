@@ -20,6 +20,12 @@
   align-items: center;
 }
 
+.row-all-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .flex-vertical-center {
   display: flex;
   align-items: center;
@@ -40,12 +46,6 @@
 
 .margin-bottom-negative-1 {
   margin-bottom: -1px;
-}
-
-.row-all-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* layout & theme */
@@ -137,6 +137,10 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   &:focus {
     color: white;
   }
+
+  @media (max-width: $screen-xs-max) {
+    width: 100%;
+  }
 }
 
 
@@ -156,9 +160,20 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 .btn-ico-secondary-wrapper-outer {
   @include makePrimaryGradient('background');
   height: 4rem;
-  width: 90%;
   border-radius: 25px;
   padding: 3px;
+
+  @media (max-width: $screen-xs-max) {
+    margin-bottom: 1em;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    max-width: 62%;
+  }
+
+  @media (min-width: $screen-md-min) {
+    max-width: 100%;
+  }
 }
 
 .btn-ico-secondary-wrapper-inner {
@@ -175,18 +190,27 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   }
 
   background-color: $ico-box-background-color;
-  // this height is part of the formula for compute total height of each infinite scrolled item (as react-infinite parameter)
-  // todo - change infinite scrolling to dynamic height
-  height: 271px;
 
   .fixed-height {
     line-height: 2.4rem;
-    height: 9.6rem;
+    max-height: 9.6rem;;
+  }
+}
+
+.ico-third-part-details {
+
+  @media (min-width: $screen-md-min) {
+    min-height: 22rem;
   }
 }
 
 .ico-profile-box {
   background-color: $ico-box-background-color;
+
+  .fixed-height {
+    line-height: 2.4rem;
+    max-height: 9.6rem;
+  }
 }
 
 .badge-ico {

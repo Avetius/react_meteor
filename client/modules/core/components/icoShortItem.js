@@ -12,7 +12,7 @@ export default class IcoFrontItem extends React.Component {
     const ico = this.props.icoEntity;
 
     return (
-      <li className="list-group-item padding-vertical-sm margin-bottom-md ico-box">
+      <li className="list-group-item padding-top-sm padding-bottom-none margin-bottom-md ico-box">
         <IcoShortItemMainRows ico={this.props.icoEntity} isProfile={false} />
       </li>
     );
