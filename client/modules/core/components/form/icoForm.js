@@ -557,17 +557,23 @@ export default class IcoForm extends React.Component {
       icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions} value={this.props.icoEntityValue}
                       context={{editMode: true}} onChange={this.onChange.bind(this)} />;
       saveButtons =
-        <div>
-          <button onClick={this.edit.bind(this)} className="btn btn-primary margin-left-md margin-right-xs">Save edited ICO</button>
-          <span> Save changes in either case - if it is concept or published ICO.</span>
-          <button onClick={this.showModalToDeleteIco.bind(this)} className="btn btn-danger margin-left-xl">Delete ICO</button>
+        <div className="row">
+          <div className="col-md-8 margin-top-md margin-left-md">
+            <button onClick={this.edit.bind(this)} className="btn btn-primary margin-right-xs">Save edited ICO</button>
+            <span> Save changes in either case - if it is concept or published ICO.</span>
+          </div>
+          <div className="col-md-3 margin-top-md margin-left-md">
+            <button onClick={this.showModalToDeleteIco.bind(this)} className="btn btn-danger">Delete ICO</button>
+          </div>
         </div>;
     } else {
       icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions}
                      context={{editMode: false}} onChange={this.onChange.bind(this)} />;
       saveButtons =
-        <div>
-          <button onClick={this.addAsConcept.bind(this)} className="btn btn-primary margin-horizontal-md">Add as concept</button>
+        <div className="row">
+          <div className="col-xs-6">
+            <button onClick={this.addAsConcept.bind(this)} className="btn btn-primary margin-horizontal-md">Add as concept</button>
+          </div>
         </div>;
     }
 
