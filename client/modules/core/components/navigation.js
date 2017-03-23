@@ -69,10 +69,10 @@ class Navigation extends React.Component {
     const topHeaderPanel =
       <div id="top-header" className="row bg-header-img">
         <div className="opacity-plane row-vertical-center">
-          <div className="col-xs-12 col-md-10 col-md-push-1">
+          <div className="col-xs-10 col-sm-10 col-sm-push-1">
 
             <div className="row row-vertical-center">
-              <div className="col-xs-3 padding-right-none">
+              <div className="col-xs-9 col-sm-5 col-md-3 padding-right-none">
                 <a href={FlowRouter.path('ico.home')}>
                   <img className="img-responsive" src="/ICOindex.com-white.png" />
                 </a>
@@ -91,7 +91,7 @@ class Navigation extends React.Component {
     if (this.props.subNav) {
       subNavigationPanel =
         <div className="row row-vertical-center" ref={this.setCategoryNavWrapper.bind(this)}>
-          <div className="col-sm-2 col-md-2 hidden-xs hidden-on-mobile-view">
+          <div className="col-sm-2 col-md-2  margin-left-lg hidden-xs hidden-on-mobile-view">
             <a href={FlowRouter.path('ico.home')}>
               <img className="ico-logo" src="/ICOindex.com-white.png" />
             </a>
@@ -134,7 +134,7 @@ class Navigation extends React.Component {
         <div id="mobile-status-bar" className="row row-vertical-center flex-horizontal-center">
           <div className="col-xs-3 col-sm-2 padding-horizontal-none">
             <a href="/">
-              <img className="img-responsive" src="/ICOindex.com-white.png"/>
+              <img className="img-responsive ico-logo" src="/ICOindex.com-white.png"/>
             </a>
           </div>
           <div className="col-xs-6 flex-horizontal-center">

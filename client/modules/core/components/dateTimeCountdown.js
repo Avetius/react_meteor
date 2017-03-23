@@ -30,7 +30,7 @@ const App = React.createClass({displayName: "App",
       let days = parseInt(msDiff / (24 * 3600 * 1000));
       let hours = parseInt(msDiff / (3600 * 1000) - (days * 24));
       let mins = parseInt(msDiff / (60 * 1000) - (days * 24 * 60) - (hours * 60));
-      // seconds variant:
+      // second variant:
       //let secs = parseInt(msDiff/(1000)-(mins*60)-(days*24*60*60)-(hours*60*60));
       //countdown = <span className="h4">{ days + " days " + hours + " hours " + mins + " mins " +  secs + " secs "}</span>;
       countdown = <strong><small>{ days + " days " + hours + " hours " + mins + " mins "}</small></strong>;

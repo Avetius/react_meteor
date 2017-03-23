@@ -125,7 +125,7 @@ export default class IcoShortItemMainRows extends React.Component {
             <div className="col-xs-12 col-sm-4 col-md-5">
 
               <div className="row">
-                <div className="col-xs-12 col-md-12">
+                <div className="col-xs-10 col-sm-12 col-md-12">
                   {/*Logo*/}
                   <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">
                     <img className="img-responsive margin-top-sm" src={ico.icoProjectLogo || Constants.icoLogoPlaceholderURL} />
@@ -133,10 +133,10 @@ export default class IcoShortItemMainRows extends React.Component {
                 </div>
               </div>
               <div className="row margin-vertical-sm">
-                <div className="col-xs-8">
+                <div className="col-xs-8 col-sm-12">
 
                   {/* TODO: impl IcoStatus*/}
-                  <span className="ico-grey-text-value">Ongoing</span>
+                  <span className="ico-grey-text-value">{i18next.t('ico.icoStatus.'+IcoStatus.compute(ico))}</span>
                 </div>
                 <div className="col-xs-4 padding-horizontal-none">
 
@@ -310,7 +310,7 @@ export default class IcoShortItemMainRows extends React.Component {
             </div>
           </div>
 
-          <div className="row margin-vertical-sm">
+          <div className="row margin-vertical-md">
 
             { this.props.isProfile ?
               <div>

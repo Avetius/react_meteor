@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+@mixin full-width() {
+  width: 100%;
+}
+
 .text-help {
   border-bottom: thin dotted;
   cursor: help;
@@ -138,8 +142,12 @@ h1, h2, h3, h4, h5, h6, div, span, p {
     color: white;
   }
 
-  @media (max-width: $screen-xs-max) {
-    width: 100%;
+  &:active {
+    @include makePrimaryGradient('background');
+  }
+
+  @media (max-width: $screen-sm-max) {
+    @include full-width();
   }
 }
 
@@ -150,6 +158,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   padding: 0;
   border: 0px;
   color: $darker-ico-color;
+  @include full-width();
 
   &:hover,
   &:focus {
@@ -167,12 +176,9 @@ h1, h2, h3, h4, h5, h6, div, span, p {
     margin-bottom: 1em;
   }
 
-  @media (min-width: $screen-sm-min) {
-    max-width: 62%;
-  }
-
   @media (min-width: $screen-md-min) {
-    max-width: 100%;
+    margin-left: -1rem;
+    margin-right: -1rem;
   }
 }
 
@@ -200,7 +206,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 .ico-third-part-details {
 
   @media (min-width: $screen-md-min) {
-    min-height: 22rem;
+    min-height: 21rem;
   }
 }
 
@@ -267,7 +273,6 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
   .ico-logo {
     width: 15rem;
-    margin-left: 1.5rem;
     opacity: 0;
     transition: opacity 1s;
   }

@@ -12,10 +12,10 @@ $white: #fff;
 $brightblue: #003BFF;
 
 
-/* BEGIN -- new design here: */
+// old variables, todo: delete
 $lighter-ico-color: #00c1fa;
 $darker-ico-color: #6158ab;
-$ico-box-background-color: #eff4f7;
+
 $ico-grey-color2: #e7e8ea;
 $ico-grey-color: #cbcdcc;
 $ico-dark-grey-color: #666;
@@ -50,7 +50,7 @@ $sidebar-controls-visibility: visible;
 $font-family-sans-serif:  'PT Sans', Helvetica, Arial, sans-serif;
 $headings-font-family: 'PT Sans', Helvetica, Arial, sans-serif;
 
-$screen-sm-min: 768px;
+$screen-sm-min: 540px;
 $screen-md-min: 1152px;
 $screen-lg-min: 1366px;
 
@@ -112,16 +112,20 @@ $breadcrumb-bg: #fff;
 
 
 /* next custom variables */
-$body-background-color: white;
+
+$body-background-color: #eff4f7;
 $footer-background-color: #89949B;
 $content-elem-bg-color: #fff;
+
+$ico-box-background-color: $white;
+
+
+// old variables, todo: delete
 $main-theme-green: #1C8B71;
 $main-theme-darkblue: #4A90E2;
-
 $main-theme-pinkorange: #e45f56;
-// used for hover state on button
 $main-theme-pinkorange2: #eb8982;
 
-$hidden-link-color: $gray-dark;
 
+$hidden-link-color: $gray-dark;
 $btn-extra-size-font-size: 22px;
