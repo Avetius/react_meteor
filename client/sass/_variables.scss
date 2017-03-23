@@ -58,6 +58,9 @@ $screen-xs-max: ($screen-sm-min - 1);
 $screen-sm-max: ($screen-md-min - 1);
 $screen-md-max: ($screen-lg-min - 1);
 
+$grid-float-breakpoint: 975px;
+
+/* todo: change these variables according to our theme */
 $primary-color: #89949B;
 $brand-primary: #428bca;
 $brand-success: #5cb85c;
@@ -65,7 +68,7 @@ $brand-info: #5bc0de;
 $brand-warning: #f0ad4e;
 $brand-danger: #d9534f;
 
-$zindex-tooltip: 999999999999999999999999999;
+$zindex-tooltip: 100000;
 
 $container-sm: 990px;
 $container-md: 990px;
@@ -104,7 +107,7 @@ $nav-disabled-link-color: #777777;
 $nav-link-hover-bg: transparent;
 $nav-tabs-link-hover-border-color: transparent;
 
-$navbar-default-bg: #fff;
+$navbar-default-bg: #ddd;
 $breadcrumb-bg: #fff;
 
 

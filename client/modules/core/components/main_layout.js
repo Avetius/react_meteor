@@ -6,7 +6,6 @@ import * as Rb from 'react-bootstrap';
 import {Accounts} from 'meteor/std:accounts-ui';
 
 import { Grid, Row, Col, MainContainer } from '@sketchpixy/rubix';
-import {StickyContainer} from 'react-sticky';
 import Favicon from 'react-favicon';
 
 class Layout extends React.Component {
@@ -16,12 +15,9 @@ class Layout extends React.Component {
     return (
       <div>
         <Favicon url={'/favicon-v3.png'}/>
-        <StickyContainer>
 
           <header className="fg-white">
-            <div className="container-fluid">
-              <Navigation/>
-            </div>
+            <Navigation/>
           </header>
 
           <div className="container-fluid min-height-51rem margin-vertical-md">
@@ -52,7 +48,6 @@ class Layout extends React.Component {
             </div>
           </footer>
 
-        </StickyContainer>
       </div>
     );
   }

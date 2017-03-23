@@ -222,10 +222,12 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 #category-nav {
 
   li a {
+    color: white;
     height: 6rem;
 
     border: none;
     border-radius: 0;
+    margin-right: 0;
 
     display: flex;
     align-items: center;
@@ -233,6 +235,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
   li.active {
     a {
+      background-color: white;
       color: $darker-ico-color;
     }
     .badge-ico {
@@ -240,28 +243,103 @@ h1, h2, h3, h4, h5, h6, div, span, p {
       border: 2px solid $darker-ico-color;
     }
   }
+
+  @media (max-width: $grid-float-breakpoint - 1) {
+    & {
+      padding-bottom: 4rem;
+    }
+
+    li {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    width: 100%;
+  }
 }
 
 #category-nav-wrapper {
+  min-height: initial;
+  border: none;
+  border-radius: initial;
+  color: white;
+
   .ico-logo {
     width: 15rem;
     margin-left: 1.5rem;
-
     opacity: 0;
     transition: opacity 1s;
   }
 
-  &.sticked {
+  .sticked {
+    position: fixed;
+    width: 100%;
     z-index: 65300;
+    top: 0rem;
+    left: 0;
+    @include makePrimaryGradient('background');
+
     .ico-logo {
       opacity: 1;
     }
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    .navbar-header {
+      display: none;
+    }
+  }
+
+  @media (max-width: $grid-float-breakpoint - 1) {
+    .navbar-collapse {
+      border-top: solid 2px $navbar-default-bg;
+    }
+  }
+
+  #mobile-status-bar {
+    max-height: 6rem;
+
+    .main-status-title {
+      font-weight: bold;
+    }
+
+    .icon-bar {
+      height: 3px;
+      background-color: white;
+    }
+
+    .navbar-toggle {
+      border-width: 2px;
+      &.collapsed {
+        border-width: 1px;
+      }
+
+      &:hover, &:focus {
+        background-color: transparent;
+      }
+    }
+
+  }
+}
+
+.hidden-on-mobile-view {
+  @media (max-width: $grid-float-breakpoint - 1) {
+    display: none;
   }
 }
 
 
 /* user util navigation component */
 #user-util-nav {
+
+  li a {
+    color: white;
+
+    &:hover, &:active {
+      color: white;
+    }
+  }
 
   li.active {
     font-weight: bold;

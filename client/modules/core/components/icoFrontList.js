@@ -64,7 +64,7 @@ export default class IcoFrontList extends React.Component  {
 
           <Waypoint scrollableAncestor={window}
                      onEnter={this.loadMore.bind(this)}
-                     bottomOffset='-400px'>
+                     bottomOffset='-500px'>
             <div></div>
           </Waypoint>
 

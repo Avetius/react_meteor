@@ -11,7 +11,9 @@ export default () => {
             icoStatus: {
               upcoming: 'Upcoming',
               ongoing: 'Ongoing',
-              finished: 'Finished'
+              finished: 'Finished',
+              suspicious: 'Suspicious',
+              scam: 'Scam'
             },
             projectStatus: {
               unknown: 'Concept',
