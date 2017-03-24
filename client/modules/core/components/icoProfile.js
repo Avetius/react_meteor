@@ -9,34 +9,6 @@ import AccountsMgmt from '/lib/accountsMgmt';
 
 const CoFounders = (props) => {
 
-  // insert after every 4th coFounder bootstrap clearboth class delimiter visible in md
-  const coFoundersWithDelimiters1 = [];
-    props.coFounders.forEach((couFounder, index) => {
-    const pos = index + 1;
-    if (pos % 4 === 0) {
-      coFoundersWithDelimiters1.push(couFounder);
-      coFoundersWithDelimiters1.push({ delimiter: 'md' });
-    } else {
-      coFoundersWithDelimiters1.push(couFounder);
-    }
-  });
-
-  // insert after every 2th coFounder object bootstrap clearboth class delimiter visible in sm;
-  let pos2 = 0, coFoundersWithAllDelimiters2 = [];
-  coFoundersWithDelimiters1.forEach((obj) => {
-    if (obj.delimiter) {
-      coFoundersWithAllDelimiters2.push(obj);
-    } else {
-      pos2 ++;
-      if (pos2 % 2 === 0) {
-        coFoundersWithAllDelimiters2.push(obj);
-        coFoundersWithAllDelimiters2.push({ delimiter: 'sm' });
-      } else {
-        coFoundersWithAllDelimiters2.push(obj);
-      }
-    }
-  });
-
   const makeCoFounderLink = ({ linkName, link, icon }) => {
     if (link) {
       return (
@@ -50,32 +22,35 @@ const CoFounders = (props) => {
     }
   };
 
-  const coFoundersColumns = coFoundersWithAllDelimiters2.map((coFounderOrDelimiter) => {
+  const coFoundersColumns = props.coFounders.map((coFounder) => {
+    return (
+      <div key={Math.random().toString()} className="col-xs-12 margin-top-md">
+        <div className="row">
+          <div className="col-xs-12 col-sm-4 col-md-3">
+            <img className="img-responsive img-circle" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} />
+          </div>
+          <div className="col-xs-12 col-sm-8 col-md-9">
+            <p className="margin-bottom-none">
+              <h4 className="team-member-name display-inline-block margin-right-md text-uppercase"> {coFounder.name} </h4>
+              { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-facebook-official', linkName: '', link: coFounder.facebookProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-github', linkName: '', link: coFounder.githubProfileUrl }) }
+            </p>
 
-    if (coFounderOrDelimiter.delimiter && coFounderOrDelimiter.delimiter === 'md' ) {
-      return (
-        <div key={Math.random().toString()} className="clearfix visible-md-block"></div>
-      );
-    } else if (coFounderOrDelimiter.delimiter && coFounderOrDelimiter.delimiter === 'sm') {
-      return (
-        <div key={Math.random().toString()} className="clearfix visible-sm-block"></div>
-      );
-    } else {
-      const coFounder = coFounderOrDelimiter;
-      return (
-        <div key={Math.random().toString()} className="col-xs-6 col-md-3">
-          <p> <img className="img-responsive" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} /> </p>
-          <h4 className="display-inline-block margin-right-xs text-uppercase"> {coFounder.name} </h4>
-          { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
-          { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
-          { makeCoFounderLink({ icon: 'fa fa-facebook-official', linkName: '', link: coFounder.facebookProfileUrl }) }
-          { makeCoFounderLink({ icon: 'fa fa-github', linkName: '', link: coFounder.githubProfileUrl }) }
+            <h5 className="margin-top-none">
+              <strong>{coFounder.roleDescription}</strong>
+            </h5>
 
-          <h5><strong>{coFounder.roleDescription}</strong></h5>
-          <div> <ReactMarkdown source={coFounder.personalBackground || ''} /> </div>
+            <div>
+              <ReactMarkdown source={coFounder.personalBackground || ''} />
+            </div>
+          </div>
+
         </div>
-      )
-    }
+      </div>
+    );
+
   });
   return ( <div>{coFoundersColumns}</div> );
 };
@@ -158,6 +133,8 @@ export default class IcoProfile extends React.Component {
           <IcoShortItemMainRows ico={this.props.icoEntity} isProfile={true} />
 
           <hr className="hr-limiter margin-vertical-xs" />
+
+          <h4>Important links</h4>
 
           <div className="row row-vertical-center ico-links-section">
             <div className="col-xs-12 col-md-12">
@@ -340,13 +317,13 @@ export default class IcoProfile extends React.Component {
 
               { note }
 
-              <h3>Project description</h3>
+              <h4>Project description</h4>
               <div>
                 <ReactMarkdown source={ico.mediumLengthDescription || ''} />
               </div>
               <hr className="hr-limiter" />
 
-              <h3>Team</h3>
+              <h4>Project Team</h4>
               <div className="row">
                 {<CoFounders coFounders={ico.coFounders} />}
               </div>
@@ -360,7 +337,7 @@ export default class IcoProfile extends React.Component {
             <div className="row">
               <div className="col-md-12">
 
-                <h3>Admin section</h3>
+                <h4>Admin section</h4>
 
                 <button className="btn btn-theme-orange margin-horizontal-xs" type="button"
                         disabled={ico.entityState.state === 'published' ? true : ''} onClick={this.props.publishConcept.bind(this, ico._id)}>

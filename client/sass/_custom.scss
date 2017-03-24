@@ -431,6 +431,10 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   border: 1px solid $ico-grey-color2;
 }
 
+.team-member-name {
+  color: $darker-ico-color;
+}
+
 .min-height-1-line {
   min-height: $line-height-computed;
 }
