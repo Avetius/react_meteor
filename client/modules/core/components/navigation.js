@@ -38,17 +38,17 @@ class Navigation extends React.Component {
              id="user-util-nav"
              className='nav-theme-orange padding-vertical-sm padding-horizontal-sm pull-right'
              activeKey={this.props.view}>
-          <NavItem className="h4" eventKey={'ico.favourites'} href="#">
+          <NavItem className="" eventKey={'ico.favourites'} href="#">
             <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
             Favourites
           </NavItem>
-          <NavItem className="h4" eventKey={'ico.concepts'} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
+          <NavItem className="" eventKey={'ico.concepts'} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
             Concepts {conceptsCountStr}
           </NavItem>
-          <NavItem className="h4" eventKey={'404'} href={FlowRouter.path('404')}>
+          <NavItem className="" eventKey={'404'} href={FlowRouter.path('404')}>
             404
           </NavItem>
-          <NavItem className="h4" eventKey={'ico.add'} href={FlowRouter.path('ico.add')}>
+          <NavItem className="" eventKey={'ico.add'} href={FlowRouter.path('ico.add')}>
             Add
           </NavItem>
         </Nav>
@@ -69,15 +69,15 @@ class Navigation extends React.Component {
     const topHeaderPanel =
       <div id="top-header" className="row bg-header-img">
         <div className="opacity-plane row-vertical-center">
-          <div className="col-xs-10 col-sm-10 col-sm-push-1">
+          <div className="col-xs-12 col-sm-10 col-sm-push-1">
 
             <div className="row row-vertical-center">
-              <div className="col-xs-9 col-sm-5 col-md-3 padding-right-none">
+              <div className="col-xs-6 col-sm-5 col-md-3 padding-right-none">
                 <a href={FlowRouter.path('ico.home')}>
                   <img className="img-responsive" src="/ICOindex.com-white.png" />
                 </a>
               </div>
-              <div className="col-xs-9">
+              <div className="col-xs-6">
                 {userUtilNav}
               </div>
             </div>
