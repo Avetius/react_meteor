@@ -376,6 +376,42 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   font-weight: bold;
 }
 
+@mixin ico-links-value () {
+  color: $ico-text-value-color;
+  text-decoration: underline;
+}
+
+@mixin link-circle-border () {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.ico-links-section {
+  .active-link-caption {
+    @include ico-links-value();
+  }
+  .disabled-link-caption {
+    color: $ico-grey-color;
+  }
+  .active-link-icon {
+    color: $darker-ico-color;
+  }
+  .disabled-link-icon {
+    color: $ico-grey-color;
+  }
+
+  .disabled-link-circle-border {
+    border: 2px solid $ico-grey-color;
+    @include link-circle-border();
+  }
+
+  .active-link-circle-border {
+    border: 2px solid $darker-ico-color;
+    @include link-circle-border();
+  }
+}
+
 .ico-text-value {
   color: $ico-text-value-color;
 }
