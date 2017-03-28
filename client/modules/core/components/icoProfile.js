@@ -3,20 +3,22 @@ import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 
 import IcoShortItemMainRows from './icoShortItemMainRows';
+import Icon from './general/icon';
+import Link from './general/link';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 import AccountsMgmt from '/lib/accountsMgmt';
 
 const CoFounders = (props) => {
 
-  const makeCoFounderLink = ({ linkName, link, icon }) => {
+  const makeCoFounderLink = ({ link, icon }) => {
+
     if (link) {
       return (
-        <a className="" target="_blank" href={link} rel="noopener noreferrer">
-          <span className="h4 margin-horizontal-xs"><i className={icon} aria-hidden="true" /></span>
-          {linkName}
-        </a>
-      )
+        <Link className="team-member-link display-inline-block" linkHref={link} linkProps={{target: '_blank'}}>
+          <Icon iconClasses={icon} parentClasses='h4 margin-horizontal-xs vertical-align-middle' />
+        </Link>
+      );
     } else {
       return '';
     }
@@ -30,13 +32,13 @@ const CoFounders = (props) => {
             <img className="img-responsive img-circle" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} />
           </div>
           <div className="col-xs-12 col-sm-8 col-md-9">
-            <p className="margin-bottom-none">
+            <div className="margin-bottom-none">
               <h4 className="team-member-name display-inline-block margin-right-md text-uppercase"> {coFounder.name} </h4>
-              { makeCoFounderLink({ icon: 'fa fa-linkedin-square', linkName: '', link: coFounder.linkedInProfileUrl }) }
-              { makeCoFounderLink({ icon: 'fa fa-twitter', linkName: '', link: coFounder.twitterProfileUrl }) }
-              { makeCoFounderLink({ icon: 'fa fa-facebook-official', linkName: '', link: coFounder.facebookProfileUrl }) }
-              { makeCoFounderLink({ icon: 'fa fa-github', linkName: '', link: coFounder.githubProfileUrl }) }
-            </p>
+              { makeCoFounderLink({ icon: 'fa fa-linkedin-square', link: coFounder.linkedInProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-twitter', link: coFounder.twitterProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-facebook-official', link: coFounder.facebookProfileUrl }) }
+              { makeCoFounderLink({ icon: 'fa fa-github', link: coFounder.githubProfileUrl }) }
+            </div>
 
             <h5 className="margin-top-none">
               <strong>{coFounder.roleDescription}</strong>
@@ -68,9 +70,7 @@ export default class IcoProfile extends React.Component {
         <div className="row row-vertical-center">
           <div className="col-md-2 padding-right-xs">
             <div className="disabled-link-circle-border flex-vertical-center flex-horizontal-center">
-              <span className="h4 vertical-align-middle disabled-link-icon">
-                <i className={icon} aria-hidden="true" />
-              </span>
+              <Icon iconClasses={icon} parentClasses='h4 vertical-align-middle disabled-link-icon' />
             </div>
           </div>
           <div className="col-md-8 padding-right-xs padding-left-md">
@@ -86,17 +86,15 @@ export default class IcoProfile extends React.Component {
       <div className="row row-vertical-center">
         <div className="col-md-2 padding-right-xs">
           <div className="active-link-circle-border flex-vertical-center">
-            <a className="active-link-icon full-width text-center" target="_blank" href={link} rel="noopener noreferrer">
-              <span className="h4 margin-horizontal-xs">
-                <i className={icon} aria-hidden="true" />
-              </span>
-            </a>
+            <Link className="active-link-icon full-width text-center" linkHref={link} linkProps={{target: '_blank'}} >
+              <Icon iconClasses={icon} parentClasses='h4 vertical-align-middle' />
+            </Link>
           </div>
         </div>
         <div className="col-md-8 padding-right-xs margin-left-md padding-left-none">
-          <a className="active-link-caption" target="_blank" href={link} rel="noopener noreferrer">
-            <span className="">{linkName}</span>
-          </a>
+          <Link className="active-link-caption" linkHref={link} linkProps={{target: '_blank'}} >
+            <span>{linkName}</span>
+          </Link>
         </div>
       </div>
     );
@@ -141,13 +139,13 @@ export default class IcoProfile extends React.Component {
 
               <div className="row">
 
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-home', linkName: 'Main website',
                     link: ico.officialWebsiteLink, placeholder: 'No Main website', required: true })
                   }
                 </div>
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-money', linkName: 'Ico website',
                     link: ico.icoWebsiteLink, placeholder: 'No Ico website', required: true })
@@ -156,13 +154,13 @@ export default class IcoProfile extends React.Component {
 
                 <div className="clearfix visible-xs-block"></div>
 
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-file-text-o', linkName: 'Whitepaper',
                     link: ico.whitePaperLink, placeholder: 'No Whitepaper', required: true })
                   }
                 </div>
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-money', linkName: 'Business Plan',
                     link: ico.businessPlanLink, placeholder: 'No Business Plan', required: true })
@@ -173,13 +171,13 @@ export default class IcoProfile extends React.Component {
 
               <div className="row">
 
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-github', linkName: 'Github',
                     link: ico.githubLink, placeholder: 'No Github', required: true })
                   }
                 </div>
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-twitter', linkName: 'Twitter',
                     link: ico.twitterLink, placeholder: 'No Twitter', required: true })
@@ -188,13 +186,13 @@ export default class IcoProfile extends React.Component {
 
                 <div className="clearfix visible-xs-block"></div>
 
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-facebook-official', linkName: 'Facebook',
                     link: ico.facebookLink, placeholder: 'No Facebook  ', required: true })
                   }
                 </div>
-                <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                   { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Blog',
                     link: ico.blogLink, placeholder: 'No Blog', required: true })
@@ -206,7 +204,7 @@ export default class IcoProfile extends React.Component {
               <div className="row">
 
                 { ico.bitcointalkLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({
                       icon: 'fa fa-btc', linkName: 'Bitcoin Talk',
@@ -218,7 +216,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.slackLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-slack', linkName: 'Slack',
                       link: ico.slackLink })
@@ -228,7 +226,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.youtubeLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-youtube', linkName: 'Youtube',
                       link: ico.youtubeLink })
@@ -238,7 +236,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.linkedinLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-linkedin-square', linkName: 'LinkedIn',
                       link: ico.linkedinLink })
@@ -248,7 +246,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.redditLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-reddit', linkName: 'Reddit',
                       link: ico.redditLink })
@@ -258,7 +256,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.steemitLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-newspaper-o', linkName: 'Steemit',
                       link: ico.steemitLink })
@@ -268,7 +266,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.telegramLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-telegram', linkName: 'Telegram',
                       link: ico.telegramLink })
@@ -278,7 +276,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.weiboLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-weibo', linkName: 'Weibo',
                       link: ico.weiboLink })
@@ -288,7 +286,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.weChatLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-weixin', linkName: 'WeChat',
                       link: ico.weChatLink })
@@ -298,7 +296,7 @@ export default class IcoProfile extends React.Component {
                 }
 
                 { ico.qqLink ?
-                  <div className="col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
+                  <div className="link-box col-xs-6 col-md-3 margin-vertical-sm padding-right-xs">
 
                     { this.makeLink({ icon: 'fa fa-qq', linkName: 'QQ',
                       link: ico.qqLink })
@@ -350,12 +348,11 @@ export default class IcoProfile extends React.Component {
 
 
                 <div className="display-inline-block margin-all-md">
-                  <a href={`/admin/edit-ico/${this.props.icoEntity._id}`}>
-                    <span className="h4">
-                      <i className="fa fa-pencil margin-right-sm" />
+                  <Link linkHref={`/admin/edit-ico/${this.props.icoEntity._id}`}>
+                    <Icon iconClasses="fa fa-pencil margin-right-sm" parentClasses="h4 vertical-align-middle">
                       Edit ICO
-                    </span>
-                  </a>
+                    </Icon>
+                  </Link>
                 </div>
 
               </div>

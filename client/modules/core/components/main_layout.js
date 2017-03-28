@@ -2,6 +2,8 @@ import React from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 
 import Navigation from '../containers/navigation';
+import Footer from './footer';
+
 import * as Rb from 'react-bootstrap';
 import {Accounts} from 'meteor/std:accounts-ui';
 
@@ -30,22 +32,7 @@ class Layout extends React.Component {
 
           { /* todo: move it to separate cmp */ }
           <footer>
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-xs-12 col-md-10 col-md-push-1">
-
-                  <div className="row">
-                    <div className="col-xs-12 col-md-5">
-                      IcoIndex.com
-                    </div>
-                    <div className="col-xs-12 col-md-5">
-                      <a className="hidden-link" href={FlowRouter.path('login')}>Login</a>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
+            <Footer />
           </footer>
 
       </div>

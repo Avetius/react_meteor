@@ -59,7 +59,30 @@ html, body {
 }
 
 footer {
-  background-color: $footer-background-color;
+  background-color: $darker-ico-color;
+  color: $white;
+
+  a {
+    color: $white;
+
+    &:hover, &:active, &:focus {
+      color: $white;
+    }
+  }
+
+  .footer-social-link {
+    width: 82px;
+  }
+
+  a.footer-social-link:hover, a.footer-social-link:active {
+    .social-icon {
+      font-size: $font-size-h3;
+    }
+  }
+
+  .social-links-section {
+    min-height: 30px;
+  }
 }
 
 .popover {
@@ -93,11 +116,6 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .btn-extra-size {
   font-size: $btn-extra-size-font-size;
-}
-
-.hidden-link, .hidden-link:hover, .hidden-link:active {
-  color: $hidden-link-color;
-  cursor: text;
 }
 
 /* our basic design components */
@@ -381,35 +399,52 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   text-decoration: underline;
 }
 
-@mixin link-circle-border () {
+@mixin link-circle-border ($activeState) {
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  @if ($activeState == 'normal') {
+    width: 36px;
+    height: 36px;
+  } @else if($activeState == 'highlight') {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .ico-links-section {
+  .link-box {
+    min-height: 40px;
+  }
   .active-link-caption {
     @include ico-links-value();
   }
   .disabled-link-caption {
     color: $ico-grey-color;
   }
-  .active-link-icon {
+  a.active-link-icon {
     color: $darker-ico-color;
   }
+
   .disabled-link-icon {
     color: $ico-grey-color;
   }
 
   .disabled-link-circle-border {
     border: 2px solid $ico-grey-color;
-    @include link-circle-border();
+    @include link-circle-border('normal');
   }
 
   .active-link-circle-border {
     border: 2px solid $darker-ico-color;
-    @include link-circle-border();
+    @include link-circle-border('normal');
+
+    &:active, &:hover {
+      @include link-circle-border('highlight');
+      a span {
+        font-size: $font-size-h3;
+      }
+    }
   }
+
 }
 
 .ico-text-value {
@@ -434,6 +469,18 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 .team-member-name {
   color: $darker-ico-color;
 }
+
+a.team-member-link {
+  width: 32px;
+
+  &:hover, &:active {
+    span {
+      font-size: $font-size-h3;
+    }
+  }
+}
+
+
 
 .min-height-1-line {
   min-height: $line-height-computed;

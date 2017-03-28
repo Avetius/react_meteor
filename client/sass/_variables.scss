@@ -98,7 +98,7 @@ $dropdown-link-color: rgb(137, 148, 155);
 $dropdown-link-hover-bg: rgba(180, 183, 185, 0.05);
 
 $link-color: $darker-ico-color;
-$link-hover-color: #2e6b5e;
+$link-hover-color: $darker-ico-color;
 $link-hover-decoration: none;
 
 $nav-link-color: $white;
@@ -114,7 +114,6 @@ $breadcrumb-bg: #fff;
 /* next custom variables */
 
 $body-background-color: #eff4f7;
-$footer-background-color: #89949B;
 $content-elem-bg-color: #fff;
 
 $ico-box-background-color: $white;
