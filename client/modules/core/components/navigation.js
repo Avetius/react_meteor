@@ -12,6 +12,13 @@ import BrowserViewUtils from '/client/lib/browserViewUtils';
 
 class Navigation extends React.Component {
 
+  constructor (...props) {
+    super(...props);
+    this.state = {
+      navBarExpanded: false
+    };
+  }
+
   componentDidMount () {
     const {NonReactiveLocalState} = this.props.context();
     NonReactiveLocalState['view.categoryNavTopPosition'] = BrowserViewUtils.getOffsetObj(this.categoryNavWrapper).top;
@@ -19,6 +26,14 @@ class Navigation extends React.Component {
 
   setCategoryNavWrapper (elem) {
     this.categoryNavWrapper = elem;
+  }
+
+  onNavBarMenuClicked (expand) {
+    this.setState({navBarExpanded: expand});
+  }
+
+  onCategorySelect (eventKey) {
+    this.setState({navBarExpanded: false});
   }
 
   render () {
@@ -101,6 +116,7 @@ class Navigation extends React.Component {
             <Nav bsStyle="tabs"
                  className="margin-bottom-negative-1"
                  id="category-nav"
+                 onSelect={this.onCategorySelect.bind(this)}
                  activeKey={this.props.subNav.subView}>
               <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
                 <strong>Ongoing</strong>
@@ -155,7 +171,10 @@ class Navigation extends React.Component {
 
     return (
       <div>
-        <Navbar id="category-nav-wrapper" className="bg-primary-gradient" fluid>
+        <Navbar id="category-nav-wrapper" className="bg-primary-gradient"
+                onToggle={this.onNavBarMenuClicked.bind(this)}
+                expanded={this.state.navBarExpanded}
+                fluid>
           {topHeaderPanel}
           <Sticky stickyClasses={['sticked', 'container']}
                         placeHolderHeight="6rem">
