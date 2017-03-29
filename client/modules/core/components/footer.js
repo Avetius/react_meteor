@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
   render () {
     return <div className="container-fluid padding-vertical-lg">
       <div className="row">
-        <div className="col-xs-12 col-md-10 col-md-push-1">
+        <div className="col-xs-12 col-sm-10 col-sm-push-1">
 
           <div className="row">
 
