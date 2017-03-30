@@ -7,13 +7,6 @@ import Constants from '/client/configs/constants';
 
 class DateTimePicker extends t.form.Component { // extend the base class
 
-  constructor (props, customProps) {
-    super(props);
-    this.state = {
-      UTCRenderedDateTime: null
-    }
-  }
-
   getTemplate() {
 
     return (locals) => {
@@ -24,7 +17,6 @@ class DateTimePicker extends t.form.Component { // extend the base class
         valueToDisplay = null;
       }
 
-      console.log(valueToDisplay);
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
@@ -32,7 +24,7 @@ class DateTimePicker extends t.form.Component { // extend the base class
                     onChange={this.interceptorOnChange.bind(this)}
                     inputProps={this.customProps}
           />
-          { (this.state.UTCRenderedDateTime) ?
+          { (this.state && this.state.UTCRenderedDateTime) ?
             (<div>
               <i>{`UTC datetime: ${this.state.UTCRenderedDateTime.format("dddd, MMMM Do YYYY, h:mm:ss a")}`}</i>
             </div>)

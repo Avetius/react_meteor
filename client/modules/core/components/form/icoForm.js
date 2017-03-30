@@ -10,7 +10,7 @@ import S3FileUploader from './s3fileUploader';
 import { IcoType } from '/lib/icoProject';
 import CsvImportUploader from './csvImportUploader';
 
-import {DateTimeStart, DateTimeEnd} from './dateTimePicker';
+import { DateTimeStart, DateTimeEnd } from './dateTimePicker';
 import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
 import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput, RatingExplanationInput } from './limitedTextInput';
 
@@ -543,9 +543,15 @@ export default class IcoForm extends React.Component {
 
   onChange(icoEntityValue, path) {
     // validate a field on every change -- consider implement this in onBlur field event handler
-    console.log('before getComponent');
+    const val = this.refs.icoForm.getValue();
+
+    console.log('icoForm.getValue: ', val);
+    const validation = this.refs.icoForm.validate();
+    console.log(validation);
+
+    //console.log('before getComponent');
     const formComponent = this.refs.icoForm.getComponent(path);
-    console.log('before validate');
+    //console.log('before validate');
     if (formComponent) {
       formComponent.validate();
     }
