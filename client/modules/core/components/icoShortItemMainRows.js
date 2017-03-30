@@ -23,6 +23,13 @@ export default class IcoShortItemMainRows extends React.Component {
     this.setState(this.getCountdownState());
   }
 
+  // map startDates of all events to array as moment objects
+  mapEventsToStartDates (icoEvents) {
+    return icoEvents.map((event) => {
+      return moment(event.eventStartDatetime);
+    });
+  }
+
   // todo extract to separate component icoCountdown
   getCountdownState () {
     let icoStartDatetime = this.props.ico.icoStartDatetime;
@@ -47,31 +54,74 @@ export default class IcoShortItemMainRows extends React.Component {
       };
     } else if (IcoStatus.isDateRangeFinished(this.props.ico)) {
       icoCountdownState = {
-        icoCountdown : { enable: true, message: 'ICO has finished.' }
+        icoCountdown : { enable: true, message: 'ICO has finished' }
       };
     } else {
       console.warn('IcoCountDown is not working for this ICO item.');
-      icoCountdownState = { icoCountdown: { enable: false }};
+      icoCountdownState = { icoCountdown: { enable: false } };
     }
 
-    let icoEvents = this.props.ico.icoEvents;
-    let bonusCountdownState = { bonusCountdown: { enable: false }};
 
-    if (icoEvents) {
-      // todo show also bonus info before ICO will start
-      // todo change it to Array.prototype.find method as that is more effective
+    // todo: following part move to separate class
+
+    let icoEvents = this.props.ico.icoEvents;
+    let bonusCountdownState;
+    if (icoCountdownState.icoCountdown.enable &&
+      icoEvents && icoEvents.length) {
+
+      // check if any bonus event is occurring now. If so, set bonusCountdownState
       icoEvents.forEach((event) => {
-        if (event.isBonusEvent) {
+        // currently we only support one ico event type
+        if (event.isBonusEvent || true) {
           // we presume bonus events are not overlapping
-          if (moment().isAfter(event.eventStartDatetime) && moment().isBefore(event.eventEndDatetime)) {
+          if (moment().isBetween(event.eventStartDatetime, event.eventEndDatetime)) {
             bonusCountdownState = {
               bonusCountdown : {
-                enable: true, message: event.eventName, date: event.eventEndDatetime
+                enable: true, message: event.eventName + ' ends in', date: event.eventEndDatetime
               }
             };
           }
         }
       });
+
+      // if any bonus event not occurring, check if we are before ico start date or after ico and set
+      // bonusCountdownState according to that fact
+      if (!bonusCountdownState && IcoStatus.isDateRangeUpcoming(this.props.ico)) {
+
+        const icoEventStartDates = this.mapEventsToStartDates(icoEvents);
+        // find the earliest start date
+        const earliestIcoEventStartDate = moment.min(icoEventStartDates);
+        // find the earliest ico event object
+        const earliestIcoEvent = icoEvents.find((icoEvent) => {
+          return moment(icoEvent.eventStartDatetime).isSame(earliestIcoEventStartDate);
+        });
+
+        bonusCountdownState = {
+          bonusCountdown: {
+            enable: true, message: earliestIcoEvent.eventName + ' starts in', date: earliestIcoEvent.eventStartDatetime
+          }
+        };
+      } else if (!bonusCountdownState && IcoStatus.isDateRangeFinished(this.props.ico)) {
+        const icoEventStartDates = this.mapEventsToStartDates(icoEvents);
+
+        // find the latest start date
+        const latestIcoEventStartDate = moment.max(icoEventStartDates);
+        // find the latest ico event object
+        const latestIcoEvent = icoEvents.find((icoEvent) => {
+          return moment(icoEvent.eventStartDatetime).isSame(latestIcoEventStartDate);
+        });
+
+        bonusCountdownState = {
+          bonusCountdown: { enable: false, message: latestIcoEvent.eventName + ' finished' }
+        };
+      }
+
+    }
+    // there are no ico/bonus events so disable bonus countdown entirely
+    if (!bonusCountdownState) {
+      bonusCountdownState = {
+        bonusCountdown: { enable: false }
+      };
     }
 
     return {
@@ -281,7 +331,7 @@ export default class IcoShortItemMainRows extends React.Component {
                       <div className="col-xs-12 min-height-1-line">
                         {/*Bonus countdown - title*/}
                         <span className="ico-title-label">
-                          {this.state.bonusCountdown.message || '10% bonus ends in'}
+                          {this.state.bonusCountdown.message || ''}
                         </span>
                       </div>
                     </div>
@@ -290,10 +340,10 @@ export default class IcoShortItemMainRows extends React.Component {
                       <div className="col-xs-12 min-height-1-line">
                         {/*Bonus countdown - value -- TODO replace this by real bonus value*/}
                         {
-                          this.state.icoCountdown.enable ? (
-                            <Countdown givenDate={this.state.icoCountdown.date}
+                          this.state.bonusCountdown.enable ? (
+                            <Countdown givenDate={this.state.bonusCountdown.date}
                                        afterTimeout={this.reComputeCountdowns.bind(this)}/>
-                          ) : 'not available'
+                          ) : ''
                         }
                       </div>
                     </div>

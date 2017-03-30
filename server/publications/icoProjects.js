@@ -92,7 +92,7 @@ export default function () {
   /**
    *   category counts part
    *
-   *   for categories counts we using own separate collection; we compute those data in Methods
+   *   for categories counts we're using own separate collection; we compute those data in Methods
    */
   Meteor.publish('ico.category-counts', function() {
     return Counts.find({_id: 'categories'});
