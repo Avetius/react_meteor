@@ -177,7 +177,7 @@ export default class IcoShortItemMainRows extends React.Component {
                 <div className="row">
                   <div className="col-xs-10 col-sm-12 col-md-12">
                     {/*Logo*/}
-                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } rel="noopener noreferrer">
+                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) } rel="noopener noreferrer">
                       <img className="img-responsive margin-top-sm" src={ico.icoProjectLogo || Constants.icoLogoPlaceholderURL} />
                     </a>
                   </div>
@@ -215,7 +215,7 @@ export default class IcoShortItemMainRows extends React.Component {
                   <div className="col-xs-12">
 
                     {/*Name - value*/}
-                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) } className="ico-text-value primary-value">
+                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) } className="ico-text-value primary-value">
                       { ico.projectName ? ico.projectName: i18next.t('ico.rendering.fieldNA') }
                       <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
                     </a>
@@ -439,7 +439,7 @@ export default class IcoShortItemMainRows extends React.Component {
                   <div className="col-xs-12 col-sm-6 col-md-6">
                     {/*Detail button*/}
                     <div>
-                      <a className="btn btn-ico-primary" href={ FlowRouter.path('ico.profile', { icoSlug: ico._id }) }
+                      <a className="btn btn-ico-primary" href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) }
                          rel="noopener noreferrer">
                         <span className="vertical-align-middle">Details</span>
                       </a>

@@ -124,7 +124,9 @@ export const inIcoListUsableFields = {
   ratingScore: 1,
 
   // for client side filtering
-  entityState: 1
+  entityState: 1,
+  // slug url token
+  slugUrlToken: 1
 };
 
 export const isRestrictPropertyRequested = (query) => {

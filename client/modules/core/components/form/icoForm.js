@@ -26,6 +26,8 @@ const formLayout = (locals) => {
 
       {locals.inputs.abbreviation}
 
+      {locals.inputs.slugUrlToken}
+
       {locals.inputs.icoProjectLogo}
 
       {locals.inputs.officialWebsiteLink}
@@ -188,7 +190,14 @@ const renderOptions = {
       }
     },
     abbreviation: {
-      legend: 'Abbreviation',
+      legend: 'Abbreviation'
+    },
+    slugUrlToken: {
+      legend: 'Slug URL token',
+      disabled: true,
+      attrs: {
+        placeholder: 'No slug URL token yet. Contact Admin.'
+      }
     },
     icoProjectLogo: {
       legend: 'ICO Project Logo',
@@ -543,15 +552,7 @@ export default class IcoForm extends React.Component {
 
   onChange(icoEntityValue, path) {
     // validate a field on every change -- consider implement this in onBlur field event handler
-    const val = this.refs.icoForm.getValue();
-
-    console.log('icoForm.getValue: ', val);
-    const validation = this.refs.icoForm.validate();
-    console.log(validation);
-
-    //console.log('before getComponent');
     const formComponent = this.refs.icoForm.getComponent(path);
-    //console.log('before validate');
     if (formComponent) {
       formComponent.validate();
     }

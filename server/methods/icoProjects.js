@@ -1,5 +1,5 @@
 import {IcoProjects, Counts} from '/lib/collections';
-import { getSelector, getSort, inIcoListUsableFields, isRestrictPropertyRequested } from '../icoProjects/queries'
+import { getSelector, getSort, inIcoListUsableFields, isRestrictPropertyRequested } from '../icoProject/queries'
 import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
@@ -73,6 +73,13 @@ export default function () {
 
       // update appropriate category counts
       CountsCompute.compute();
+
+      const savedIcoProject = IcoProjects.findOne(_id);
+      if (savedIcoProject) {
+        return savedIcoProject.slugUrlToken;
+      } else {
+        console.error('Error during insert into IcoProjects collection in method ico.addAsConcept: ', 'Could not find the inserted icoProject.');
+      }
     },
 
     'ico.edit' (_id, icoProject) {
@@ -105,6 +112,17 @@ export default function () {
           }
         }
       );
+
+      // update appropriate category counts
+      CountsCompute.compute();
+
+      // todo: remove this after migration is done. We don't need to send slugUrlToken again after it.
+      const savedIcoProject = IcoProjects.findOne(_id);
+      if (savedIcoProject) {
+        return savedIcoProject.slugUrlToken;
+      } else {
+        console.error('Error during insert into IcoProjects collection in method ico.addAsConcept: ', 'Could not find the inserted icoProject.');
+      }
     },
 
     'ico.publish' (_id) {

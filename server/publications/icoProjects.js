@@ -1,5 +1,5 @@
 import {IcoProjects, Counts} from '/lib/collections';
-import { getSelector, getSort, inIcoListUsableFields } from '../icoProjects/queries'
+import { getSelector, getSort, inIcoListUsableFields } from '../icoProject/queries'
 import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
@@ -43,19 +43,32 @@ export default function () {
   });
 
 
-  Meteor.publish('ico.single', function (icoId) {
-    check(icoId, String);
+  Meteor.publish('ico.single', function (queryObj) {
+    check(queryObj, Object);
+
     let options = {
       fields: {}
     };
 
-    const selector = { _id: icoId, $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }]};
+    let selector = { $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }]};
+
+    const { icoSlug, id } = queryObj;
+    if (!icoSlug && !id) {
+      console.error('ico.single publication error: ', 'query object does not have icoSlug or id property.');
+      return [];
+    }
+    if (!icoSlug) {
+      selector._id = id;
+    } else {
+      selector.slugUrlToken = icoSlug;
+    }
 
     if (!this.userId) {
       // todo make some omits for admin data for non-admins?
       options.fields = {...options.fields };
     }
-
+    const ico = IcoProjects.findOne(selector, options);
+    console.log(ico);
     return IcoProjects.find(selector, options);
   });
 

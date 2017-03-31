@@ -46,7 +46,8 @@ export const composer = ({context, entityState, subView }, onData) => {
       if (err) {
         console.error(err);
       } else {
-        icoProjectsSlice.forEach(( icoProject) => {
+        // insert icoProjects into client cache
+        icoProjectsSlice.forEach((icoProject) => {
           icoProject.icoStatus = subView;
           icoProject.insertedAt = new Date();
           IcoProjectsCache.upsert(icoProject._id, icoProject);

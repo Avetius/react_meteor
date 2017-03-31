@@ -1,30 +1,34 @@
+/*
+ * NON REDUX actions
+ *
+ */
 export default {
-  addAsConcept ({Meteor}, icoProject) {
+  addAsConcept ({Meteor, Collections}, icoProject) {
     if (!icoProject) {
       return console.warn('ADD_AS_CONCEPT_ERROR', 'icoProject is required.');
     }
 
     const _id = Meteor.uuid();
     console.log('ico.addAsConcept is calling..');
-    Meteor.call('ico.addAsConcept', _id, icoProject, (err) => {
+    Meteor.call('ico.addAsConcept', _id, icoProject, (err, slugUrlToken) => {
       if (err) {
         return console.error('ADD_AS_CONCEPT_ERROR', err.error, err.reason);
       } else {
-        FlowRouter.go('ico.profile', { icoSlug: _id });
+        FlowRouter.go('ico.profile', { icoSlug: slugUrlToken });
       }
     });
   },
 
-  edit({Meteor, FlowRouter}, _id, icoProject) {
-    if (!icoProject) {
+  edit({Meteor, FlowRouter, Collections}, _id, icoProjectToSave) {
+    if (!icoProjectToSave) {
       return console.warn('EDIT_ICO_ERROR', 'icoProject is required.');
     }
 
-    Meteor.call('ico.edit', _id, icoProject, (err) => {
+    Meteor.call('ico.edit', _id, icoProjectToSave, (err, slugUrlToken) => {
       if (err) {
         return console.error('EDIT_ICO_ERROR', err.error, err.reason);
       } else {
-        FlowRouter.go('ico.profile', { icoSlug: _id });
+        FlowRouter.go('ico.profile', { icoSlug: slugUrlToken });
       }
     });
   },
