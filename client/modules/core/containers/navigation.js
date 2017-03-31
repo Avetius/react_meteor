@@ -20,8 +20,17 @@ export const composer = ({context}, onData) => {
 
   if (Meteor.userId() || LocalState.get('globalCounts') || FlowRouter.getRouteName() || LocalState.get('categoryCounts')) {
     const routeName = FlowRouter.getRouteName();
+
+    let view;
     // map ico.home route to ico.index for nav item highlighting
-    let view = routeName === 'ico.home' ? 'ico.index' : routeName;
+    if (routeName === 'ico.home') {
+      view = 'ico.index';
+    } else if (routeName === 'ico.index' || routeName === 'ico.concepts') {
+      view = routeName;
+    } else {
+      // WARNING: see warning bellow on 'ico.profile' condition
+      view = 'ico.index';
+    }
 
     let subNav;
     const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts'];
@@ -30,8 +39,9 @@ export const composer = ({context}, onData) => {
       let subView = FlowRouter.getParam('subView') || 'ongoing';
 
       // for this route we want to highlight nav items which belongs to view/subview of current shown ICO
+      // WARNING: this currently do on 1sec 'ico.index'-view navigation links even if the ico project is concept and is not published
       if (routeName === 'ico.profile' && LocalState.get('ico.single-sub-ready')) {
-        const currentIco = Collections.IcoProjects.findOne({_id: FlowRouter.getParam('icoSlug')});
+        const currentIco = Collections.IcoProjects.findOne({slugUrlToken: FlowRouter.getParam('icoSlug')});
         if (currentIco) {
           const icoStatus = IcoStatus.compute(currentIco);
           const icoEntityState = IcoStatus.computeEntityState(currentIco);
