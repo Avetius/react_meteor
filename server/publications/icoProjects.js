@@ -67,8 +67,6 @@ export default function () {
       // todo make some omits for admin data for non-admins?
       options.fields = {...options.fields };
     }
-    const ico = IcoProjects.findOne(selector, options);
-    console.log(ico);
     return IcoProjects.find(selector, options);
   });
 
