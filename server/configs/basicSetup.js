@@ -23,7 +23,11 @@ export default () => {
    */
   Meteor.startup(function() {
     console.log('NODE_ENV: ', process.env.NODE_ENV);
+    console.log('MONGO_OPLOG_URL: ', process.env.MONGO_OPLOG_URL);
+    console.log('MONGO_URL: ', process.env.MONGO_URL);
+    console.log('METEOR_SETTINGS: ', process.env.METEOR_SETTINGS);
     console.log('rootUrl: ', Meteor.absoluteUrl());
+
 
     if (Meteor.settings.cdnPrefix) {
       WebAppInternals.setBundledJsCssPrefix(Meteor.settings.cdnPrefix);
