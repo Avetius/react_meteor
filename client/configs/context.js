@@ -7,6 +7,7 @@ import {Tracker} from 'meteor/tracker';
 import globalSubscriptions from './globalSubscriptions';
 import accountsConfig from './accountsConfig';
 import connectStatusConfig from './connectStatusConfig';
+import analyticsSetup from './analytics';
 
 export default function () {
 
@@ -23,6 +24,7 @@ export default function () {
   globalSubscriptions(context);
   accountsConfig(context);
   connectStatusConfig(context);
+  analyticsSetup();
 
   return context;
 }
