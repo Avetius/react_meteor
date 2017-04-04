@@ -35,37 +35,68 @@ export const composer = ({context, entityState, subView }, onData) => {
    *  standard meteor methods block - these items are saved in cache client side collection and rendered
    */
 
-  const timestampKey = 'icoProjects.timestampToBound.' + entityState + '.' + subView;
-  if (!NonReactiveLocalState[timestampKey]) {
-    NonReactiveLocalState[timestampKey] = new Date();
+  // render from client cache sub-section;
+  // if it is not needed to fetch new icos - just render those from client cache
+
+  let shouldFetch;
+  if (LocalState.get('categoryCounts')) {
+
+    const categoryCountsObj = LocalState.get('categoryCounts');
+    const icoProjectsInCache = IcoProjectsCache.find({ icoStatus: subView, 'entityState.state': entityState }, { reactive: false }).fetch();
+    if (icoProjectsInCache.length === categoryCountsObj[entityState][subView]) {
+
+      //console.log('goingToRender from cache: ');
+      onData(null, {
+        icoEntities: icoProjectsInCache,
+        subView
+      });
+      shouldFetch = false;
+
+    } else {
+      shouldFetch = true;
+    }
+  } else {
+    shouldFetch = true;
   }
 
-  const skipDocsNum = LocalState.get('skipDocsNum') || 0;
-  Meteor.call('ico.getByQuery', { entityState: entityState, icoStatus: subView }, skipDocsNum, NonReactiveLocalState[timestampKey],
-    (err, icoProjectsSlice) => {
-      if (err) {
-        console.error(err);
-      } else {
-        // insert icoProjects into client cache
-        icoProjectsSlice.forEach((icoProject) => {
-          icoProject.icoStatus = subView;
-          icoProject.insertedAt = new Date();
-          IcoProjectsCache.upsert(icoProject._id, icoProject);
-        });
 
-        if (icoProjectsSlice.length === 0) {
-          actions.icoProject.stopInfiniteScrolling(context());
-        }
+  if (shouldFetch) {
 
-        onData(null, {
-          icoEntities: IcoProjectsCache.find({ icoStatus: subView, 'entityState.state': entityState }, { reactive: false }).fetch(),
-          subView
-        });
-
-        actions.icoProject.clearCacheIfNeeded(context());
-      }
+    // fetch new ICOs sub-section
+    const timestampKey = 'icoProjects.timestampToBound.' + entityState + '.' + subView;
+    if (!NonReactiveLocalState[timestampKey]) {
+      NonReactiveLocalState[timestampKey] = new Date();
     }
-  );
+
+    const skipDocsNum = LocalState.get('skipDocsNum') || 0;
+    //console.log('going to fetch new:', skipDocsNum);
+    Meteor.call('ico.getByQuery', { entityState: entityState, icoStatus: subView }, skipDocsNum, NonReactiveLocalState[timestampKey],
+      (err, icoProjectsSlice) => {
+        if (err) {
+          console.error(err);
+        } else {
+          // insert icoProjects into client cache
+          icoProjectsSlice.forEach((icoProject) => {
+            icoProject.icoStatus = subView;
+            icoProject.insertedAt = new Date();
+            IcoProjectsCache.upsert(icoProject._id, icoProject);
+          });
+
+          if (icoProjectsSlice.length === 0) {
+            actions.icoProject.stopInfiniteScrolling(context());
+          }
+
+          onData(null, {
+            icoEntities: IcoProjectsCache.find({ icoStatus: subView, 'entityState.state': entityState }, { reactive: false }).fetch(),
+            subView
+          });
+
+          actions.icoProject.clearCacheIfNeeded(context());
+        }
+      }
+    );
+
+  }
 };
 
 export const depsMapper = (context, actions) => ({

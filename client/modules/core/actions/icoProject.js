@@ -94,7 +94,7 @@ export default {
   },
 
   clearCacheIfNeeded ({CacheCollections: {IcoProjectsCache}}) {
-    if (IcoProjectsCache.find({}).count() >= 120) {
+    if (IcoProjectsCache.find({}).count() >= 180) {
       console.log('clearing cache..');
       const icosToRemove = IcoProjectsCache.find({}, { limit: 10, sort: { insertedAt: 1 }}).fetch();
       const icoIdsToRemove = icosToRemove.map((ico) => {

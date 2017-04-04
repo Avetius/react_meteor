@@ -125,3 +125,7 @@ export default function (inject, context, actions) {
     }
   };
 }
+
+export const RouteSettings = {
+  infiniteScrollableRoutes: ['ico.home', 'ico.index', 'ico.favourites', 'ico.concepts']
+};

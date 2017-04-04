@@ -4,9 +4,7 @@ import Waypoint from 'react-waypoint';
 
 export default class IcoFrontList extends React.Component  {
 
-  loadMore () {
-    this.props.loadMore();
-  }
+  // todo optimization: implement shouldComponentUpdate method to prevent re-rendering with same props
 
   render () {
     let note, subViewTitle;
@@ -62,11 +60,6 @@ export default class IcoFrontList extends React.Component  {
             })
           }
 
-          <Waypoint scrollableAncestor={window}
-                     onEnter={this.loadMore.bind(this)}
-                     bottomOffset='-500px'>
-            <div></div>
-          </Waypoint>
 
         </ListGroup>
       </div>
