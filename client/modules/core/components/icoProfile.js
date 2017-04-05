@@ -8,6 +8,7 @@ import Link from './general/link';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 import AccountsMgmt from '/lib/accountsMgmt';
+import Constants from '/client/configs/constants';
 
 const CoFounders = (props) => {
 
@@ -29,7 +30,7 @@ const CoFounders = (props) => {
       <div key={Math.random().toString()} className="col-xs-12 margin-top-md">
         <div className="row">
           <div className="col-xs-12 col-sm-4 col-md-3">
-            <img className="img-responsive img-circle" src={coFounder.photoUrl || '/profile-photo-placeholder.jpg'} />
+            <img className="img-responsive img-circle" src={coFounder.photoUrl || Constants.assetsUrls.teamMemberPhotoPlaceholder} />
           </div>
           <div className="col-xs-12 col-sm-8 col-md-9">
             <div className="margin-bottom-none">

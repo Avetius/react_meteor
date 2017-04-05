@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from './general/link';
 import Icon from './general/icon';
+import Constants from '/client/configs/constants';
 
 export default class Footer extends React.Component {
 
@@ -16,7 +17,7 @@ export default class Footer extends React.Component {
               <div className="row padding-bottom-md">
                 <div className="col-xs-12 col-sm-6 col-md-8">
 
-                  <img className="img-responsive" src="/ICOindex.com-white.png" />
+                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
 
                 </div>
               </div>

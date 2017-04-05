@@ -376,7 +376,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
   &.bg-header-img {
     height: 19rem;
-    background-image: url('/header_bg1.jpg');
+    background-image: url($mainHeaderBackground);
     background-position: 50%;
     background-size: 80% 400%;
   }

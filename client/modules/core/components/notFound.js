@@ -1,5 +1,6 @@
 import React from 'react';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import Constants from '/client/configs/constants';
 
 class NotFound extends React.Component {
 
@@ -16,7 +17,7 @@ class NotFound extends React.Component {
             <div className="col-sm-12 text-center">
               <i className="icon icon--lg icon-Compass-4" />
               <h1>Error 404 - Page Not Found</h1>
-              <a href={FlowRouter.path('ico.home')}><img src="/starwars_404.jpg" /></a>
+              <a href={FlowRouter.path('ico.home')}><img src={Constants.assetsUrls.page404img} /></a>
               <p>
                 The page you were looking for wasn't found.
               </p>

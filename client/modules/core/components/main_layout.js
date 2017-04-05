@@ -5,13 +5,14 @@ import GlobalScrollingWaypoint from './globalScrollingWaypoint';
 
 import Navigation from '../containers/navigation';
 import Footer from './footer';
+import Constants from '/client/configs/constants';
 
 class Layout extends React.Component {
 
   render () {
     return (
       <div>
-        <Favicon url={'/favicon-v3.png'}/>
+        <Favicon url={Constants.assetsUrls.svgFavicon}/>
 
           <header className="fg-white">
             <Navigation/>

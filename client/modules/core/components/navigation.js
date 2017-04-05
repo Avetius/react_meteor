@@ -9,6 +9,7 @@ import i18next from 'i18next';
 import Sticky from './sticky';
 import AccountsMgmt from '/lib/accountsMgmt';
 import BrowserViewUtils from '/client/lib/browserViewUtils';
+import Constants from '/client/configs/constants';
 
 class Navigation extends React.Component {
 
@@ -89,7 +90,7 @@ class Navigation extends React.Component {
             <div className="row row-vertical-center">
               <div className="col-xs-6 col-sm-5 col-md-3 padding-right-none">
                 <a href={FlowRouter.path('ico.home')}>
-                  <img className="img-responsive" src="/ICOindex.com-white.png" />
+                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
                 </a>
               </div>
               <div className="col-xs-6">
@@ -108,7 +109,7 @@ class Navigation extends React.Component {
         <div className="row row-vertical-center" ref={this.setCategoryNavWrapper.bind(this)}>
           <div className="col-sm-2 col-md-2  margin-left-lg hidden-xs hidden-on-mobile-view">
             <a href={FlowRouter.path('ico.home')}>
-              <img className="ico-logo" src="/ICOindex.com-white.png" />
+              <img className="ico-logo" src={Constants.assetsUrls.logoWhite} />
             </a>
           </div>
           <div className="col-xs-12 col-sm-12 col-md-9">
@@ -150,7 +151,7 @@ class Navigation extends React.Component {
         <div id="mobile-status-bar" className="row row-vertical-center flex-horizontal-center">
           <div className="col-xs-3 col-sm-2 padding-horizontal-none">
             <a href="/">
-              <img className="img-responsive ico-logo" src="/ICOindex.com-white.png"/>
+              <img className="img-responsive ico-logo" src={Constants.assetsUrls.logoWhite}/>
             </a>
           </div>
           <div className="col-xs-6 flex-horizontal-center">
