@@ -33,10 +33,15 @@ export const composer = ({context}, onData) => {
     }
 
     let subNav;
-    const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts'];
+    const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts', '404'];
     if (_.includes(allowedRouteNames, routeName)) {
       // if ico.home routename is active then ongoing tab is default subView
-      let subView = FlowRouter.getParam('subView') || 'ongoing';
+      let subView;
+      if (routeName === '404') {
+        subView = '';
+      } else {
+        subView = FlowRouter.getParam('subView') || 'ongoing';
+      }
 
       // for this route we want to highlight nav items which belongs to view/subview of current shown ICO
       // WARNING: this currently do on 1sec 'ico.index'-view navigation links even if the ico project is concept and is not published

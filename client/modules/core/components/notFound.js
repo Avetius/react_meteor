@@ -12,21 +12,27 @@ class NotFound extends React.Component {
 
     return (
       <div>
-        <div className="container pos-vertical-center">
-          <div className="row">
-            <div className="col-sm-12 text-center">
-              <i className="icon icon--lg icon-Compass-4" />
-              <h1>Error 404 - Page Not Found</h1>
-              <a href={FlowRouter.path('ico.home')}><img src={Constants.assetsUrls.page404img} /></a>
-              <p>
-                The page you were looking for wasn't found.
-              </p>
-              <button onClick={this.goHome}
-                className="btn btn-lg btn-extra-size btn-primary btn-outlined">
-                <i className="fa fa-home margin-right-sm" aria-hidden="true" />
-                Go back to the homepage
-              </button>
+        <div className="row">
+          <div className="col-xs-12 col-sm-10 col-sm-push-1 text-center">
+            <i className="icon icon--lg icon-Compass-4" />
+            <h1>Error 404 - Page Not Found</h1>
+            <div className="row flex-horizontal-center">
+              <div className="col-md-10">
+                <a className="margin-top-md" href={FlowRouter.path('ico.home')}>
+                  <img className="img-responsive" src={Constants.assetsUrls.page404img} />
+                </a>
+              </div>
             </div>
+            <p className="margin-top-sm">
+              The page you were looking for wasn't found.
+            </p>
+            {/* TODO: replace by primary button! */}
+
+            <a className="btn btn-ico-primary margin-top-md" href={FlowRouter.path('ico.home')}
+               rel="noopener noreferrer">
+              <i className="fa fa-home margin-right-sm" aria-hidden="true" />
+              Go back to the homepage
+            </a>
           </div>
         </div>
       </div>
