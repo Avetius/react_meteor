@@ -1,9 +1,11 @@
+import IcoStatus from '/lib/icoStatus';
+
 /*
  * NON REDUX actions
  *
  */
 export default {
-  addAsConcept ({Meteor, Collections}, icoProject) {
+  addAsConcept ({Meteor, Collections, CacheCollections: {IcoProjectsCache}}, icoProject) {
     if (!icoProject) {
       return console.warn('ADD_AS_CONCEPT_ERROR', 'icoProject is required.');
     }
@@ -14,20 +16,40 @@ export default {
       if (err) {
         return console.error('ADD_AS_CONCEPT_ERROR', err.error, err.reason);
       } else {
+        // add newly added ICO to ClientCache
+        // todo: move it to separate class
+        IcoProjectsCache.insert({_id,
+          insertedAt: new Date(),
+          icoStatus: IcoStatus.compute(icoProject),
+          entityState: { state: 'concept'},
+          slugUrlToken,
+          ...icoProject });
         FlowRouter.go('ico.profile', { icoSlug: slugUrlToken });
       }
     });
   },
 
-  edit({Meteor, FlowRouter, Collections}, _id, icoProjectToSave) {
+  edit({Meteor, FlowRouter, Collections, CacheCollections: {IcoProjectsCache}}, _id, icoProjectToSave) {
     if (!icoProjectToSave) {
       return console.warn('EDIT_ICO_ERROR', 'icoProject is required.');
     }
-
     Meteor.call('ico.edit', _id, icoProjectToSave, (err, slugUrlToken) => {
       if (err) {
         return console.error('EDIT_ICO_ERROR', err.error, err.reason);
       } else {
+        // update local cache, so we can see changed ico in front list without refresh
+        // todo: move it to separate class
+        const originIco = IcoProjectsCache.findOne({ _id });
+
+        if (originIco) {
+          const state = originIco.entityState && originIco.entityState.state;
+          IcoProjectsCache.update({_id}, {
+            insertedAt: originIco.insertedAt,
+            icoStatus: originIco.icoStatus,
+            entityState: { state },
+            ...icoProjectToSave });
+        }
+
         FlowRouter.go('ico.profile', { icoSlug: slugUrlToken });
       }
     });
@@ -59,7 +81,7 @@ export default {
     });
   },
 
-  deleteIco({Meteor}, _id) {
+  deleteIco({Meteor, CacheCollections: {IcoProjectsCache}}, _id) {
     console.log('ico.delete is calling..');
     if (!_id) {
       return console.warn('DELETE_ICO', 'Id of icoProject is required.');
@@ -70,7 +92,14 @@ export default {
         return console.error('DELETE_ICO', err.error, err.reason);
       }
     });
-    FlowRouter.go('ico.concepts', {});
+    const originIco = IcoProjectsCache.findOne({ _id });
+    IcoProjectsCache.remove({_id});
+    if (originIco && originIco.icoStatus) {
+      FlowRouter.go('ico.concepts', { subView: originIco.icoStatus });
+    } else {
+      FlowRouter.go('ico.concepts', { subView: 'ongoing' });
+    }
+
   },
 
   loadMore ({LocalState, NonReactiveLocalState}) {
