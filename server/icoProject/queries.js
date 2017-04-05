@@ -10,7 +10,6 @@ export const getSelector = ({ icoStatus, ...args }) => {
   return icoStatusSelectorMap[icoStatus](args);
 };
 
-// todo: solve problem when some publish new ICO during scrolling - ie. updatedAt field will change - not createdAt
 const ongoingSelector = ({entityState, timestampToBound}) => {
   const currentDate = new Date();
   const selector = {
@@ -20,6 +19,7 @@ const ongoingSelector = ({entityState, timestampToBound}) => {
   };
   let createdAtField;
   if (timestampToBound) {
+    // todo: solve problem when some publish new ICO during scrolling - ie. updatedAt field will change - not createdAt
     createdAtField = { createdAt: { $lte: timestampToBound } };
   }
   return {

@@ -2,6 +2,7 @@ import {Meteor} from 'meteor/meteor';
 
 import {IcoProjects} from '/lib/collections';
 import contentBrowserAndCorsPolicy from './contentBrowserAndCorsPolicy';
+import createIndexes from './createIndexes';
 
 export default () => {
   // Deny all client-side updates to user documents
@@ -20,6 +21,7 @@ export default () => {
     console.log('NODE_ENV: ', process.env.NODE_ENV);
     console.log('rootUrl: ', Meteor.absoluteUrl());
 
+    createIndexes();
     contentBrowserAndCorsPolicy();
 
   });
