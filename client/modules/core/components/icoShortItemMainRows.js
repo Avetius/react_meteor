@@ -215,7 +215,8 @@ export default class IcoShortItemMainRows extends React.Component {
                   <div className="col-xs-12">
 
                     {/*Name - value*/}
-                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) } className="ico-text-value primary-value">
+                    <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) }
+                       className="h4 ico-text-value primary-value">
                       { ico.projectName ? ico.projectName: i18next.t('ico.rendering.fieldNA') }
                       <span className="text-uppercase">{ ico.abbreviation ? ` (${ico.abbreviation})` : ''}</span>
                     </a>
