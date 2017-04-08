@@ -59,7 +59,7 @@ html, body {
 }
 
 footer {
-  background-color: $darker-ico-color;
+  background-color: $ico-dark-grey-color;
   color: $white;
 
   a {
@@ -71,17 +71,33 @@ footer {
   }
 
   .footer-social-link {
-    width: 82px;
+    min-width: 82px;
+
+    border: 3px solid $white;
+    border-radius: $button-border-radius-basic;
   }
 
   a.footer-social-link:hover, a.footer-social-link:active {
     .social-icon {
       font-size: $font-size-h3;
     }
+    .social-link-caption {
+      font-size: $font-size-h4;
+    }
   }
 
   .social-links-section {
-    min-height: 30px;
+    min-height: 45px;
+  }
+
+  .social-links-section-wrapper {
+    min-height: 125px;
+  }
+
+  .donations-section {
+    .donation-address-text {
+      font-size: 7px;
+    }
   }
 }
 
@@ -139,7 +155,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 .btn-ico-primary {
   @include makePrimaryGradient('background');
   font-size: $font-size-h5;
-  border-radius: 23px;
+  border-radius: $button-border-radius-basic;
   padding: 0 $btn-horizontal-padding;
   height: 4rem;
   color: white;
@@ -202,7 +218,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 .btn-ico-secondary-wrapper-inner {
   height: 3.4rem;
-  border-radius: 23px;
+  border-radius: $button-border-radius-basic;
   background-color: $ico-box-background-color;
 }
 

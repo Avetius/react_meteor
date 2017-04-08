@@ -11,67 +11,162 @@ export default class Footer extends React.Component {
         <div className="col-xs-12 col-sm-10 col-sm-push-1">
 
           <div className="row">
+            <div className="col-xs-12 col-md-6">
 
-            <div className="col-xs-12 col-md-6 padding-bottom-md">
-
-              <div className="row padding-bottom-md">
-                <div className="col-xs-12 col-sm-6 col-md-8">
-
-                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
-
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-xs-12 flex-vertical-center social-links-section">
-
-                  <Link className="footer-social-link margin-right-md" linkHref={'https://twitter.com/ICOindex'}
-                        linkProps={{target: '_blank'}}>
-                    <Icon iconClasses={'fa fa-twitter social-icon'}
-                          parentClasses='h4 margin-right-xs vertical-align-middle'
-                          childrenPosition='beforeIcon'>
-                      <span className="h5 margin-right-md">Follow</span>
-                    </Icon>
-                  </Link>
-
-                  <Link className="footer-social-link margin-left-sm margin-right-md" linkHref={'https://www.facebook.com/ICOindex'}
-                        linkProps={{target: '_blank'}}>
-                    <Icon iconClasses={'fa fa-facebook-official social-icon'}
-                          parentClasses='h4 margin-horizontal-xs vertical-align-middle'
-                          childrenPosition='beforeIcon'>
-                      <span className="h5 margin-right-md">Like</span>
-                    </Icon>
-                  </Link>
-
-                  <Link className="footer-social-link margin-left-sm margin-right-md" linkHref={'https://bitcointalk.org/index.php?action=profile;u=948467;sa=showPosts'}
-                        linkProps={{target: '_blank'}}>
-                    <Icon iconClasses={'fa fa-btc social-icon'}
-                          parentClasses='h4 margin-horizontal-xs vertical-align-middle'
-                          childrenPosition='beforeIcon'>
-                      <span className="h5 margin-right-md">Talk</span>
-                    </Icon>
-                  </Link>
-
-                </div>
-              </div>
-
-            </div>
-
-            <div className="col-xs-12 col-md-6 padding-bottom-md">
-
-              <div className="row">
+              <div className="row margin-vertical-md">
                 <div className="col-xs-12">
+                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
+                </div>
+              </div>
 
-                  <Link linkHref='http://icoindex.com'>ICOindex.com</Link>  is a platform that enables you to find
-                  all ongoing and upcoming ICOs. There are many ICOs happening around the world.
-                  Thanks to <Link linkHref='http://icoindex.com'>ICOindex.com</Link> you will never miss
-                  the next Initial Coin Offering.
+              <div className="row margin-vertical-md">
+                <div className="col-xs-12">
+                  <p className="h4 margin-vertical-none">
+                    <Link linkHref='http://icoindex.com'>ICOindex.com</Link> is a platform that enables you to find
+                    all ongoing and upcoming ICOs. There are many ICOs happening around the world.
+                    Thanks to <Link linkHref='http://icoindex.com'>ICOindex.com</Link> you will never miss
+                    the next Initial Coin Offering.
+                  </p>
+                </div>
+              </div>
+
+              <div className="row margin-top-md">
+
+                <div className="col-xs-12 social-links-section-wrapper">
+                  <div className="row margin-vertical-sm social-links-section">
+                    <div className="col-xs-6">
+                      <Link className="footer-social-link display-block padding-all-sm"
+                            linkHref={Constants.assetsUrls.socialMediaAccounts.twitter}
+                            linkProps={{target: '_blank'}}>
+                        <Icon iconClasses={'fa fa-twitter social-icon'}
+                              parentClasses='h4 margin-all-none flex-vertical-center flex-horizontal-center'
+                              childrenPosition='afterIcon'>
+                          <span className="h5 social-link-caption margin-left-sm margin-vertical-none">Follow us on twitter</span>
+                        </Icon>
+                      </Link>
+                    </div>
+                    <div className="col-xs-6">
+                      <Link className="footer-social-link display-block padding-all-sm"
+                            linkHref={Constants.assetsUrls.socialMediaAccounts.facebook}
+                            linkProps={{target: '_blank'}}>
+                        <Icon iconClasses={'fa fa-facebook-official social-icon'}
+                              parentClasses='h4 margin-all-none flex-vertical-center flex-horizontal-center'
+                              childrenPosition='afterIcon'>
+                          <span className="h5 social-link-caption margin-left-sm margin-vertical-none">Like us on Facebook</span>
+                        </Icon>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="row margin-vertical-sm social-links-section flex-horizontal-center">
+                    <div className="col-xs-7">
+                      <Link className="footer-social-link display-block padding-all-sm"
+                            linkHref={Constants.assetsUrls.socialMediaAccounts.slack}
+                            linkProps={{target: '_blank'}}>
+                        <Icon iconClasses={'fa fa-slack social-icon'}
+                              parentClasses='h4 margin-all-none flex-vertical-center flex-horizontal-center'
+                              childrenPosition='afterIcon'>
+                          <span className="h5 social-link-caption margin-left-sm margin-vertical-none">Join us on Slack channel</span>
+                        </Icon>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="row margin-bottom-md">
+                <div className="col-xs-12">
+                  Would you like to register a new ICO project? <br />
+                  Would you like to report a scam project, mistake or a bug? <br />
+                  Or if you have any other question or inquiries send us an e-mail to:&nbsp;
+                  <Link linkHref='mailto:info@icoindex.com'>info@icoindex.com</Link>
                 </div>
               </div>
 
             </div>
 
-            <div className="col-xs-12 padding-bottom-md">
+            <div className="col-xs-12 col-md-6">
+
+              <div className="row margin-vertical-md">
+                <div className="col-xs-12">
+                  <p className="h4">
+                    <Link linkHref='http://icoindex.com'>ICOindex.com</Link> is a community-based project.
+                    We are aiming to make ICOs transparent, easy to understand and available for everyone.
+                  </p>
+                </div>
+              </div>
+              <div className="row margin-vertical-md">
+                <div className="col-xs-12 flex-horizontal-center">
+                  <h4>Donations are always appreciated!</h4>
+                </div>
+              </div>
+
+              <div className="row margin-vertical-md donations-section">
+
+                <div className="col-xs-4">
+                  <div className="row flex-horizontal-center">
+                    <div className="col-xs-7">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.btcLogo} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <h6>Every donation you make will help us make ICOindex.com more awesome.</h6>
+                    </div>
+                    <div className="col-xs-12">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoAccounts.btc1_QR} />
+                    </div>
+                    <div className="col-xs-12">
+                      <span className="donation-address-text">{Constants.assetsUrls.cryptoAccounts.btc1_text}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-xs-4">
+                  <div className="row flex-horizontal-center">
+                    <div className="col-xs-7">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.dashLogo} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <h6>If your donation is smaller than the BTC transaction fee you should better send Dash.</h6>
+                    </div>
+                    <div className="col-xs-12">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoAccounts.dash1_QR} />
+                    </div>
+                    <div className="col-xs-12">
+                      <span className="donation-address-text">{Constants.assetsUrls.cryptoAccounts.dash1_text}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-xs-4">
+                  <div className="row flex-horizontal-center">
+                    <div className="col-xs-7">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.ethLogo} />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-xs-12">
+                      <h6>Ethereum, Augur, Golem or any other Ethereum-based token will make us happy :-)</h6>
+                    </div>
+                    <div className="col-xs-12">
+                      <img className="img-responsive" src={Constants.assetsUrls.cryptoAccounts.eth1_QR} />
+                    </div>
+                    <div className="col-xs-12">
+                      <span className="donation-address-text">{Constants.assetsUrls.cryptoAccounts.eth1_text}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div className="row margin-vertical-lg">
+            <div className="col-xs-12">
+
               <p> All Initial coin offerings on <Link linkHref='http://icoindex.com'>ICOindex.com</Link> have been
                 checked before publishing on this website. By using website
                 <Link linkHref='http://icoindex.com'>ICOindex.com</Link> you agree that you have done your own
@@ -86,13 +181,12 @@ export default class Footer extends React.Component {
                 is not connected with them in any way.
               </p>
               <p>
-                <Link linkHref='http://icoindex.com'>ICOindex.com</Link>  does not give any investment recommendations.
+                <Link linkHref='http://icoindex.com'>ICOindex.com</Link>  does not give any investment recommendations.&nbsp;
                 <Link linkHref='http://icoindex.com'>ICOindex.com</Link> serves solely for collecting important
                 information about initial coin offerings.
               </p>
 
             </div>
-
           </div>
 
         </div>
