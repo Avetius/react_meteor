@@ -23,10 +23,10 @@ export default {
       eth1_text: '0x1a8Bc878a46f3B5F9c553448D5Ed61C5B0d01d1e'
     },
     cryptoLogos: {
-      btcLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/bitcoin-logo.jpg',
+      btcLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/bitcoin-logo2.png',
       dashLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/dash-logo.png',
       zecLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/zcash-logo.jpg',
-      ethLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/eth-logo.jpg'
+      ethLogo: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/cryptoaccounts/ethereum-logo2.png'
     },
     socialMediaAccounts: {
       twitter: 'https://twitter.com/ICOindex',
