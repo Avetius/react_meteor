@@ -4,7 +4,7 @@ const Form = t.form.Form;
 
 import _ from 'lodash';
 // Rubix theme
-import { Modal, ButtonToolbar, Button, OverlayTrigger, Popover } from '@sketchpixy/rubix';
+import { Modal, ButtonToolbar, Button } from '@sketchpixy/rubix';
 
 import S3FileUploader from './s3fileUploader';
 import { IcoType } from '/lib/icoProject';

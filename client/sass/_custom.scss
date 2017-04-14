@@ -71,36 +71,54 @@ footer {
   }
 
   .footer-section-odd {
-    background-color: $ico-dark-grey-color;
+    background-color: $ico-darker-dark-color;
   }
-
   .footer-section-even {
     background-color: $ico-lighter-dark-color;
+  }
+  .footer-section-last {
+    background-color: $darker-ico-color;
   }
 
   .footer-social-link {
     min-width: 82px;
 
-    //old: border: 3px solid $white;
     border: none;
     border-radius: $button-border-radius-basic;
   }
-  .twitter-link {
+  a.twitter-link {
     background-color: $ico-twitter-color;
+    &:hover, &:active {
+      background-color: lighten($ico-twitter-color, 10%);
+    }
   }
-  .facebook-link {
-    background-color: $ico-facebook-color !important;
+  a.facebook-link {
+    background-color: $ico-facebook-color;
+    &:hover, &:active {
+      background-color: lighten($ico-facebook-color, 10%);
+    }
   }
-  .slack-link {
-    background-color: $ico-slack-color !important;
+  a.slack-link {
+    background-color: $ico-slack-color;
+    &:hover, &:active {
+      background-color: lighten($ico-slack-color, 10%);
+    }
+  }
+
+  .social-icon {
+    @media (max-width: $screen-xs-max) {
+      margin-left: 0.5em;
+    }
   }
 
   a.footer-social-link:hover, a.footer-social-link:active {
-    .social-icon {
-      font-size: $font-size-h3;
-    }
-    .social-link-caption {
-      font-size: $font-size-h4;
+    @media (min-width: $screen-sm-min) {
+      .social-icon {
+        font-size: $font-size-h3;
+      }
+      .social-link-caption {
+        font-size: $font-size-h4;
+      }
     }
   }
 
@@ -111,10 +129,14 @@ footer {
     min-height: 125px;
   }
 
-
   .donations-section {
     .donation-address-text {
-      font-size: 7px;
+      @media (max-width: $screen-xs-max) {
+        font-size: 10px;
+      }
+      @media (min-width: $screen-sm-min) {
+        font-size: $font-size-h5;
+      }
     }
     .donation-message-text {
       @media (max-width: $screen-xs-max) {
@@ -126,6 +148,10 @@ footer {
       @media (min-width: $screen-md-min) {
         min-height: 6.5rem;
       }
+    }
+    .crypto-logo-fill-background {
+      background-color: $ico-lighter-dark-color;
+      border-radius: 100%;
     }
   }
 }
@@ -343,7 +369,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   .sticked {
     position: fixed;
     width: 100%;
-    z-index: 65300;
+    z-index: 1000;
     top: 0rem;
     left: 0;
     @include makePrimaryGradient('background');

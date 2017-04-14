@@ -4,7 +4,7 @@ const Link = (props) => {
   const linkProps = props.linkProps || {};
   linkProps.rel = linkProps.rel || 'noopener noreferrer';
 
-  return <a href={props.linkHref} className={props.className} {...linkProps}>
+  return <a onClick={props.onClick} href={props.linkHref} className={props.className} {...linkProps}>
       {props.children}
     </a>;
 };

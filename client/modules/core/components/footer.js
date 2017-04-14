@@ -3,26 +3,44 @@ import Link from './general/link';
 import Icon from './general/icon';
 import Constants from '/client/configs/constants';
 
+// Rubix theme
+import { Modal, Button } from '@sketchpixy/rubix';
+
 export default class Footer extends React.Component {
 
+  constructor () {
+    super();
+    this.state = {
+      showDisclaimerModal: false
+    }
+  }
+
+  showDisclaimerModalIco(event) {
+    event.preventDefault();
+    this.setState({showDisclaimerModal: true});
+  }
+
+  close() {
+    this.setState({showDisclaimerModal: false});
+  }
+
   render () {
-    return <div className="container-fluid padding-vertical-lg">
+    return <div className="container-fluid padding-top-lg">
       <div className="row">
         <div className="col-xs-12">
 
           {/* Section1 */}
-          <div className="row footer-section-odd">
+          <div className="row footer-section-odd padding-vertical-lg">
             <div className="col-xs-12 col-sm-10 col-sm-push-1">
-              <div className="row margin-vertical-md">
 
-
+              <div className="row margin-vertical-md flex-horizontal-center">
                 <div className="col-xs-12 col-md-6">
+                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
+                </div>
+              </div>
 
-                  <div className="row margin-vertical-md">
-                    <div className="col-xs-12">
-                      <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
-                    </div>
-                  </div>
+              <div className="row margin-vertical-md">
+                <div className="col-xs-12 col-md-6">
 
                   <div className="row margin-vertical-md">
                     <div className="col-xs-12">
@@ -40,9 +58,11 @@ export default class Footer extends React.Component {
                 <div className="col-xs-12 col-md-6">
                   <div className="row margin-vertical-md">
                     <div className="col-xs-12">
-                      <p className="h4">
+                      <p className="h4 margin-vertical-none">
                         <Link linkHref='http://icoindex.com'>ICOindex.com</Link> is a community-based project.
                         We are aiming to make ICOs transparent, easy to understand and available for everyone.
+                        For more information see
+                        <Link linkHref='#' onClick={this.showDisclaimerModalIco.bind(this)}>disclaimer</Link>.
                       </p>
                     </div>
                   </div>
@@ -53,7 +73,7 @@ export default class Footer extends React.Component {
           </div>
 
           {/* Section2 */}
-          <div className="row footer-section-even">
+          <div className="row footer-section-even padding-vertical-lg">
             <div className="col-xs-12 col-sm-10 col-sm-push-1">
               <div className="row margin-top-md">
 
@@ -122,11 +142,11 @@ export default class Footer extends React.Component {
           </div>
 
           {/* Section3 */}
-          <div className="row footer-section-odd">
+          <div className="row footer-section-odd padding-vertical-lg">
             <div className="col-xs-12 col-sm-10 col-sm-push-1">
               <div className="row flex-horizontal-center">
 
-                <div className="col-xs-12 col-md-8">
+                <div className="col-xs-12 col-md-10">
 
                   <div className="row margin-vertical-md">
                     <div className="col-xs-12 flex-horizontal-center">
@@ -134,9 +154,9 @@ export default class Footer extends React.Component {
                     </div>
                   </div>
 
-                  <div className="row margin-vertical-md donations-section">
+                  <div className="row flex-horizontal-center margin-vertical-md donations-section">
 
-                    <div className="col-xs-4">
+                    <div className="col-xs-4 col-md-3">
                       <div className="row flex-horizontal-center">
                         <div className="col-xs-7">
                           <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.btcLogo} />
@@ -155,7 +175,7 @@ export default class Footer extends React.Component {
                       </div>
                     </div>
 
-                    <div className="col-xs-4">
+                    <div className="col-xs-4 col-md-3 col-md-offset-1">
                       <div className="row flex-horizontal-center">
                         <div className="col-xs-7">
                           <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.dashLogo} />
@@ -174,10 +194,10 @@ export default class Footer extends React.Component {
                       </div>
                     </div>
 
-                    <div className="col-xs-4">
+                    <div className="col-xs-4 col-md-3 col-md-offset-1">
                       <div className="row flex-horizontal-center">
                         <div className="col-xs-7">
-                          <img className="img-responsive" src={Constants.assetsUrls.cryptoLogos.ethLogo} />
+                          <img className="img-responsive crypto-logo-fill-background" src={Constants.assetsUrls.cryptoLogos.ethLogo} />
                         </div>
                       </div>
                       <div className="row">
@@ -200,11 +220,16 @@ export default class Footer extends React.Component {
             </div>
           </div>
 
+          <div className="row footer-section-last padding-top-lg">
+            &nbsp;
+          </div>
 
-          {/* todo: move to another - Disclaimer page
-          <div className="row margin-vertical-lg">
-            <div className="col-xs-12">
-
+          <Modal show={this.state.showDisclaimerModal} lg aria-labelledby="contained-modal-title-lg">
+            <Modal.Header onHide={this.close.bind(this)} closeButton>
+              <h3 id="contained-modal-title-lg">Disclaimer</h3>
+            </Modal.Header>
+            <Modal.Body>
+              <h4>Disclaimer</h4>
               <p> All Initial coin offerings on <Link linkHref='http://icoindex.com'>ICOindex.com</Link> have been
                 checked before publishing on this website. By using website
                 <Link linkHref='http://icoindex.com'>ICOindex.com</Link> you agree that you have done your own
@@ -219,14 +244,15 @@ export default class Footer extends React.Component {
                 is not connected with them in any way.
               </p>
               <p>
-                <Link linkHref='http://icoindex.com'>ICOindex.com</Link>  does not give any investment recommendations.&nbsp;
+                <Link linkHref='http://icoindex.com'>ICOindex.com</Link> does not give any investment recommendations.&nbsp;
                 <Link linkHref='http://icoindex.com'>ICOindex.com</Link> serves solely for collecting important
                 information about initial coin offerings.
               </p>
-
-            </div>
-          </div>
-           */}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.close.bind(this)}>OK</Button>
+            </Modal.Footer>
+          </Modal>
 
         </div>
       </div>
