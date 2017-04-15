@@ -7,6 +7,7 @@ import EllipsisText from 'react-ellipsis-text';
 import AccountsMgmt from '/lib/accountsMgmt';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
+import Icon from './general/icon';
 
 import IcoStatus from '/lib/icoStatus';
 import Constants from '/client/configs/constants';
@@ -174,7 +175,7 @@ export default class IcoShortItemMainRows extends React.Component {
             <div className="row">
               <div className="col-xs-12 col-sm-4 col-md-5">
 
-                <div className="row">
+                <div className="row flex-horizontal-center">
                   <div className="col-xs-10 col-sm-12 col-md-12">
                     {/*Logo*/}
                     <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) } rel="noopener noreferrer">
@@ -183,11 +184,28 @@ export default class IcoShortItemMainRows extends React.Component {
                   </div>
                 </div>
                 <div className="row margin-vertical-sm">
-                  <div className="col-xs-8 col-sm-12">
-
-                    {/* TODO: impl IcoStatus*/}
-                    <span className="ico-grey-text-value">{i18next.t('ico.icoStatus.'+IcoStatus.compute(ico))}</span>
+                  <div className="col-xs-8 padding-right-none">
+                    <span className="ico-grey-text-value">
+                      {i18next.t('ico.icoStatus.' + IcoStatus.compute(ico))}
+                    </span>
                   </div>
+
+                  <div className="col-xs-4 padding-left-none">
+                    {/*Verified status*/}
+                    <ContentWithPopover fieldLabel={i18next.t('ico.ratingScore.' + ico.ratingScore) + ' status'}
+                                        helpText="[will be added] ICO start date is date and time when you will first be able to participate in this initial coin offering.">
+                      { ico.ratingScore === 'verified' ?
+                        <span className="text-help h1 margin-left-sm margin-vertical-none verified-status-logo">
+                          <i className="fa fa-check-circle-o" aria-hidden="true" />
+                        </span>
+                        :
+                        <span className="text-help h1 margin-left-sm margin-vertical-none unverified-status-logo">
+                          <i className="fa fa-times-circle-o" aria-hidden="true" />
+                        </span>
+                      }
+                    </ContentWithPopover>
+                  </div>
+
                   <div className="col-xs-6">
 
                     {/*Edit ICO*/}

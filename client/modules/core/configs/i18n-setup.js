@@ -29,6 +29,12 @@ export default () => {
               exchange: 'Exchange',
               unknown: 'Unknown'
             },
+            ratingScore: {
+              verified: 'Verified',
+              unverified: 'Unverified',
+              suspicious: 'Suspicious',
+              scam: 'Scam'
+            },
             rendering: {
               fieldNA: 'N/A'
             },
