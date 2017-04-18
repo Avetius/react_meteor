@@ -163,6 +163,55 @@ export default class IcoShortItemMainRows extends React.Component {
         <p> - Live: The team has already developed something that actually works and the team is looking for additional funding to further develop and grow their project </p>
       </span>;
 
+    // todo: move following items to separated component
+    const verifiedStatusText =
+      <span>ICOindex.com has verified:
+        <ul>
+          <li>White-paper</li>
+          <li>Identity of selected team members</li>
+          <li>Identity of Escrow service</li>
+          <li>Project status</li>
+          <li>Social media profiles</li>
+        </ul>
+      </span>;
+
+    const unVerifiedStatusText =
+      <span>ICOindex.com has not verified following for the ICO:
+        <ul>
+          <li>White-paper</li>
+          <li>Identity of selected team members</li>
+          <li>Identity of Escrow service</li>
+          <li>Project status</li>
+          <li>Social media profiles</li>
+        </ul>
+      </span>;
+
+    const verificationInProcessStatusText =
+      <span>These items are being verified:
+        <ul>
+          <li>White-paper</li>
+          <li>Identity of selected team members</li>
+          <li>Identity of Escrow service</li>
+          <li>Project status</li>
+          <li>Social media profiles</li>
+        </ul>
+      </span>;
+    const suspiciousStatusText = <span> This project did not provide enough information to be listed in the main category.</span>;
+    const scamStatusText = <span>This project missing critical information. In the detail of the project you can find concrete reasons why we consider the project to be a scam. We discourage people from wasting money on the project.</span>;
+
+    const getRatingScoreStatusText = (key) => {
+      const mapObject = {
+        verified: verifiedStatusText,
+        unverified: unVerifiedStatusText,
+        verificationInProcess: verificationInProcessStatusText,
+        suspicious: suspiciousStatusText,
+        scam: scamStatusText
+      };
+
+      return mapObject[key];
+    };
+
+
     const ico = this.props.ico;
 
     return (
@@ -191,19 +240,24 @@ export default class IcoShortItemMainRows extends React.Component {
                   </div>
 
                   <div className="col-xs-4 padding-left-none">
+
                     {/*Verified status*/}
-                    <ContentWithPopover fieldLabel={i18next.t('ico.ratingScore.' + ico.ratingScore) + ' status'}
-                                        helpText="[will be added] ICO start date is date and time when you will first be able to participate in this initial coin offering.">
-                      { ico.ratingScore === 'verified' ?
-                        <span className="text-help h1 margin-left-sm margin-vertical-none verified-status-logo">
+                    { IcoStatus.compute(ico) !== 'finished' ?
+                      <ContentWithPopover fieldLabel={i18next.t('ico.ratingScore.' + ico.ratingScore) + ' status'}
+                                          helpText={getRatingScoreStatusText(ico.ratingScore)}>
+                        { ico.ratingScore === 'verified' ?
+                          <span className="text-help h1 margin-left-sm margin-vertical-none verified-status-logo">
                           <i className="fa fa-check-circle-o" aria-hidden="true" />
                         </span>
-                        :
-                        <span className="text-help h1 margin-left-sm margin-vertical-none unverified-status-logo">
+                          :
+                          <span className="text-help h1 margin-left-sm margin-vertical-none unverified-status-logo">
                           <i className="fa fa-times-circle-o" aria-hidden="true" />
                         </span>
-                      }
-                    </ContentWithPopover>
+                        }
+                      </ContentWithPopover>
+                      : ''
+                    }
+
                   </div>
 
                   <div className="col-xs-6">

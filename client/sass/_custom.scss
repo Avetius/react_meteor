@@ -70,6 +70,10 @@ footer {
     }
   }
 
+  a.highlighted-link {
+    text-decoration: underline;
+  }
+
   .footer-section-odd {
     background-color: $ico-darker-dark-color;
   }
@@ -150,7 +154,7 @@ footer {
       }
     }
     .crypto-logo-fill-background {
-      background-color: $ico-lighter-dark-color;
+      background-color: $white;
       border-radius: 100%;
     }
   }
