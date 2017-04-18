@@ -61,8 +61,6 @@ export default class Footer extends React.Component {
                       <p className="h4 margin-vertical-none">
                         <Link linkHref='http://icoindex.com'>ICOindex.com</Link> is a community-based project.
                         We are aiming to make ICOs transparent, easy to understand and available for everyone.
-                        For more information see
-                        <Link linkHref='#' onClick={this.showDisclaimerModalIco.bind(this)}>disclaimer</Link>.
                       </p>
                     </div>
                   </div>
@@ -220,8 +218,10 @@ export default class Footer extends React.Component {
             </div>
           </div>
 
-          <div className="row footer-section-last padding-top-lg">
-            &nbsp;
+          <div className="row footer-section-last">
+            <div className="col-xs-4 col-xs-push-8 padding-vertical-sm">
+              <Link className="highlighted-link" linkHref='#disclaimer' onClick={this.showDisclaimerModalIco.bind(this)}>Disclaimer</Link>
+            </div>
           </div>
 
           <Modal show={this.state.showDisclaimerModal} lg aria-labelledby="contained-modal-title-lg">
