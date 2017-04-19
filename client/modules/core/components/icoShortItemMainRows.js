@@ -211,6 +211,17 @@ export default class IcoShortItemMainRows extends React.Component {
       return mapObject[key];
     };
 
+    const getRatingScoreStatusIcon = (key)  => {
+      const mapObject = {
+        verified: 'fa-check-circle-o verified-status-logo',
+        unverified: 'fa-times-circle-o unverified-status-logo',
+        verificationInProcess: 'fa-eye verification-in-process-logo',
+        suspicious: 'fa-times-circle-o unverified-status-logo',
+        scam: 'fa-times-circle-o unverified-status-logo'
+      };
+      return <i className={'fa ' + mapObject[key]} aria-hidden="true" />;
+    };
+
 
     const ico = this.props.ico;
 
@@ -243,17 +254,11 @@ export default class IcoShortItemMainRows extends React.Component {
 
                     {/*Verified status*/}
                     { IcoStatus.compute(ico) !== 'finished' ?
-                      <ContentWithPopover fieldLabel={i18next.t('ico.ratingScore.' + ico.ratingScore) + ' status'}
+                      <ContentWithPopover fieldLabel={i18next.t('ico.ratingScoreStatus.' + ico.ratingScore)}
                                           helpText={getRatingScoreStatusText(ico.ratingScore)}>
-                        { ico.ratingScore === 'verified' ?
-                          <span className="text-help h1 margin-left-sm margin-vertical-none verified-status-logo">
-                          <i className="fa fa-check-circle-o" aria-hidden="true" />
+                        <span className="text-help h1 margin-left-sm margin-vertical-none rating-status-logo-wrapper">
+                          { getRatingScoreStatusIcon(ico.ratingScore) }
                         </span>
-                          :
-                          <span className="text-help h1 margin-left-sm margin-vertical-none unverified-status-logo">
-                          <i className="fa fa-times-circle-o" aria-hidden="true" />
-                        </span>
-                        }
                       </ContentWithPopover>
                       : ''
                     }

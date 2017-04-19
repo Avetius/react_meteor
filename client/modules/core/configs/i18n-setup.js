@@ -33,7 +33,15 @@ export default () => {
               verified: 'Verified',
               unverified: 'Unverified',
               suspicious: 'Suspicious',
+              verificationInProcess: 'Verification in process',
               scam: 'Scam'
+            },
+            ratingScoreStatus: {
+              verified: 'Verified status',
+              unverified: 'Unverified status',
+              suspicious: 'Suspicious status',
+              verificationInProcess: 'Verification in process',
+              scam: 'Scam status'
             },
             rendering: {
               fieldNA: 'N/A'

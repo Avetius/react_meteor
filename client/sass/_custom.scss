@@ -303,12 +303,21 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   }
 }
 
+.rating-status-logo-wrapper {
+  position: relative;
+  top: -8px;
+}
+
 .verified-status-logo {
   color: $verified-status-logo-color;
 }
 
 .unverified-status-logo {
   color: $unverified-status-logo-color;
+}
+
+.verification-in-process-logo {
+  color: $verification-in-process-logo-color;
 }
 
 .ico-profile-box {
