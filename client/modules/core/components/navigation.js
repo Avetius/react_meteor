@@ -157,7 +157,10 @@ class Navigation extends React.Component {
           <div className="col-xs-6 flex-horizontal-center">
             <div className="flex-vertical-center">
             <span className="h4 main-status-title">
-              {i18next.t('ico.icoStatus.' + this.props.subNav.subView)}
+              { this.props.subNav.subView ?
+                i18next.t('ico.icoStatus.' + this.props.subNav.subView)
+                : ''
+              }
             </span>
             <span className="badge badge-ico margin-left-md">
               { this.props.subNav.categoryCounts[this.props.subNav.subView] }
