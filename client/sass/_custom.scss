@@ -44,6 +44,10 @@
   vertical-align: middle;
 }
 
+.vertical-align-top {
+  vertical-align: top;
+}
+
 .border-bottom-1-solid {
   border-bottom: 1px solid;
 }
@@ -574,9 +578,13 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 a.team-member-link {
   width: 32px;
 
+  span {
+    vertical-align: top;
+  }
   &:hover, &:active {
     span {
       font-size: $font-size-h3;
+      vertical-align: middle;
     }
   }
 }

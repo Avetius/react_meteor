@@ -29,12 +29,12 @@ const CoFounders = (props) => {
     return (
       <div key={Math.random().toString()} className="col-xs-12 margin-top-md">
         <div className="row">
-          <div className="col-xs-12 col-sm-4 col-md-3">
-            <img className="img-responsive img-circle" src={coFounder.photoUrl || Constants.assetsUrls.teamMemberPhotoPlaceholder} />
+          <div className="col-xs-12 col-sm-4 col-md-3 margin-bottom-sm">
+            <img className="img-responsive" src={coFounder.photoUrl || Constants.assetsUrls.teamMemberPhotoPlaceholder} />
           </div>
           <div className="col-xs-12 col-sm-8 col-md-9">
             <div className="margin-bottom-none">
-              <h4 className="team-member-name display-inline-block margin-right-md text-uppercase"> {coFounder.name} </h4>
+              <h4 className="team-member-name display-inline-block margin-top-none margin-right-md text-uppercase"> {coFounder.name} </h4>
               { makeCoFounderLink({ icon: 'fa fa-linkedin-square', link: coFounder.linkedInProfileUrl }) }
               { makeCoFounderLink({ icon: 'fa fa-twitter', link: coFounder.twitterProfileUrl }) }
               { makeCoFounderLink({ icon: 'fa fa-facebook-official', link: coFounder.facebookProfileUrl }) }
