@@ -236,46 +236,52 @@ export default class IcoShortItemMainRows extends React.Component {
               <div className="col-xs-12 col-sm-4 col-md-5">
 
                 <div className="row flex-horizontal-center">
-                  <div className="col-xs-10 col-sm-12 col-md-12">
+                  <div className="col-xs-10 col-sm-12 col-md-12 project-logo-wrapper">
                     {/*Logo*/}
                     <a href={ FlowRouter.path('ico.profile', { icoSlug: ico.slugUrlToken }) } rel="noopener noreferrer">
                       <img className="img-responsive margin-top-sm" src={ico.icoProjectLogo || Constants.icoLogoPlaceholderURL} />
                     </a>
                   </div>
                 </div>
-                <div className="row margin-vertical-sm">
-                  <div className="col-xs-8 padding-right-none">
-                    <span className="ico-grey-text-value">
-                      {i18next.t('ico.icoStatus.' + IcoStatus.compute(ico))}
-                    </span>
-                  </div>
+                <div className="row flex-horizontal-center margin-vertical-sm">
+                  <div className="col-xs-10 col-sm-12">
+                    <div className="row">
 
-                  <div className="col-xs-4 padding-left-none">
-
-                    {/*Verified status*/}
-                    { IcoStatus.compute(ico) !== 'finished' ?
-                      <ContentWithPopover fieldLabel={i18next.t('ico.ratingScoreStatus.' + ico.ratingScore)}
-                                          helpText={getRatingScoreStatusText(ico.ratingScore)}>
-                        <span className="text-help h1 margin-left-sm margin-vertical-none rating-status-logo-wrapper">
-                          { getRatingScoreStatusIcon(ico.ratingScore) }
+                      <div className="col-xs-9 padding-right-none">
+                        <span className="ico-grey-text-value">
+                          {i18next.t('ico.icoStatus.' + IcoStatus.compute(ico))}
                         </span>
-                      </ContentWithPopover>
-                      : ''
-                    }
+                      </div>
 
-                  </div>
+                      <div className="col-xs-3 padding-left-none">
 
-                  <div className="col-xs-6">
+                        {/*Verified status*/}
+                        { IcoStatus.compute(ico) !== 'finished' ?
+                          <ContentWithPopover fieldLabel={i18next.t('ico.ratingScoreStatus.' + ico.ratingScore)}
+                                              helpText={getRatingScoreStatusText(ico.ratingScore)}>
+                            <span className="text-help h1 margin-vertical-none rating-status-logo-wrapper">
+                              { getRatingScoreStatusIcon(ico.ratingScore) }
+                            </span>
+                          </ContentWithPopover>
+                          : ''
+                        }
 
-                    {/*Edit ICO*/}
-                    { AccountsMgmt.isCurrentUserAdmin() ? (
-                      <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
-                      <span className="h5">
-                        <i className="fa fa-pencil margin-right-sm" />
-                        Edit
-                      </span>
-                      </a> ) : ''
-                    }
+                      </div>
+
+                      <div className="col-xs-6">
+
+                        {/*Edit ICO*/}
+                        { AccountsMgmt.isCurrentUserAdmin() ? (
+                          <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
+                          <span className="h5">
+                            <i className="fa fa-pencil margin-right-sm" />
+                            Edit
+                          </span>
+                          </a> ) : ''
+                        }
+                      </div>
+
+                    </div>
                   </div>
                 </div>
 
