@@ -5,12 +5,14 @@ import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
 import AccountsMgmt from '/lib/accountsMgmt';
+import DataValidator from '/lib/dataValidator';
 
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 import _ from 'lodash';
 
 import t from 'tcomb-validation';
+import Mailchimp from 'mailchimp-api-v3';
 
 /**
  * Note: for fetching data use this.unblock() (see https://meteorhacks.com/understanding-meteor-wait-time-and-this-unblock/)
@@ -232,6 +234,42 @@ export default function () {
 
       // update appropriate category counts
       CountsCompute.compute();
+    },
+
+    'ico.newsletter-signup' (emailAddr) {
+      check(emailAddr, String);
+      if (!DataValidator.isValidEmailAddress(emailAddr)) {
+        throw new Meteor.Error('Newsletter signup error', 'Email is invalid.');
+      }
+
+      if (!Meteor.settings.private) {
+        console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+      }
+
+      let mailchimp;
+      if (Meteor.settings.private.MailChimp && Meteor.settings.private.MailChimp.apiKey) {
+        mailchimp = new Mailchimp(Meteor.settings.private.MailChimp.apiKey);
+      } else {
+        console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+      }
+
+      let list_id;
+      if (Meteor.settings.private.MailChimp && Meteor.settings.private.MailChimp.listId) {
+        list_id = Meteor.settings.private.MailChimp.listId;
+      } else {
+        console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+      }
+
+      mailchimp.post(`lists/${list_id}`, { members: [{ // send a post request to create new subscription to the list
+        email_address: emailAddr,
+        status: "subscribed"
+      }]
+      }).then((response) => {
+        //console.log('mailchimp res: ', response);
+      }).catch((error) => {
+        console.log('Mailchimp API error for email: ' + emailAddr, error.status. error.detail)
+      });
+
     },
 
     'ico.redeployTestData'() {

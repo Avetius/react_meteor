@@ -424,6 +424,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
   #mobile-status-bar {
     max-height: 6rem;
+    max-width: $min-layout-width;
 
     .main-status-title {
       font-weight: bold;

@@ -3,6 +3,8 @@ import Link from './general/link';
 import Icon from './general/icon';
 import Constants from '/client/configs/constants';
 
+import MailchimpEmailForm from './mailchimp/mailchimpEmailForm';
+
 // Rubix theme
 import { Modal, Button } from '@sketchpixy/rubix';
 
@@ -11,7 +13,8 @@ export default class Footer extends React.Component {
   constructor () {
     super();
     this.state = {
-      showDisclaimerModal: false
+      showDisclaimerModal: false,
+      openMailchimpForm: false
     }
   }
 
@@ -22,6 +25,12 @@ export default class Footer extends React.Component {
 
   close() {
     this.setState({showDisclaimerModal: false});
+  }
+
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({openMailchimpForm: true});
+    }, 15000);
   }
 
   render () {
@@ -253,6 +262,8 @@ export default class Footer extends React.Component {
               <Button onClick={this.close.bind(this)}>OK</Button>
             </Modal.Footer>
           </Modal>
+
+          <MailchimpEmailForm openMailchimpForm={this.state.openMailchimpForm} />
 
         </div>
       </div>
