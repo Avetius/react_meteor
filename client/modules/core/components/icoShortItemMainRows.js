@@ -155,7 +155,7 @@ export default class IcoShortItemMainRows extends React.Component {
 
     const ProjectStatusHelpBody =
       <span>
-        <p> Project status describes in which stage of development the project is. Projects start their ICO  during different stages of the project development. Putting money in to an ICO with only a concept means that you are actually giving money to someone who might not be even capable of developing something.</p>
+        <p> Project status describes in which stage of development the project is.</p>
         <p> - Concept: The team has developed a concept of an idea which is described usually in a whitepaper. The team is raising money through ICO to start developing their project. At this stage there is no working prototype.</p>
         <p> - Working prototype: The team has already developed working prototype in order to prove that the team is capable of developing something. (Usually the prototype has very limited features)</p>
         <p> - Private demo: The team has already developed a demo but the demo has not been released to the everyone yet. </p>
