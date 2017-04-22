@@ -45,6 +45,7 @@
     "react-dropzone-s3-uploader": "^0.8.1",
     "react-ellipsis-text": "^1.0.0",
     "react-favicon": "0.0.5",
+    "react-helmet": "^5.0.3",
     "react-markdown": "^2.4.2",
     "react-mounter": "^1.2.0",
     "react-rte": "^0.11.0",
