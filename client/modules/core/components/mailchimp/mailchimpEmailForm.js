@@ -47,13 +47,10 @@ export default class MailchimpEmailForm extends React.Component {
       },
       thanks: {
         title: 'Thank you for signup!',
-        content: `<span>You can look forward to:
-                  <ul class="in-popup-list">
-                  <li>Weekly updates of upcoming and ongoing ICOs</li>
-                  <li>Notifications about newly listed ICOs</li>
-                  <li>Important updates of ICOindex.com features</li>
-                  </ul>
-                  </span>
+        content: `<p>Do you want to be part of ICOindex <strong>community</strong>?</p>
+                  <p>Join the discussions on our
+                  <a target="_blank" href="https://icoindex-official.herokuapp.com">ICOindex community slack</a> as well!
+                  </p>
                  `
       },
       form: {

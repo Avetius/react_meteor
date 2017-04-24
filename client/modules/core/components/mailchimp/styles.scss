@@ -24,6 +24,12 @@
   font-family: Arial,sans-serif;
   color: black;
 
+  a {
+    color: $darker-ico-color;
+    text-decoration: underline;
+    font-weight: bolder;
+  }
+
   .in-popup-list {
     text-align: left;
   }
