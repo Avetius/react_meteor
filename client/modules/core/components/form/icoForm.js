@@ -116,7 +116,8 @@ const formLayout = (locals) => {
 
       {locals.inputs.participantsInIco}
 
-      {locals.inputs.pricePerCoin}
+      {locals.inputs.pricePerCoinUSD}
+      {locals.inputs.pricePerCoinBTC}
 
       {locals.inputs.maxCurrencySupply}
 
@@ -190,7 +191,8 @@ const renderOptions = {
       }
     },
     abbreviation: {
-      legend: 'Abbreviation'
+      legend: 'Abbreviation',
+      help: <i>Unique Token Ticker</i>
     },
     slugUrlToken: {
       legend: 'Slug URL token',
@@ -312,7 +314,7 @@ const renderOptions = {
       }
     },
     countryOfOrigin: {
-      legend: 'Country of origin',
+      legend: 'Country of incorporation',
     },
     underlyingCryptoPlatform: {
       legend: 'Underlying crypto-platform',
@@ -417,13 +419,16 @@ const renderOptions = {
     },
     // finance statistics section
     icoMinimumThreshold: {
-      legend: 'ICO minimum threshold'
+      legend: 'ICO minimum threshold',
+      help: <i>If the ICO does not raise this amount, the funds will be refunded (insert numbers only)</i>
     },
     icoMaximumThreshold: {
-      legend: 'ICO maximum threshold'
+      legend: 'ICO maximum threshold',
+      help: <i>If the ICO raises this amount, the ICO will stop. (insert numbers only)</i>
     },
     icoThresholdCurrency: {
-      legend: 'ICO threshold currency'
+      legend: 'ICO threshold currency',
+      help: <i>In which currency is the threshold denominated, USD, ETH, BTC?</i>
     },
     bitcoinInvestments: {
       legend: 'Bitcoin total investment'
@@ -437,8 +442,13 @@ const renderOptions = {
     participantsInIco: {
       legend: 'Participants in ICO'
     },
-    pricePerCoin: {
-      legend: 'Best price per coin during ICO (??)'
+    pricePerCoinUSD: {
+      legend: 'Best price per coin during ICO in USD',
+      help: <i>including highest bonus (will be used for calculating ROI)</i>,
+    },
+    pricePerCoinBTC: {
+      legend: 'Best price per coin during ICO in BTC',
+      help: <i>including highest bonus (will be used for calculating ROI)</i>,
     },
     maxCurrencySupply: {
       legend: 'Max currency supply (if any)'
@@ -456,10 +466,12 @@ const renderOptions = {
 
     // technical details section
     icoSharedBitcoinAddress: {
-      legend: 'Master BTC ICO address'
+      legend: 'Master BTC ICO address',
+      help: <i>BTC address that contains all funds raised (will be used for showing real- time ICO progress).</i>
     },
     icoSharedEthereumAddress: {
-      legend: 'Master ETH ICO address'
+      legend: 'Master ETH ICO address',
+      help: <i>ETH address that contains all funds raised (will be used for showing real-time ICO progress).</i>
     },
 
     // assessment section
