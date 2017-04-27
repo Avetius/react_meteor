@@ -16,7 +16,6 @@ class Layout extends React.Component {
 
     return (
       <div>
-        <Favicon url={Constants.assetsUrls.svgFavicon}/>
 
           <header className="fg-white">
             <Navigation/>
@@ -36,6 +35,7 @@ class Layout extends React.Component {
             <Footer />
           </footer>
 
+        <Favicon url={Constants.assetsUrls.pngFavicon}/>
         <Helmet>
           {/* without Prerender.io these properties are only visible in client, so not for crawlers
 
