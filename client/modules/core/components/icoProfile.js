@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
+import {Helmet} from 'react-helmet';
 
 import IcoShortItemMainRows from './icoShortItemMainRows';
 import Icon from './general/icon';
@@ -104,6 +105,9 @@ export default class IcoProfile extends React.Component {
   render () {
     const ico = this.props.icoEntity;
     ico.coFounders = ico.coFounders || [];
+
+    const abbrStr  = this.props.icoEntity.abbreviation ? ` (${this.props.icoEntity.abbreviation})` : '';
+    const pageTitle = `${this.props.icoEntity.projectName} ${abbrStr} - ICOindex - Find best ongoing and upcoming ICOs. We are aiming to make ICO transparent, easy to understand and available for everyone.`;
 
     let note;
     if (ico.ratingScore === 'scam') {
@@ -361,6 +365,11 @@ export default class IcoProfile extends React.Component {
           }
 
         </div>
+
+        <Helmet>
+          <title>{pageTitle}</title>
+        </Helmet>
+
       </div>
     )
   };
