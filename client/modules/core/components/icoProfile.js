@@ -107,7 +107,7 @@ export default class IcoProfile extends React.Component {
     ico.coFounders = ico.coFounders || [];
 
     const abbrStr  = this.props.icoEntity.abbreviation ? ` (${this.props.icoEntity.abbreviation})` : '';
-    const pageTitle = `${this.props.icoEntity.projectName} ${abbrStr} - ICOindex - Find best ongoing and upcoming ICOs. We are aiming to make ICO transparent, easy to understand and available for everyone.`;
+    const pageTitle = `${this.props.icoEntity.projectName} ${abbrStr} ICO - ICOindex - Find best ongoing and upcoming ICOs. We are aiming to make ICO transparent, easy to understand and available for everyone.`;
 
     let note;
     if (ico.ratingScore === 'scam') {
