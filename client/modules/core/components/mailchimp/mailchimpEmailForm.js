@@ -66,7 +66,6 @@ export default class MailchimpEmailForm extends React.Component {
 
   checkIfShouldPopup() {
     let isCaptured = localStorage.getItem('leadform-captured-' + widget_id);
-    console.log(isCaptured);
     if (isCaptured == null) {
       this.setState({
         captured: false

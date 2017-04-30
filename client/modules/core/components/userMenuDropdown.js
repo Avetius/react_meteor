@@ -6,7 +6,6 @@ export default class UserMenuDropdown extends React.Component {
 
   render () {
     const dropdownTitle = <span><i className="fa fa-user-circle" aria-hidden="true" /></span>;
-    console.log(this.props.view);
 
     return <div id="user-menu-dropdown-wrapper">
         <DropdownButton

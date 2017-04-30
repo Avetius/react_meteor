@@ -56,7 +56,11 @@ class Navigation extends React.Component {
 
             <div className="row padding-top-sm">
               <div className="col-xs-1 col-xs-push-11">
-                <UserMenuDropDown view={this.props.view} conceptsCountStr={conceptsCountStr} />
+                { AccountsMgmt.isCurrentUserAdmin() ?
+                  <UserMenuDropDown view={this.props.view} conceptsCountStr={conceptsCountStr} />
+                  :
+                  ''
+                }
               </div>
             </div>
 
