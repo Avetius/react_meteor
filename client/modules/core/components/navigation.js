@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Rubix theme
-import { Tab, Row, Col, Nav, NavItem } from '@sketchpixy/rubix';
+import { Tab, Row, Col, Nav, NavItem, DropdownButton, MenuItem } from '@sketchpixy/rubix';
 import {Navbar} from 'react-bootstrap';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import i18next from 'i18next';
@@ -10,6 +10,8 @@ import Sticky from './sticky';
 import AccountsMgmt from '/lib/accountsMgmt';
 import BrowserViewUtils from '/client/lib/browserViewUtils';
 import Constants from '/client/configs/constants';
+
+import UserMenuDropDown from './userMenuDropdown.js';
 
 class Navigation extends React.Component {
 
@@ -47,58 +49,32 @@ class Navigation extends React.Component {
       conceptsCountStr = (!conceptsCount && conceptsCount !== 0) ? '' :` (${conceptsCount})`;
     }
 
-    let userUtilNav;
-    if (AccountsMgmt.isCurrentUserAdmin()) {
-      userUtilNav =
-        <Nav bsStyle="pills"
-             id="user-util-nav"
-             className='nav-theme-orange padding-vertical-sm padding-horizontal-sm pull-right'
-             activeKey={this.props.view}>
-          <NavItem className="" eventKey={'ico.favourites'} href="#">
-            <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
-            Favourites
-          </NavItem>
-          <NavItem className="" eventKey={'ico.concepts'} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
-            Concepts {conceptsCountStr}
-          </NavItem>
-          <NavItem className="" eventKey={'404'} href={FlowRouter.path('404')}>
-            404
-          </NavItem>
-          <NavItem className="" eventKey={'ico.add'} href={FlowRouter.path('ico.add')}>
-            Add
-          </NavItem>
-        </Nav>
-    } else {
-      userUtilNav =
-        <Nav bsStyle="pills" className='nav-theme-orange padding-vertical-sm padding-horizontal-sm  pull-right'
-           id="user-util-nav"
-           activeKey={this.props.view}>
-          {/* Favourites won't be public now
-            <NavItem className="h4" eventKey={'ico.favourites'} href="#">
-              <i className="fa fa-heart-o margin-right-sm" aria-hidden="true" />
-              Favourites
-            </NavItem>
-          */}
-        </Nav>;
-    }
-
     const topHeaderPanel =
       <div id="top-header" className="row bg-header-img">
-        <div className="opacity-plane row-vertical-center">
-          <div className="col-xs-12 col-sm-10 col-sm-push-1">
+        <div className="opacity-plane">
+          <div className="col-xs-12">
 
-            <div className="row row-vertical-center">
-              <div className="col-xs-6 col-sm-5 col-md-3 padding-right-none">
-                <a href={FlowRouter.path('ico.home')}>
-                  <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
-                </a>
+            <div className="row padding-top-sm">
+              <div className="col-xs-1 col-xs-push-11">
+                <UserMenuDropDown view={this.props.view} conceptsCountStr={conceptsCountStr} />
               </div>
-              <div className="col-xs-6">
-                {userUtilNav}
+            </div>
+
+            <div className="row">
+              <div className="col-xs-12 col-sm-10 col-sm-push-1">
+                <div className="row row-vertical-center">
+                  <div className="col-xs-6 col-sm-5 col-md-3 padding-right-none">
+                    <a href={FlowRouter.path('ico.home')}>
+                      <img className="img-responsive" src={Constants.assetsUrls.logoWhite} />
+                    </a>
+                  </div>
+                  <div className="col-xs-6"></div>
+                </div>
               </div>
             </div>
 
           </div>
+
         </div>
       </div>;
 
@@ -119,23 +95,23 @@ class Navigation extends React.Component {
                  id="category-nav"
                  onSelect={this.onCategorySelect.bind(this)}
                  activeKey={this.props.subNav.subView}>
-              <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.view, { subView: 'ongoing' })}>
+              <NavItem className="" eventKey={'ongoing'} href={FlowRouter.path(this.props.subNav.viewToLink, { subView: 'ongoing' })}>
                 <strong>Ongoing</strong>
                 <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.ongoing }</span>
               </NavItem>
-              <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.view, { subView: 'upcoming' })}>
+              <NavItem eventKey={'upcoming'} href={FlowRouter.path(this.props.subNav.viewToLink, { subView: 'upcoming' })}>
                 <strong>Upcoming</strong>
                 <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.upcoming }</span>
               </NavItem>
-              <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.view, { subView: 'finished' })}>
+              <NavItem eventKey={'finished'} href={FlowRouter.path(this.props.subNav.viewToLink, { subView: 'finished' })}>
                 <strong>Finished</strong>
                 <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.finished }</span>
               </NavItem>
-              <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.view, { subView: 'scam' })}>
+              <NavItem className="pull-right" eventKey={'scam'} href={FlowRouter.path(this.props.subNav.viewToLink, { subView: 'scam' })}>
                 <em>Scam</em>
                 <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.scam }</span>
               </NavItem>
-              <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.view, { subView: 'suspicious' })}>
+              <NavItem className="pull-right" eventKey={'suspicious'} href={FlowRouter.path(this.props.subNav.viewToLink, { subView: 'suspicious' })}>
                 <em>Suspicious</em>
                 <span className="badge badge-ico margin-left-md">{ this.props.subNav.categoryCounts.suspicious }</span>
               </NavItem>

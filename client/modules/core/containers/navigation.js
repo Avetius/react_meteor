@@ -21,16 +21,18 @@ export const composer = ({context}, onData) => {
   if (Meteor.userId() || LocalState.get('globalCounts') || FlowRouter.getRouteName() || LocalState.get('categoryCounts')) {
     const routeName = FlowRouter.getRouteName();
 
-    let view;
+    let view, viewToLink;
     // map ico.home route to ico.index for nav item highlighting
     if (routeName === 'ico.home') {
-      view = 'ico.index';
+      viewToLink = 'ico.index';
     } else if (routeName === 'ico.index' || routeName === 'ico.concepts') {
-      view = routeName;
+      viewToLink = routeName;
     } else {
       // WARNING: see warning bellow on 'ico.profile' condition
-      view = 'ico.index';
+      viewToLink = 'ico.index';
     }
+
+    view = routeName;
 
     let subNav;
     const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts', '404'];
@@ -51,14 +53,14 @@ export const composer = ({context}, onData) => {
           const icoStatus = IcoStatus.compute(currentIco);
           const icoEntityState = IcoStatus.computeEntityState(currentIco);
 
-          view = icoEntityState === 'published' ? 'ico.index' : 'ico.concepts';
+          viewToLink = icoEntityState === 'published' ? 'ico.index' : 'ico.concepts';
           subView = icoStatus;
         }
       }
 
       let categoryCounts = {};
       if (LocalState.get('categoryCounts')) {
-        const icoEntityState = (view === 'ico.concepts') ? 'concept': 'published';
+        const icoEntityState = (viewToLink === 'ico.concepts') ? 'concept': 'published';
         const categoryCountsObj = LocalState.get('categoryCounts');
 
         categoryCounts = {
@@ -73,7 +75,7 @@ export const composer = ({context}, onData) => {
       // separate data for sub nav component, also with copied view property
       subNav = {
         subView: subView,
-        view: view,
+        viewToLink: viewToLink,
         categoryCounts: categoryCounts
       };
     }
@@ -82,6 +84,7 @@ export const composer = ({context}, onData) => {
       globalCounts: LocalState.get('globalCounts'),
       userId: Meteor.userId(),
       view: view,
+      viewToLink: viewToLink,
       subNav: subNav
     });
   }

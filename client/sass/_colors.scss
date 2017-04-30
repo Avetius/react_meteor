@@ -86,3 +86,5 @@
 
 /*secondary theme color*/
 @include generateColors("theme-orange", $main-theme-pinkorange, white);
+
+@include generateColors("theme-ico-darker", $darker-ico-color, white)

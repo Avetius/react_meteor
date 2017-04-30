@@ -199,13 +199,17 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 /* our basic design components */
 
-@mixin makePrimaryGradient ($use) {
+@mixin makePrimaryGradient ($use, $important: 'no') {
   $ms-linear-gradient: -ms-linear-gradient(45deg, $lighter-ico-color 0%, $darker-ico-color 100%); /* ie10+ */
   $linear-gradient: linear-gradient(45deg, $lighter-ico-color 0%, $darker-ico-color 100%);
 
   @if ($use == 'background') {
     background: $ms-linear-gradient;
     background: $linear-gradient;
+    @if ($important == 'important') {
+      background: $ms-linear-gradient !important;
+      background: $linear-gradient !important;
+    }
   } @else if ($use == 'border') {
     // not needed now
   }
@@ -457,21 +461,25 @@ h1, h2, h3, h4, h5, h6, div, span, p {
 
 
 /* user util navigation component */
-#user-util-nav {
+#user-menu-dropdown-wrapper {
+  color: $white;
 
-  li a {
-    color: white;
-
-    &:hover, &:active {
-      color: white;
-    }
+  #user-menu-dropdown-body {
+    color: $white;
+    font-size: $font-size-h2;
+    min-height: 50px;
+    padding-top: 0;
+    @include makePrimaryGradient('background');
   }
 
-  li.active {
+  li a {
+    color: black;
+  }
+
+  li.active a {
+    color: $white;
     font-weight: bold;
-    a {
-      background-color: unset;
-    }
+    @include makePrimaryGradient('background', 'important');
   }
 }
 
