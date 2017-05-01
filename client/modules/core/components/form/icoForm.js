@@ -118,6 +118,7 @@ const formLayout = (locals) => {
 
       {locals.inputs.pricePerCoinUSD}
       {locals.inputs.pricePerCoinBTC}
+      {locals.inputs.pricePerCoinETH}
 
       {locals.inputs.maxCurrencySupply}
 
@@ -448,6 +449,10 @@ const renderOptions = {
     },
     pricePerCoinBTC: {
       legend: 'Best price per coin during ICO in BTC',
+      help: <i>including highest bonus (will be used for calculating ROI)</i>,
+    },
+    pricePerCoinETH: {
+      legend: 'Best price per coin during ICO in ETH',
       help: <i>including highest bonus (will be used for calculating ROI)</i>,
     },
     maxCurrencySupply: {
