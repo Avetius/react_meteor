@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from 'react-mounter';
-import {Accounts} from 'meteor/std:accounts-ui';
+import SignupLoginMgmt from './components/signupLoginMgmt';
 
 import MainLayout from './components/main_layout';
 
@@ -102,7 +102,7 @@ export default function (inject, context, actions) {
     action() {
       actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<Accounts.ui.LoginForm />),
+        content: () => (<SignupLoginMgmt/>),
         context: () => context
       });
     }

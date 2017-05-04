@@ -1,5 +1,4 @@
 import React from 'react';
-import {Accounts} from 'meteor/std:accounts-ui';
 import Favicon from 'react-favicon';
 import {Helmet} from 'react-helmet';
 
