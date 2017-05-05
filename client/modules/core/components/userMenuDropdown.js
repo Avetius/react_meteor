@@ -15,11 +15,11 @@ export default class UserMenuDropdown extends React.Component {
   render () {
     const dropdownTitle = <span><i className="fa fa-user-circle" aria-hidden="true" /></span>;
 
-    let email;
+    let name;
     if (this.props.userId && Meteor.user()) {
-      email = AccountsMgmt.extractEmail(Meteor.user());
+      name = AccountsMgmt.extractName(Meteor.user());
     } else {
-      email = null;
+      name = null;
     }
 
     return <div id="user-menu-dropdown-wrapper">
@@ -29,11 +29,15 @@ export default class UserMenuDropdown extends React.Component {
           title={dropdownTitle}
           pullRight
         >
-          <MenuItem disabled>
-            { email }
-          </MenuItem>
+          <div className="text-center">
+            <span className="fg-black h5">{ name }</span>
+          </div>
+          <MenuItem divider />
           <MenuItem className={(this.props.view === 'ico.home' || this.props.view === 'ico.index' ) ? 'active' : ''} href={FlowRouter.path('ico.index', { subView: 'ongoing' })}>
             Home
+          </MenuItem>
+          <MenuItem className={(this.props.view === 'ico.management') ? 'active' : ''} href={FlowRouter.path('ico.management')}>
+            Your ICO(s)
           </MenuItem>
           <MenuItem className={this.props.view === 'ico.concepts' ? 'active' : ''} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
             Concepts {this.props.conceptsCountStr}
