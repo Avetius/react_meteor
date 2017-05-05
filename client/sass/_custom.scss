@@ -459,6 +459,9 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   }
 }
 
+.user-menu-dropdown-container {
+  min-height: $user-menu-dropdown-min-height;
+}
 
 /* user util navigation component */
 #user-menu-dropdown-wrapper {
@@ -467,7 +470,7 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   #user-menu-dropdown-body {
     color: $white;
     font-size: $font-size-h2;
-    min-height: 50px;
+    min-height: $user-menu-dropdown-min-height;
     padding-top: 0;
     @include makePrimaryGradient('background');
   }

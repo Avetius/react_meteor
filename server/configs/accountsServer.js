@@ -110,14 +110,19 @@ Accounts.onCreateUser( (options, user) => {
   return user;
 });
 
+
+
 /**
  * AccountsMeld package configuration.
  *
  * AccountsMeld melding social accounts with same email address into one account.
- * Ie. copy service field from former used account to account of current logged in user. (The former account will be DELETED.)
+ *
  */
 
 /**
+ *
+ * NOTE: Currently this callback is never called -- todo: find why
+ *
  * @desc meldDBCallback:
  * @param src_user_id
  * @param dst_user_id

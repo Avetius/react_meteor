@@ -16,5 +16,7 @@ export default ({ LocalState }) => {
       LocalState.set({globalCounts: globalCounts});
     }
 
+    Meteor.subscribe('users.currentUserInfo');
+
   });
 }
