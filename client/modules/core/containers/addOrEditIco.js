@@ -8,7 +8,7 @@ export const composer = ({context, editMode}, onData) => {
   // lets fetch and edit ICO //
   if (editMode && editMode.icoId) {
 
-    if (Meteor.subscribe('ico.single', { id: editMode.icoId }).ready() || Meteor.userId()) {
+    if (Meteor.subscribe('ico.single', { id: editMode.icoId }).ready()) {
       const icoEntity = Collections.IcoProjects.findOne(editMode.icoId);
       if (icoEntity) {
         onData(null, { icoEntity, userId: Meteor.userId() });
