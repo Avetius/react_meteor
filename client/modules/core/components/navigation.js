@@ -54,10 +54,10 @@ class Navigation extends React.Component {
         <div className="opacity-plane">
           <div className="col-xs-12">
 
-            <div className="row padding-top-sm">
+            <div className="row margin-top-sm user-menu-dropdown-container">
               <div className="col-xs-1 col-xs-push-11">
-                { AccountsMgmt.isCurrentUserAdmin() ?
-                  <UserMenuDropDown view={this.props.view} conceptsCountStr={conceptsCountStr} />
+                { this.props.userId && AccountsMgmt.isCurrentUserAdmin() ?
+                  <UserMenuDropDown view={this.props.view} userId={this.props.userId} conceptsCountStr={conceptsCountStr} />
                   :
                   ''
                 }

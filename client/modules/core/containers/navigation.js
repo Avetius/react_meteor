@@ -35,7 +35,7 @@ export const composer = ({context}, onData) => {
     view = routeName;
 
     let subNav;
-    const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts', '404'];
+    const allowedRouteNames = ['ico.profile', 'ico.index', 'ico.home', 'ico.concepts', '404', 'admin.login', 'ico.management'];
     if (_.includes(allowedRouteNames, routeName)) {
       // if ico.home routename is active then ongoing tab is default subView
       let subView;

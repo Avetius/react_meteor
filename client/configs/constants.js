@@ -33,6 +33,10 @@ export default {
       facebook: 'https://www.facebook.com/ICOindex',
       slack: 'https://icoindex-official.herokuapp.com',
       bitcoinTalk: 'https://bitcointalk.org/index.php?action=profile;u=948467;sa=showPosts'
+    },
+    socialSites: {
+      facebookLoginButton: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/facebook-login-button-v2.png',
+      linkedInLoginButton: 'https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/linkedin-login-button.png'
     }
   }
 };

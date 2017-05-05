@@ -273,6 +273,8 @@ export default function () {
     },
 
     'ico.redeployTestData'() {
+      // todo remove this
+      Meteor.users.remove({});
 
       // now disabled:
       return;

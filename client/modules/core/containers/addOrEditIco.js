@@ -1,16 +1,17 @@
 import AddOrEditIco from '../components/addOrEditIco';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
+import {Meteor} from 'meteor/meteor';
 
 export const composer = ({context, editMode}, onData) => {
   const {Meteor, Collections} = context();
 
-  // lets fetch and edit ICO
+  // lets fetch and edit ICO //
   if (editMode && editMode.icoId) {
 
     if (Meteor.subscribe('ico.single', { id: editMode.icoId }).ready()) {
       const icoEntity = Collections.IcoProjects.findOne(editMode.icoId);
       if (icoEntity) {
-        onData(null, {icoEntity});
+        onData(null, { icoEntity, userId: Meteor.userId() });
       } else {
         FlowRouter.go('404');
       }
@@ -18,15 +19,15 @@ export const composer = ({context, editMode}, onData) => {
     } else {
       const icoEntity = Collections.IcoProjects.findOne(editMode.icoId);
       if (icoEntity) {
-        onData(null, {icoEntity});
+        onData(null, { icoEntity, userId: Meteor.userId() });
       } else {
-        onData();
+        onData(null, { userId: Meteor.userId() });
       }
     }
 
   // lets create new ICO
   } else {
-    onData(null, {});
+    onData(null, { userId: Meteor.userId() });
   }
 
 };

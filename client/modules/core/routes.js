@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from 'react-mounter';
-import {Accounts} from 'meteor/std:accounts-ui';
+import SignupLoginMgmt from './components/signupLoginMgmt';
 
 import MainLayout from './components/main_layout';
 
@@ -8,6 +8,7 @@ import AddOrEditIco from './containers/addOrEditIco';
 import IcoFrontList from './containers/icoFrontList';
 import IcoProfile from './containers/icoProfile'
 import NotFound from './containers/notFound';
+import IcoManagement from './containers/icoManagement';
 
 
 export default function (inject, context, actions) {
@@ -98,11 +99,22 @@ export default function (inject, context, actions) {
   });
 
   FlowRouter.route('/admin/login', {
-    name: 'login',
+    name: 'admin.login',
     action() {
       actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<Accounts.ui.LoginForm />),
+        content: () => (<IcoManagement/>),
+        context: () => context
+      });
+    }
+  });
+
+  FlowRouter.route('/ico-management', {
+    name: 'ico.management',
+    action() {
+      actions.icoProject.resetInfiniteScrolling(context);
+      mount(MainLayoutCtx, {
+        content: () => (<IcoManagement/>),
         context: () => context
       });
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import t from 'tcomb-form';
 var _ = require('lodash');
+import {FlowRouter} from 'meteor/kadira:flow-router';
 
 // Rubix theme
 import { ButtonToolbar, Button } from '@sketchpixy/rubix';
@@ -28,18 +29,23 @@ export default class AddOrEditIco extends React.Component {
       <div className="row">
         <div className="col-md-12">
 
-          { this.props.error ? (
-            <div className="alert alert-danger">
-              <h3>{this.props.errorMessage}</h3>
+          { this.props.userId ?
+            <div>
+              { this.props.error ? (
+                <div className="alert alert-danger">
+                  <h3>{this.props.errorMessage}</h3>
+                </div>
+              ) : (
+                <IcoForm icoEntityValue={icoFormValue}
+                         edit={this.props.saveEditedIco}
+                         addAsConcept={this.props.addAsConcept}
+                         editMode={this.props.editMode}
+                         deleteIco={this.props.deleteIco}
+                />
+              )
+              }
             </div>
-          ) : (
-            <IcoForm icoEntityValue={icoFormValue}
-                     edit={this.props.saveEditedIco}
-                     addAsConcept={this.props.addAsConcept}
-                     editMode={this.props.editMode}
-                     deleteIco={this.props.deleteIco}
-            />
-          )
+          : <span>Please <a href={FlowRouter.path('ico.management')}>login</a> first.</span>
           }
 
         </div>
