@@ -1,7 +1,7 @@
 import React from 'react';
 import {Meteor} from 'meteor/meteor';
 
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 
 import { DropdownButton, MenuItem } from '@sketchpixy/rubix';
 
@@ -17,7 +17,7 @@ export default class UserMenuDropdown extends React.Component {
 
     let name;
     if (this.props.userId && Meteor.user()) {
-      name = AccountsMgmt.extractName(Meteor.user());
+      name = UsersMgmtShared.extractName(Meteor.user());
     } else {
       name = null;
     }

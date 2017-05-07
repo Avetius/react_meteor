@@ -4,7 +4,7 @@ import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 import DataValidator from '/lib/dataValidator';
 
 import {Meteor} from 'meteor/meteor';
@@ -28,7 +28,7 @@ export default function () {
       check(skip, Number);
       check(timestampToBound, Date);
 
-      if (!AccountsMgmt.isCurrentUserAdmin() && isRestrictPropertyRequested(query)) {
+      if (!UsersMgmtShared.isCurrentUserAdmin() && isRestrictPropertyRequested(query)) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -42,7 +42,7 @@ export default function () {
       check(_id, String);
       check(icoProject, Object);
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -88,7 +88,7 @@ export default function () {
       check(_id, String);
       check(icoProject, Object);
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -136,7 +136,7 @@ export default function () {
       //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       //}
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -155,7 +155,7 @@ export default function () {
     'ico.unPublish' (_id) {
       check(_id, String);
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -174,7 +174,7 @@ export default function () {
     'ico.delete'(_id) {
       check(_id, String);
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -198,7 +198,7 @@ export default function () {
       // now disabled:
       return;
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -277,7 +277,7 @@ export default function () {
       // now disabled:
       return;
 
-      if (!AccountsMgmt.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 

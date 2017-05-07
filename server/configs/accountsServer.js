@@ -1,5 +1,6 @@
 import { Accounts } from 'meteor/accounts-base'
 import { Meteor } from 'meteor/meteor';
+import UsersMgmtServer from '../users/usersMgmtServer';
 
 // Facebook integration setup
 Meteor.startup(function() {
@@ -110,6 +111,23 @@ Accounts.onCreateUser( (options, user) => {
   return user;
 });
 
+
+Accounts.onLogin((login) => {
+  // we ignore here login.type === 'resume'
+  if (login.type === 'facebook' || login.type === 'linkedin') {
+
+    // if roles are not set lets set basic role
+    if (UsersMgmtServer.hasUserNoDefaultRoles(login.user)) {
+      UsersMgmtServer.setDefaultGlobalRole(login.user._id);
+    }
+
+    if (UsersMgmtServer.shouldBeSuperAdmin(login.user)) {
+      UsersMgmtServer.setDefaultSuperAdmins(login.user);
+    }
+    console.log('onLogin login.type: & user.id: ', login.type, login.user._id);
+  }
+
+});
 
 
 /**

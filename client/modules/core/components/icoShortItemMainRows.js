@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import EllipsisText from 'react-ellipsis-text';
 
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
 import Icon from './general/icon';
@@ -271,7 +271,7 @@ export default class IcoShortItemMainRows extends React.Component {
                       <div className="col-xs-6">
 
                         {/*Edit ICO*/}
-                        { AccountsMgmt.isCurrentUserAdmin() ? (
+                        { UsersMgmtShared.isCurrentUserAdmin() ? (
                           <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
                           <span className="h5">
                             <i className="fa fa-pencil margin-right-sm" />

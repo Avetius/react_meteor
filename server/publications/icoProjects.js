@@ -3,7 +3,7 @@ import { getSelector, getSort, inIcoListUsableFields } from '../icoProject/queri
 import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 
 /**
  * Publications performances::

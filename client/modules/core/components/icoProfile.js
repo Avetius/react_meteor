@@ -8,7 +8,7 @@ import Icon from './general/icon';
 import Link from './general/link';
 import Countdown from './dateTimeCountdown';
 import ContentWithPopover from './contentWithPopover';
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 import Constants from '/client/configs/constants';
 
 const CoFounders = (props) => {
@@ -336,7 +336,7 @@ export default class IcoProfile extends React.Component {
             </div>
           </div>
 
-          { AccountsMgmt.isCurrentUserAdmin() ? (
+          { UsersMgmtShared.isCurrentUserAdmin() ? (
             <div className="row">
               <div className="col-md-12">
 

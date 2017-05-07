@@ -7,7 +7,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import i18next from 'i18next';
 
 import Sticky from './sticky';
-import AccountsMgmt from '/lib/accountsMgmt';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 import BrowserViewUtils from '/client/lib/browserViewUtils';
 import Constants from '/client/configs/constants';
 
@@ -56,7 +56,7 @@ class Navigation extends React.Component {
 
             <div className="row margin-top-sm user-menu-dropdown-container">
               <div className="col-xs-1 col-xs-push-11">
-                { this.props.userId && AccountsMgmt.isCurrentUserAdmin() ?
+                { this.props.userId && UsersMgmtShared.isCurrentUserAdmin() ?
                   <UserMenuDropDown view={this.props.view} userId={this.props.userId} conceptsCountStr={conceptsCountStr} />
                   :
                   ''
