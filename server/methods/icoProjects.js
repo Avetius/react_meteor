@@ -4,7 +4,10 @@ import {IcoTypeDef, IcoType} from '/lib/icoProject';
 import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
+
 import UsersMgmtShared from '/lib/usersMgmtShared';
+import UsersMgmtServer from '../users/usersMgmtServer';
+
 import DataValidator from '/lib/dataValidator';
 
 import {Meteor} from 'meteor/meteor';
@@ -88,7 +91,16 @@ export default function () {
       check(_id, String);
       check(icoProject, Object);
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      const editedIcoProject = IcoProjects.findOne(_id);
+      if (!editedIcoProject || !editedIcoProject.slugUrlToken) {
+        return;
+      }
+
+      // either user is global admin or is ico-admin (and icoProject is not published yet)
+      if (!UsersMgmtShared.isCurrentUserAdmin() ||
+        ( UsersMgmtShared.isUserIcoAdmin(this.userId, editedIcoProject.slugUrlToken) &&
+        editedIcoProject.entityState.state !== 'published' )
+      ) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 

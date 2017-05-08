@@ -124,7 +124,6 @@ Accounts.onLogin((login) => {
     if (UsersMgmtServer.shouldBeSuperAdmin(login.user)) {
       UsersMgmtServer.setDefaultSuperAdmins(login.user);
     }
-    console.log('onLogin login.type: & user.id: ', login.type, login.user._id);
   }
 
 });

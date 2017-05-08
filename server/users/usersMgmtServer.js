@@ -17,11 +17,11 @@ export default class UsersMgmtServer {
   }
 
   static setIcoMgmtRole (userId, icoSlug) {
-    Roles.addUsersToRoles(userId, ['ico-admin'], icoSlug + '-mgmt');
+    Roles.addUsersToRoles(userId, ['ico-admin'], icoSlug);
   }
 
   static unsetIcoMgmtRole (userId, icoSlug) {
-    Roles.removeUsersFromRoles(userId, ['ico-admin'], icoSlug + '-mgmt');
+    Roles.removeUsersFromRoles(userId, ['ico-admin'], icoSlug);
   }
 
   static shouldBeSuperAdmin (userObj) {
