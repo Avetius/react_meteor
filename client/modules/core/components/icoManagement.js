@@ -2,7 +2,8 @@ import React from 'react';
 import {Meteor} from 'meteor/meteor';
 
 import Constants from '/client/configs/constants';
-import UsersMgmtShared from '/lib/usersMgmtShared';
+
+import OwnManagedIcos from '../containers/ownManagedIcos';
 
 export default class IcoManagement extends React.Component {
 
@@ -33,11 +34,6 @@ export default class IcoManagement extends React.Component {
 
   render() {
 
-    const currentUser = Meteor.user();
-    console.log('currentUser:', currentUser);
-    const email = UsersMgmtShared.extractEmail(currentUser);
-    const name = UsersMgmtShared.extractName(currentUser);
-
     return <div>
 
       { this.props.userId ?
@@ -48,8 +44,8 @@ export default class IcoManagement extends React.Component {
             <div className="row margin-top-md">
               <div className="col-xs-12 col-sm-6">
                 Logged in as:
-                <span className="margin-left-sm h5"><b>{name}</b></span>
-                <span className="margin-left-sm h6">({email})</span>
+                <span className="margin-left-sm h5"><b>{this.props.name}</b></span>
+                <span className="margin-left-sm h6">({this.props.email})</span>
               </div>
 
               <div className="col-xs-12 col-sm-6">
@@ -91,6 +87,9 @@ export default class IcoManagement extends React.Component {
 
         </div>
       </div>
+
+      <OwnManagedIcos/>
+
     </div>;
   }
 

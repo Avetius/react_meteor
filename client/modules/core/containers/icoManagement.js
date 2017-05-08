@@ -3,15 +3,19 @@ import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
 import IcoManagement from '../components/icoManagement';
-import IcoStatus from '/lib/icoStatus';
+import UsersMgmtShared from '/lib/usersMgmtShared';
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
   if (Meteor.userId()) {
 
+    const currentUser = Meteor.user();
+
     onData( null, {
-      userId: Meteor.userId()
+      userId: Meteor.userId(),
+      email: UsersMgmtShared.extractEmail(currentUser),
+      name: UsersMgmtShared.extractName(currentUser)
     });
   } else {
     onData( null, {

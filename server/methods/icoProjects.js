@@ -7,7 +7,6 @@ import createInitialTestData from '/server/configs/initial_adds';
 
 import UsersMgmtShared from '/lib/usersMgmtShared';
 import UsersMgmtServer from '../users/usersMgmtServer';
-
 import DataValidator from '/lib/dataValidator';
 
 import {Meteor} from 'meteor/meteor';
@@ -39,6 +38,14 @@ export default function () {
       const options = { sort: getSort({icoStatus: query.icoStatus}), skip: skip, limit: 10, fields: inIcoListUsableFields };
 
       return IcoProjects.find(selector, options).fetch();
+    },
+
+    'ico.getMyManagedProjects' () {
+      const requestingUser = Meteor.users.findOne({_id: this.userId});
+      const managedIcoSlugs = UsersMgmtShared.getManagedIcosSlugs(requestingUser);
+
+      const options = { sort: getSort({icoStatus: 'ongoing'}), fields: inIcoListUsableFields };
+      return IcoProjects.find({ slugUrlToken: { $in: managedIcoSlugs }}, options).fetch();
     },
 
     'ico.addAsConcept' (_id, icoProject) {
