@@ -20,6 +20,10 @@ export default class UsersMgmtServer {
     Roles.addUsersToRoles(userId, ['ico-admin'], icoSlug + '-mgmt');
   }
 
+  static unsetIcoMgmtRole (userId, icoSlug) {
+    Roles.removeUsersFromRoles(userId, ['ico-admin'], icoSlug + '-mgmt');
+  }
+
   static shouldBeSuperAdmin (userObj) {
     // todo: load it from settings.json private field
     return _.includes(
@@ -32,6 +36,15 @@ export default class UsersMgmtServer {
     if (this.shouldBeSuperAdmin(userObj)) {
       this.setGlobalRole(userObj._id, 'super-admin');
     }
+  }
+
+  static findUserByEmail (emailAddress) {
+    return Meteor.users.findOne({ $or:
+      [
+        {'privateProfile.linkedIn.email': emailAddress},
+        {'privateProfile.facebook.email': emailAddress}
+      ]
+    });
   }
 
 }

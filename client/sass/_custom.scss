@@ -343,6 +343,10 @@ h1, h2, h3, h4, h5, h6, div, span, p {
   }
 }
 
+.panel-box {
+  background-color: $ico-box-background-color;
+}
+
 .badge-ico {
   background-color: white;
   color: $darker-ico-color;

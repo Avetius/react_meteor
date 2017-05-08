@@ -1,6 +1,5 @@
 import React from 'react';
 import {mount} from 'react-mounter';
-import SignupLoginMgmt from './components/signupLoginMgmt';
 
 import MainLayout from './components/main_layout';
 

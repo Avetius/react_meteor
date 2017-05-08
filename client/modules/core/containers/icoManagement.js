@@ -2,7 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
-import SignupLoginMgmt from '../components/signupLoginMgmt';
+import IcoManagement from '../components/icoManagement';
 import IcoStatus from '/lib/icoStatus';
 
 export const composer = ({context}, onData) => {
@@ -28,4 +28,4 @@ export const depsMapper = (context, actions) => ({
 export default composeAll(
   composeWithTracker(composer),
   useDeps(depsMapper)
-)(SignupLoginMgmt);
+)(IcoManagement);
