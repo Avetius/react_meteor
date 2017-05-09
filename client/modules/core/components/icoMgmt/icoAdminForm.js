@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { Modal, ButtonToolbar, Button } from '@sketchpixy/rubix';
 
 import S3FileUploader from './../form/s3fileUploader';
-import { IcoType } from '/lib/icoProject';
+import { IcoType } from '/lib/icoProjectDefShared';
 import CsvImportUploader from './../form/csvImportUploader';
 
 import { DateTimeStart, DateTimeEnd } from './../form/dateTimePicker';

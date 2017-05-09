@@ -1,5 +1,5 @@
 import t from 'tcomb-form';
-import { OneSentenceStr, MediumLengthDescription, PersonalBackground } from '/lib/icoProject';
+import { OneSentenceStr, MediumLengthDescription, PersonalBackground } from '/lib/icoProjectDefShared';
 import ReactMarkdown from 'react-markdown';
 
 /*  Implementation of factory of textBox and html textarea for tComb lib

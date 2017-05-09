@@ -1,6 +1,6 @@
 import {IcoProjects, Counts} from '/lib/collections';
 import { getSelector, getSort, inIcoListUsableFields, isRestrictPropertyRequested } from '../icoProject/queries'
-import {IcoTypeDef, IcoType} from '/lib/icoProject';
+import {IcoTypeDef, IcoType} from '/lib/icoProjectDefShared';
 import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
