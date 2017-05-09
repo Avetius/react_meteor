@@ -57,6 +57,7 @@ const formLayout = (locals) => {
       {locals.inputs.icoEvents}
 
       {locals.inputs.fundKeeper}
+      {locals.inputs.fundKeeperDetails}
 
       {locals.inputs.coFounders}
 
@@ -123,6 +124,11 @@ const formLayout = (locals) => {
       {locals.inputs.maxCurrencySupply}
 
       {locals.inputs.totalEvaluation}
+
+      {locals.inputs.tradingOnExchangeDatetime}
+      {locals.inputs.tradingOnExchangeDatetimeFormat}
+      {locals.inputs.tradingOnExchanges}
+
 
       {locals.inputs.affiliate}
 
@@ -284,6 +290,10 @@ const renderOptions = {
     fundKeeper: {
       legend: 'Fund keeper',
     },
+    fundKeeperDetails: {
+      legend: 'Fund keeper details',
+      help: <i>names of Escrow key holders / Name of exchange / Smart contract link</i>
+    },
     coFounders: {
       disableOrder: true,
       legend: <h4>Co-founders</h4>,
@@ -418,6 +428,7 @@ const renderOptions = {
     bountyForPromoters: {
       legend: 'Bounty'
     },
+
     // finance statistics section
     icoMinimumThreshold: {
       legend: 'ICO minimum threshold',
@@ -460,6 +471,18 @@ const renderOptions = {
     },
     totalEvaluation: {
       legend: 'Total evaluation of ICO'
+    },
+
+    tradingOnExchangeDatetime: {
+      legend: 'Trading starts',
+      factory: DateTimeStart
+    },
+    tradingOnExchangeDatetimeFormat: {
+      legend: 'Trading start date format'
+    },
+    tradingOnExchanges: {
+      legend: 'Names of exchanges',
+      help: <i>names of exchanges divided by space</i>
     },
 
     affiliate: {

@@ -27,6 +27,8 @@ export default () => {
               escrow: 'Escrow',
               devs: 'Developing team',
               exchange: 'Exchange',
+              smartContract: 'Smart Contract',
+              multiSigContract: 'Multi-sig Contract',
               unknown: 'Unknown'
             },
             ratingScore: {
