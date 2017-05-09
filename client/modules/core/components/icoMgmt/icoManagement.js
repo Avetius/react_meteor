@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 
 import Constants from '/client/configs/constants';
 
-import OwnManagedIcos from '../containers/ownManagedIcos';
+import OwnManagedIcos from '../../containers/ownManagedIcos';
 
 export default class IcoManagement extends React.Component {
 

@@ -6,13 +6,13 @@ import _ from 'lodash';
 // Rubix theme
 import { Modal, ButtonToolbar, Button } from '@sketchpixy/rubix';
 
-import S3FileUploader from './s3fileUploader';
+import S3FileUploader from './../form/s3fileUploader';
 import { IcoType } from '/lib/icoProject';
-import CsvImportUploader from './csvImportUploader';
+import CsvImportUploader from './../form/csvImportUploader';
 
-import { DateTimeStart, DateTimeEnd } from './dateTimePicker';
-import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './s3fileUploader';
-import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput, RatingExplanationInput } from './limitedTextInput';
+import { DateTimeStart, DateTimeEnd } from './../form/dateTimePicker';
+import {IcoProjectLogoUploader, CoFounderPhotoUploader} from './../form/s3fileUploader';
+import { OneSentenceTextInput, MediumLengthDescriptionInput, PersonalBackgroundInput, RatingExplanationInput } from './../form/limitedTextInput';
 
 const formLayout = (locals) => {
   return (

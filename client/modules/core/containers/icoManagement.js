@@ -2,7 +2,7 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
-import IcoManagement from '../components/icoManagement';
+import IcoManagement from '../components/icoMgmt/icoManagement';
 import UsersMgmtShared from '/lib/usersMgmtShared';
 
 export const composer = ({context}, onData) => {

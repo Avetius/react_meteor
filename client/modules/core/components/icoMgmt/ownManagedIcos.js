@@ -2,7 +2,7 @@ import React from 'react';
 import {Meteor} from 'meteor/meteor';
 
 import { ListGroup } from '@sketchpixy/rubix';
-import IcoShortItem from './icoShortItem';
+import IcoShortItem from './../icoShortItem';
 
 export default class OwnManagedIcos extends React.Component {
 

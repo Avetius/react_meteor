@@ -7,7 +7,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import { ButtonToolbar, Button } from '@sketchpixy/rubix';
 import {DateTimeStart, DateTimeEnd} from './form/dateTimePicker';
 
-import IcoForm from './form/icoForm';
+import IcoForm from './icoMgmt/icoAdminForm';
 
 export default class AddOrEditIco extends React.Component {
   constructor (props) {

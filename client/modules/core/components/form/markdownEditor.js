@@ -4,7 +4,7 @@ import RichTextEditor from 'react-rte';
 import t from 'tcomb-form';
 
 /**
- * TODO: test this more at http://react-rte.org/demo but it seems this is not working for some things, like:
+ * TODO: not used now -- test this more at http://react-rte.org/demo but it seems this is not working for some things, like:
  * citation '>'
  */
 export default class MarkDownEditor extends t.form.Component {

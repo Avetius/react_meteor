@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
 import actions from '../actions';
-import OwnManagedIcos from '../components/ownManagedIcos';
+import OwnManagedIcos from '../components/icoMgmt/ownManagedIcos';
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
