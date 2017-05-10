@@ -371,7 +371,7 @@ export default class IcoProfile extends React.Component {
           <meta property="og:type" content="article" />
           <meta property="og:url" content={window.location.href} />
           <meta property="og:image" content={this.props.icoEntity.icoProjectLogo} />
-          <meta property="og:title" content="ICOindex.com - Find best Initial Coin Offerings" />
+          <meta property="og:title" content={`${this.props.icoEntity.projectName} ${abbrStr} ICO - ICOindex.com - Find the best Initial Coin Offerings (ICOs).`} />
           <meta property="og:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
           <meta property="fb:app_id" content="897986073678471" />
 
@@ -379,7 +379,7 @@ export default class IcoProfile extends React.Component {
           <meta name="twitter:site" content="@ICOindex" />
           <meta name="twitter:url" content={window.location.href} />
           <meta name="twitter:image" content={this.props.icoEntity.icoProjectLogo} />
-          <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
+          <meta name="twitter:title" content={`${this.props.icoEntity.projectName} ${abbrStr} ICO - ICOindex.com - Find the best Initial Coin Offerings (ICOs).`} />
           <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
 
         </Helmet>

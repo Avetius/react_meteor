@@ -15,25 +15,7 @@ class Layout extends React.Component {
     return (
       <div>
 
-          <header className="fg-white">
-            <Navigation/>
-          </header>
-
-          <div className="container-fluid min-height-51rem margin-vertical-md">
-            <div className="row">
-              <div className="col-xs-12 col-sm-10 col-sm-push-1">
-                {this.props.content()}
-                <GlobalScrollingWaypoint context={this.props.context()} />
-              </div>
-            </div>
-          </div>
-
-          { /* todo: move it to separate cmp */ }
-          <footer>
-            <Footer />
-          </footer>
-
-        {<Helmet>
+        <Helmet>
           <title>ICOindex - Find the best Initial Coin Offerings (ICO) - ICOindex.com</title>
           <meta name="google-site-verification" content="googledfebaf8ee0606efd"/>
 
@@ -50,7 +32,27 @@ class Layout extends React.Component {
           <meta name="twitter:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com-300-dpi.png" />
           <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
           <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
-        </Helmet>}
+        </Helmet>
+
+
+        <header className="fg-white">
+          <Navigation/>
+        </header>
+
+        <div className="container-fluid min-height-51rem margin-vertical-md">
+          <div className="row">
+            <div className="col-xs-12 col-sm-10 col-sm-push-1">
+              {this.props.content()}
+              <GlobalScrollingWaypoint context={this.props.context()} />
+            </div>
+          </div>
+        </div>
+
+        { /* todo: move it to separate cmp */ }
+        <footer>
+          <Footer />
+        </footer>
+
         <Favicon url={Constants.assetsUrls.pngFavicon}/>
 
       </div>
