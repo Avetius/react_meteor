@@ -33,8 +33,8 @@ class Layout extends React.Component {
             <Footer />
           </footer>
 
-        {/*<Helmet>
-          <title>ICOindex - Find best ongoing and upcoming ICOs. We are aiming to make ICO transparent, easy to understand and available for everyone. </title>
+        {<Helmet>
+          <title>ICOindex - Find best ongoing and upcoming ICOs.</title>
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content="http://icoindex.com" />
@@ -49,7 +49,7 @@ class Layout extends React.Component {
           <meta name="twitter:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com-300-dpi.png" />
           <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
           <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
-        </Helmet>*/}
+        </Helmet>}
         <Favicon url={Constants.assetsUrls.pngFavicon}/>
 
       </div>
