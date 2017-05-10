@@ -106,8 +106,7 @@ export default class IcoProfile extends React.Component {
     const ico = this.props.icoEntity;
     ico.coFounders = ico.coFounders || [];
 
-    const abbrStr  = this.props.icoEntity.abbreviation ? ` (${this.props.icoEntity.abbreviation})` : '';
-    const pageTitle = `${this.props.icoEntity.projectName} ${abbrStr} ICO - ICOindex - Find best ongoing and upcoming ICOs. We are aiming to make ICO transparent, easy to understand and available for everyone.`;
+    const abbrStr  = this.props.icoEntity.abbreviation ? `(${this.props.icoEntity.abbreviation})` : '';
 
     let note;
     if (ico.ratingScore === 'scam') {
@@ -367,7 +366,22 @@ export default class IcoProfile extends React.Component {
         </div>
 
         <Helmet>
-          <title>{pageTitle}</title>
+          <title>{`${this.props.icoEntity.projectName} ${abbrStr} ICO - ICOindex - Find the best Initial Coin Offerings (ICO) - ICOindex.com`}</title>
+
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:image" content={this.props.icoEntity.icoProjectLogo} />
+          <meta property="og:title" content="ICOindex.com - Find best Initial Coin Offerings" />
+          <meta property="og:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
+          <meta property="fb:app_id" content="897986073678471" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@ICOindex" />
+          <meta name="twitter:url" content={window.location.href} />
+          <meta name="twitter:image" content={this.props.icoEntity.icoProjectLogo} />
+          <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
+          <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
+
         </Helmet>
 
       </div>
