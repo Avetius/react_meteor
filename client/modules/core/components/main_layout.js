@@ -38,7 +38,7 @@ class Layout extends React.Component {
 
           <meta property="og:type" content="website" />
           <meta property="og:url" content="http://icoindex.com" />
-          <meta property="og:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com_has_launched_wide.png" />
+          <meta property="og:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com-white.png" />
           <meta property="og:title" content="ICOindex.com - Find best Initial Coin Offerings" />
           <meta property="og:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
           <meta property="fb:app_id" content="897986073678471" />
@@ -46,7 +46,7 @@ class Layout extends React.Component {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@ICOindex" />
           <meta name="twitter:url" content="http://icoindex.com" />
-          <meta name="twitter:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com_has_launched_wide.png" />
+          <meta name="twitter:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com-white.png" />
           <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
           <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
         </Helmet>
