@@ -258,11 +258,12 @@ export default function () {
     'ico.newsletter-signup' (emailAddr) {
       check(emailAddr, String);
       if (!DataValidator.isValidEmailAddress(emailAddr)) {
-        throw new Meteor.Error('Newsletter signup error', 'Email is invalid.');
+        throw new Meteor.Error('ico.newsletter-signup', 'Email is invalid.');
       }
 
       if (!Meteor.settings.private) {
         console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+        throw new Meteor.Error('ico.newsletter-signup', 'ico.newsletter-signup method failed for email: ' + emailAddr);
       }
 
       let mailchimp;
@@ -270,6 +271,7 @@ export default function () {
         mailchimp = new Mailchimp(Meteor.settings.private.MailChimp.apiKey);
       } else {
         console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+        throw new Meteor.Error('ico.newsletter-signup', 'ico.newsletter-signup method failed for email: ' + emailAddr);
       }
 
       let list_id;
@@ -277,6 +279,7 @@ export default function () {
         list_id = Meteor.settings.private.MailChimp.listId;
       } else {
         console.error('ico.newsletter-signup method failed for email: ' + emailAddr);
+        throw new Meteor.Error('ico.newsletter-signup', 'ico.newsletter-signup method failed for email: ' + emailAddr);
       }
 
       mailchimp.post(`lists/${list_id}`, { members: [{ // send a post request to create new subscription to the list
