@@ -25,9 +25,12 @@ export default class UsersMgmtServer {
   }
 
   static shouldBeSuperAdmin (userObj) {
-    // todo: load it from settings.json private field
+
+    if (!Meteor.settings.private || !Meteor.settings.private.superAdmins || !Meteor.settings.private.superAdmins.emails) {
+      return false;
+    }
     return _.includes(
-      ['pilny.ondra@gmail.com', 'jindrich.bartek@gmail.com', 'jirkageorge@protonmail.com'],
+      Meteor.settings.private.superAdmins.emails,
       UsersMgmtShared.extractEmail(userObj)
     )
   }
