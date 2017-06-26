@@ -1,6 +1,6 @@
-import {IcoProjects, Counts} from '/lib/collections';
+import {IcoProjects, Counts, ChangeRequests} from '/lib/collections';
 import { getSelector, getSort, inIcoListUsableFields, isRestrictPropertyRequested } from '../icoProject/queries'
-import {IcoTypeDef, IcoType} from '/lib/icoProjectDefShared';
+import {IcoTypeDef, IcoPublicTypeDef, IcoType} from '/lib/icoProjectDefShared';
 import CountsCompute from '/lib/countsCompute';
 import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
@@ -30,7 +30,7 @@ export default function () {
       check(skip, Number);
       check(timestampToBound, Date);
 
-      if (!UsersMgmtShared.isCurrentUserAdmin() && isRestrictPropertyRequested(query)) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin() && !UsersMgmtShared.isUserContentAdmin() && isRestrictPropertyRequested(query)) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -52,7 +52,7 @@ export default function () {
       check(_id, String);
       check(icoProject, Object);
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin() && !UsersMgmtShared.isCurrentUserContentAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -103,10 +103,12 @@ export default function () {
         return;
       }
 
-      // either user is global admin or is ico-admin (and icoProject is not published yet)
-      if (!UsersMgmtShared.isCurrentUserAdmin() ||
-        ( UsersMgmtShared.isUserIcoAdmin(this.userId, editedIcoProject.slugUrlToken) &&
-        editedIcoProject.entityState.state !== 'published' )
+      // user is not global admin, content admin and ico-admin
+      if ((!UsersMgmtShared.isCurrentUserSuperAdmin() && !UsersMgmtShared.isCurrentUserContentAdmin() && !UsersMgmtShared.isUserIcoAdmin(this.userId, editedIcoProject.slugUrlToken)) ||
+      // or user is ico admin and ico is published
+        ( UsersMgmtShared.isUserIcoAdmin(this.userId, editedIcoProject.slugUrlToken) && IcoStatus.isIcoPublished(editedIcoProject) ) ||
+      // or user is content admin and ico is published
+        (UsersMgmtShared.isCurrentUserContentAdmin() && IcoStatus.isIcoPublished(editedIcoProject))
       ) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
@@ -116,11 +118,11 @@ export default function () {
       if (!validationResult.isValid()) {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
-
+      const selectedIcoTypeDef = UsersMgmtShared.isCurrentUserSuperAdmin() ? IcoTypeDef : IcoPublicTypeDef;
       icoProject = PostProcess.normalizeIcoProject(icoProject);
 
-      // pick only those fields which are present in IcoTypeDef and set values from icoEntity
-      const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
+      // pick only those fields which are present in selectedIcoTypeDef and set values from icoEntity
+      const objectToSet = _.mapValues(selectedIcoTypeDef, (value, key, obj) => {
         return icoProject[key];
       });
 
@@ -155,7 +157,7 @@ export default function () {
       //  throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       //}
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -163,6 +165,14 @@ export default function () {
         (err, affectedDocsNumber) => {
           if (err) {
             console.error('Error during update IcoProjects collection in method ico.publish: ', err);
+          } else {
+            ChangeRequests.update({ icoId: _id, submitedForApproval: true }, { $set: {"deleted": true} }, (err, affectedDocsNumber) => {
+              if (err) {
+                console.error('Error during update IcoProjects collection in method ico.publish, delete submitForApproval request: ', err);
+              } else {
+                console.log('submitForApproval request deleted');
+              }
+            });
           }
         }
       );
@@ -174,7 +184,7 @@ export default function () {
     'ico.unPublish' (_id) {
       check(_id, String);
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -193,7 +203,7 @@ export default function () {
     'ico.delete'(_id) {
       check(_id, String);
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -217,7 +227,7 @@ export default function () {
       // now disabled:
       return;
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -299,7 +309,7 @@ export default function () {
       // now disabled:
       return;
 
-      if (!UsersMgmtShared.isCurrentUserAdmin()) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin()) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 

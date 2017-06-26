@@ -41,6 +41,8 @@ export default class AddOrEditIco extends React.Component {
                          addAsConcept={this.props.addAsConcept}
                          editMode={this.props.editMode}
                          deleteIco={this.props.deleteIco}
+                         published={this.props.published}
+                         sendChangeRequest={this.props.sendChangeRequest}
                 />
               )
               }

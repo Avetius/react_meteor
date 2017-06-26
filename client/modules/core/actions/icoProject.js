@@ -55,6 +55,59 @@ export default {
     });
   },
 
+  sendChangeRequest({Meteor, Collections}, _id, icoProjectToSave, submitForApproval) {
+    if (!icoProjectToSave) {
+      return console.warn('SEND_CHANGE_REQUEST_ERROR', 'icoProject is required.');
+    }
+    Meteor.call('changeRequest.send', _id, icoProjectToSave, submitForApproval, (err, slugUrlToken) => {
+      if (err) {
+        return console.error('SEND_CHANGE_REQUEST_ERROR', err.error, err.reason);
+      } else {
+          FlowRouter.go('change-request.view-all');
+      }
+    });
+  },
+
+  approveChangeRequest ({Meteor}, _id) {
+    Meteor.call('changeRequest.approve', _id, (err) => {
+      if (err) {
+        return console.error('APPROVE_CHANGE_REQUEST_ERROR', err.error, err.reason);
+      } else {
+        // do something
+      }
+    });
+  },
+
+  rejectApproved ({Meteor}, _id) {
+    Meteor.call('changeRequest.rejectApproved', _id, (err) => {
+      if (err) {
+        return console.error('REJECT_APPROVED_CHANGE_REQUEST_ERROR', err.error, err.reason);
+      } else {
+        // do something
+      }
+    });
+  },
+
+  rejectChangeRequest ({Meteor}, _id) {
+    Meteor.call('changeRequest.reject', _id, (err) => {
+      if (err) {
+        return console.error('REJECT_CHANGE_REQUEST_ERROR', err.error, err.reason);
+      } else {
+        // do something
+      }
+    });
+  },
+
+  approveRejected ({Meteor}, _id) {
+    Meteor.call('changeRequest.approveRejected', _id, (err) => {
+      if (err) {
+        return console.error('APPROVE_REJECTED_CHANGE_REQUEST_ERROR', err.error, err.reason);
+      } else {
+        // do something
+      }
+    });
+  },
+
   publishConcept ({Meteor}, _id) {
     console.log('ico.publish is calling..');
     if (!_id) {
@@ -133,6 +186,26 @@ export default {
         IcoProjectsCache.remove(id);
       });
     }
+  },
+
+  addIcoManager ({Meteor}, userEmail, icoSlug) {
+    Meteor.call('users.addAsIcoAdmin', userEmail, icoSlug, (err) => {
+      if (err) {
+          return console.error('ADD_ICO_ADMIN_ERROR', err.error, err.reason);
+        } else {
+
+        }
+    });
+  },
+
+  deleteIcoManager ({Meteor}, userEmail, icoSlug) {
+    Meteor.call('users.removeAsIcoAdmin', userEmail, icoSlug, (err) => {
+      if (err) {
+        return console.error('DELETE_ICO_ADMIN_ERROR', err.error, err.reason);
+      } else {
+
+      }
+    });
   },
 
   clearErrors({LocalState}) {

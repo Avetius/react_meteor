@@ -16,6 +16,10 @@ export default class UsersMgmtServer {
     Roles.addUsersToRoles(userId, [globalRole], 'global');
   }
 
+  static unsetGlobalRole (userId, globalRole) {
+    Roles.removeUsersFromRoles(userId, [globalRole], 'global');
+  }
+
   static setIcoMgmtRole (userId, icoSlug) {
     Roles.addUsersToRoles(userId, ['ico-admin'], icoSlug);
   }

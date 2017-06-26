@@ -4,17 +4,33 @@ import {mount} from 'react-mounter';
 import MainLayout from './components/main_layout';
 
 import AddOrEditIco from './containers/addOrEditIco';
+import EditPublicIco from './containers/editPublicIco';
 import IcoFrontList from './containers/icoFrontList';
 import IcoProfile from './containers/icoProfile'
 import NotFound from './containers/notFound';
 import IcoManagement from './containers/icoManagement';
-
+import ChangeRequestsList from './containers/changeRequestsList';
+import ManageChangeRequest from './containers/manageChangeRequest';
+import ManageAdmins from './containers/manageAdmins';
 
 export default function (inject, context, actions) {
   const { FlowRouter } = context;
 
   // inject function doesn't work as expected and it will not provide context object to MainLayout so we need it inject explicitly in route defs
   const MainLayoutCtx = inject(MainLayout);
+  const IcoAdmin = FlowRouter.group({
+    prefix: "/admin"
+  });
+
+  IcoAdmin.route('/manage-admins', {
+    name: 'users.manage-admins',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<ManageAdmins />),
+        context: () => context
+      });
+    }
+  });
 
   FlowRouter.route('/', {
     name: 'ico.home',
@@ -26,6 +42,7 @@ export default function (inject, context, actions) {
       });
     }
   });
+
   /**
    * :subView is ongoing | upcoming | finished | suspicious | scam
    * :category is like fintech | healthcare | media
@@ -53,7 +70,7 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/admin/concepts/:subView', {
+  IcoAdmin.route('/concepts/:subView', {
     name: 'ico.concepts',
     action({subView}) {
       actions.icoProject.resetInfiniteScrolling(context);
@@ -75,7 +92,7 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/admin/add-ico', {
+  IcoAdmin.route('/add-ico', {
     name: 'ico.add',
     action() {
       actions.icoProject.resetInfiniteScrolling(context);
@@ -86,7 +103,7 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/admin/edit-ico/:icoSlug', {
+  IcoAdmin.route('/edit-ico/:icoSlug', {
     name: 'ico.edit',
     action({icoSlug}) {
       actions.icoProject.resetInfiniteScrolling(context);
@@ -97,7 +114,40 @@ export default function (inject, context, actions) {
     }
   });
 
-  FlowRouter.route('/admin/login', {
+  IcoAdmin.route('/edit-public-ico/:icoSlug', {
+      name: 'ico.public-edit',
+      action({icoSlug}) {
+          actions.icoProject.resetInfiniteScrolling(context);
+          mount(MainLayoutCtx, {
+              content: () => (<EditPublicIco icoId={icoSlug} />),
+              context: () => context
+          });
+      }
+  });
+
+  IcoAdmin.route('/change-requests', {
+    name: 'change-request.view-all',
+    action() {
+      actions.icoProject.resetInfiniteScrolling(context);
+      mount(MainLayoutCtx, {
+        content: () => (<ChangeRequestsList/>),
+        context: () => context
+      });
+    }
+  });
+
+  IcoAdmin.route('/manage-request/:requestId', {
+    name: 'change-request.manage',
+    action({requestId}) {
+      actions.icoProject.resetInfiniteScrolling(context);
+      mount(MainLayoutCtx, {
+        content: () => (<ManageChangeRequest requestId={requestId} />),
+        context: () => context
+      });
+    }
+  });
+
+  IcoAdmin.route('/login', {
     name: 'admin.login',
     action() {
       actions.icoProject.resetInfiniteScrolling(context);

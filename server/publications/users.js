@@ -8,5 +8,9 @@ export default function () {
       { fields: { publicProfile: 1, privateProfile: 1 }}
     );
   });
+
+  Meteor.publish('users.all', function () {
+    return Meteor.users.find({});
+  });
 }
 

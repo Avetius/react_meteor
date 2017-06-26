@@ -39,14 +39,29 @@ export default class UserMenuDropdown extends React.Component {
           <MenuItem className={(this.props.view === 'ico.management') ? 'active' : ''} href={FlowRouter.path('ico.management')}>
             Your ICO(s)
           </MenuItem>
-          <MenuItem className={this.props.view === 'ico.concepts' ? 'active' : ''} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
-            Concepts {this.props.conceptsCountStr}
-          </MenuItem>
-          <MenuItem divider />
-          <MenuItem className={this.props.view === 'ico.add' ? 'active' : ''} href={FlowRouter.path('ico.add')}>
+          { UsersMgmtShared.isCurrentUserSuperAdmin() || UsersMgmtShared.isCurrentUserContentAdmin() ?
+          <div>
+            <MenuItem className={this.props.view === 'ico.concepts' ? 'active' : ''} href={FlowRouter.path('ico.concepts', { subView: 'ongoing' })}>
+              Concepts {this.props.conceptsCountStr}
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem className={this.props.view === 'ico.add' ? 'active' : ''} href={FlowRouter.path('ico.add')}>
             Add
+            </MenuItem>
+          </div> : ''
+          }
+          <MenuItem divider />
+          <MenuItem className={this.props.view === 'change-request.view-all' ? 'active' : ''} href={FlowRouter.path('change-request.view-all')}>
+            Change requests
           </MenuItem>
           <MenuItem divider />
+          {UsersMgmtShared.isCurrentUserSuperAdmin() ?
+            <div>
+              <MenuItem className={this.props.view === 'users.manage-admins' ? 'active' : ''} href={FlowRouter.path('users.manage-admins')}>
+                Manage admins
+              </MenuItem>
+            </div> : ''
+          }
           <MenuItem href={''} onClick={this.doLogout}>
             Logout
           </MenuItem>

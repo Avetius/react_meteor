@@ -224,7 +224,7 @@ export default class IcoShortItemMainRows extends React.Component {
 
 
     const ico = this.props.ico;
-
+    const editPath = UsersMgmtShared.isCurrentUserSuperAdmin() ? FlowRouter.path('ico.edit', { icoSlug: ico._id }) : FlowRouter.path('ico.public-edit', { icoSlug: ico._id });
     return (
       <div>
 
@@ -271,14 +271,12 @@ export default class IcoShortItemMainRows extends React.Component {
                       <div className="col-xs-6">
 
                         {/*Edit ICO*/}
-                        { UsersMgmtShared.isCurrentUserAdmin() ? (
-                          <a href={ FlowRouter.path('ico.edit', { icoSlug: ico._id }) }>
+                          <a href={ editPath }>
                           <span className="h5">
                             <i className="fa fa-pencil margin-right-sm" />
                             Edit
                           </span>
-                          </a> ) : ''
-                        }
+                          </a>
                       </div>
 
                     </div>
