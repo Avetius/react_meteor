@@ -2,3 +2,5 @@ node_modules
 *.log
 .idea
 .deploy
+.DS_Store
+.meteor/.DS_Store

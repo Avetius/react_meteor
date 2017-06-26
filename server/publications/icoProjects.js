@@ -1,5 +1,6 @@
-import {IcoProjects, Counts} from '/lib/collections';
-import { getSelector, getSort, inIcoListUsableFields } from '../icoProject/queries'
+import {IcoProjects, Counts, ChangeRequests} from '/lib/collections';
+import _ from 'lodash';
+import {getSelector, getSort, inIcoListUsableFields} from '../icoProject/queries'
 import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
@@ -22,23 +23,20 @@ export default function () {
   };
 
   Meteor.publish('ico.list-preview-ongoing', function () {
-    const options = { sort: getSort({ icoStatus: 'ongoing'}), ...previewOptions };
-    const selector = getSelector({ icoStatus: 'ongoing', entityState: 'published' });
-
+    const options = {sort: getSort({icoStatus: 'ongoing'}), ...previewOptions};
+    const selector = getSelector({icoStatus: 'ongoing', entityState: 'published'});
     return IcoProjects.find(selector, options);
   });
 
   Meteor.publish('ico.list-preview-upcoming', function () {
-    const options = { sort: getSort({ icoStatus: 'upcoming' }), ...previewOptions };
-    const selector = getSelector({ icoStatus: 'upcoming', entityState: 'published' });
-
+    const options = {sort: getSort({icoStatus: 'upcoming'}), ...previewOptions};
+    const selector = getSelector({icoStatus: 'upcoming', entityState: 'published'});
     return IcoProjects.find(selector, options);
   });
 
   Meteor.publish('ico.list-preview-finished', function () {
-    const options = { sort: getSort({ icoStatus: 'finished' }), ...previewOptions };
-    const selector = getSelector({ icoStatus: 'finished', entityState: 'published' });
-
+    const options = {sort: getSort({icoStatus: 'finished'}), ...previewOptions};
+    const selector = getSelector({icoStatus: 'finished', entityState: 'published'});
     return IcoProjects.find(selector, options);
   });
 
@@ -50,9 +48,17 @@ export default function () {
       fields: {}
     };
 
-    let selector = { $or: [{ 'entityState.state': 'published' }, { 'entityState.state': 'concept' }]};
+    let publishedStateSelector = {'entityState.state': 'published'};
+    let conceptStateSelector = {'entityState.state': 'concept'};
+    if (!UsersMgmtShared.isUserSuperAdmin(this.userId) && !UsersMgmtShared.isUserContentAdmin(this.userId)) {
+      const currentUser = Meteor.users.findOne(this.userId);
+      const managedIcosSlugs = UsersMgmtShared.getManagedIcosSlugs(currentUser);
+      _.assign(conceptStateSelector, {slugUrlToken: {$in: managedIcosSlugs}});
+    }
 
-    const { icoSlug, id } = queryObj;
+    let selector = {$or: [publishedStateSelector, conceptStateSelector]};
+
+    const {icoSlug, id} = queryObj;
     if (!icoSlug && !id) {
       console.error('ico.single publication error: ', 'query object does not have icoSlug or id property.');
       return [];
@@ -65,7 +71,7 @@ export default function () {
 
     if (!this.userId) {
       // todo make some omits for admin data for non-admins?
-      options.fields = {...options.fields };
+      options.fields = {...options.fields};
     }
     return IcoProjects.find(selector, options);
   });
@@ -92,7 +98,7 @@ export default function () {
     'meta.dataStatus': 'test'
   }));
 
-  Meteor.publish('ico.global-counts', function() {
+  Meteor.publish('ico.global-counts', function () {
     if (this.userId) {
       return [counter, counter2, counter3];
     } else {
@@ -105,7 +111,32 @@ export default function () {
    *
    *   for categories counts we're using own separate collection; we compute those data in Methods
    */
-  Meteor.publish('ico.category-counts', function() {
+  Meteor.publish('ico.category-counts', function () {
     return Counts.find({_id: 'categories'});
   });
+
+  Meteor.publishComposite('ico.change-requests', function () {
+    let selector = {$or: [{deleted: {"$exists": false}}, {deleted: false}]};
+    if (!UsersMgmtShared.isUserSuperAdmin(this.userId)) {
+      const currentUser = Meteor.users.findOne(this.userId);
+      const userEmail =  UsersMgmtShared.extractEmail(currentUser);
+      selector.author =  userEmail;
+    }
+    return {
+      find() {
+        return ChangeRequests.find(selector);
+      },
+      children: [{
+        find(changeRequest) {
+          return Meteor.users.find({
+            $or: [
+              {'privateProfile.linkedIn.email': changeRequest.author},
+              {'privateProfile.facebook.email': changeRequest.author}
+            ]
+          })
+        }
+      }]
+    };
+  });
+
 }

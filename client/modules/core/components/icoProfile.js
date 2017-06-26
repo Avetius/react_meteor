@@ -335,7 +335,7 @@ export default class IcoProfile extends React.Component {
             </div>
           </div>
 
-          { UsersMgmtShared.isCurrentUserAdmin() ? (
+          { UsersMgmtShared.isCurrentUserSuperAdmin() ? (
             <div className="row">
               <div className="col-md-12">
 

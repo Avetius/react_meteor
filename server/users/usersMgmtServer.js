@@ -16,6 +16,10 @@ export default class UsersMgmtServer {
     Roles.addUsersToRoles(userId, [globalRole], 'global');
   }
 
+  static unsetGlobalRole (userId, globalRole) {
+    Roles.removeUsersFromRoles(userId, [globalRole], 'global');
+  }
+
   static setIcoMgmtRole (userId, icoSlug) {
     Roles.addUsersToRoles(userId, ['ico-admin'], icoSlug);
   }
@@ -25,9 +29,12 @@ export default class UsersMgmtServer {
   }
 
   static shouldBeSuperAdmin (userObj) {
-    // todo: load it from settings.json private field
+
+    if (!Meteor.settings.private || !Meteor.settings.private.superAdmins || !Meteor.settings.private.superAdmins.emails) {
+      return false;
+    }
     return _.includes(
-      ['pilny.ondra@gmail.com', 'jindrich.bartek@gmail.com', 'jirkageorge@protonmail.com'],
+      Meteor.settings.private.superAdmins.emails,
       UsersMgmtShared.extractEmail(userObj)
     )
   }
