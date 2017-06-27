@@ -16,13 +16,16 @@ class DateTimePicker extends t.form.Component { // extend the base class
       if (new Date(valueToDisplay).getTime() === Constants.pseudoDateTimeInFuture) {
         valueToDisplay = null;
       }
-
+      let customProps = this.customProps || {};
+      if (this.props.options && this.props.options.disabled) {
+        customProps.disabled = true;
+      }
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
           <Datetime value={valueToDisplay}
                     onChange={this.interceptorOnChange.bind(this)}
-                    inputProps={this.customProps}
+                    inputProps={customProps}
           />
           { (this.state && this.state.UTCRenderedDateTime) ?
             (<div>

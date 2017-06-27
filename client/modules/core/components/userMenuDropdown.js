@@ -16,8 +16,9 @@ export default class UserMenuDropdown extends React.Component {
     const dropdownTitle = <span><i className="fa fa-user-circle" aria-hidden="true" /></span>;
 
     let name;
-    if (this.props.userId && Meteor.user()) {
-      name = UsersMgmtShared.extractName(Meteor.user());
+    const user = Meteor.user();
+    if (user && user.publicProfile) {
+      name = UsersMgmtShared.extractName(user);
     } else {
       name = null;
     }
@@ -52,7 +53,7 @@ export default class UserMenuDropdown extends React.Component {
           }
           <MenuItem divider />
           <MenuItem className={this.props.view === 'change-request.view-all' ? 'active' : ''} href={FlowRouter.path('change-request.view-all')}>
-            Change requests
+            Change requests {this.props.newChangeRequestsCountStr}
           </MenuItem>
           <MenuItem divider />
           {UsersMgmtShared.isCurrentUserSuperAdmin() ?

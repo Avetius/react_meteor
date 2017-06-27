@@ -7,9 +7,9 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import { ButtonToolbar, Button } from '@sketchpixy/rubix';
 import {DateTimeStart, DateTimeEnd} from './form/dateTimePicker';
 
-import IcoForm from './icoMgmt/icoAdminForm';
+import IcoExtendedForm from './icoMgmt/icoExtendedForm';
 
-export default class AddOrEditIco extends React.Component {
+export default class EditExtendedIco extends React.Component {
   constructor (props) {
     super(props);
     //console.log('@cmp: this.props ', this.props);
@@ -22,7 +22,7 @@ export default class AddOrEditIco extends React.Component {
   }
 
   render() {
-    // tCombForm doesn't need this but we're defensive
+      // tCombForm doesn't need this but we're defensive
     const icoFormValue = this.extractIcoFormValue(this.props.icoEntity);
 
     return (
@@ -36,13 +36,15 @@ export default class AddOrEditIco extends React.Component {
                   <h3>{this.props.errorMessage}</h3>
                 </div>
               ) : (
-                <IcoForm icoEntityValue={icoFormValue}
+                <IcoExtendedForm icoEntityValue={icoFormValue}
                          edit={this.props.saveEditedIco}
                          addAsConcept={this.props.addAsConcept}
                          editMode={this.props.editMode}
+                         icoId={this.props.icoEntity ? this.props.icoEntity._id : ''}
                          deleteIco={this.props.deleteIco}
                          published={this.props.published}
                          sendChangeRequest={this.props.sendChangeRequest}
+                         changeRequest={this.props.changeRequest}
                 />
               )
               }

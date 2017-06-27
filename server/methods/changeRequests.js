@@ -12,16 +12,16 @@ export default function () {
     'changeRequest.send' (icoID, icoProject, submitForApproval) {
       check(icoID, String);
       check(icoProject, Object);
-      check(submitForApproval, Match.Maybe(Boolean))
+      check(submitForApproval, Match.Maybe(Boolean));
       const oldIcoEntity = IcoProjects.findOne(icoID);
       const userEmail = UsersMgmtShared.extractEmail(Meteor.user());
+      const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
       if (!oldIcoEntity) {
         throw new Meteor.Error('Error during changeRequest sent', 'IcoProject not found');
       }
-      let changeRequest = ChangeRequests.findOne({icoId: icoID, approved: false, rejected: false, author: userEmail, $or: [{deleted: {"$exists": false}}, {deleted: false}]});
+      let changeRequest = ChangeRequests.findOne({icoId: icoID, approved: false, rejected: false, 'author.email': userEmail, published: { $ne: true }});
       // either user is global admin or is ico-admin (and icoProject is not published yet)
-      if ((!UsersMgmtShared.isUserContentAdmin(this.userId) && !UsersMgmtShared.isUserIcoAdmin(this.userId, oldIcoEntity.slugUrlToken))
-      ) {
+      if ((!UsersMgmtShared.isUserContentAdmin(this.userId) && !UsersMgmtShared.isUserIcoAdmin(this.userId, oldIcoEntity.slugUrlToken))) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -30,33 +30,9 @@ export default function () {
       if (!validationResult.isValid()) {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
-      icoProject = PostProcess.normalizeIcoProject(icoProject);
-
-      // pick only those fields which are present in IcoTypeDef and set values from icoEntity
-      const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
-        return icoProject[key];
-      });
-      let changedFields = _.omitBy(objectToSet, function (field, k) {
-        let oldField = oldIcoEntity[k];
-        if (!oldField && !field) {
-          return true;
-        }
-        if (_.isArray(field) && _.isArray(oldField)) {
-          field = _.map(field, (val) => {
-            return _.isObject(val) ? DataValidator.removeFalsyValues(val): val;
-          });
-          oldField = _.map(oldField, (val) => {
-            return _.isObject(val) ? DataValidator.removeFalsyValues(oldField): oldField;
-          });
-        }
-        return _.isEqual(oldField, field);
-      });
-      if (!changedFields && !submitForApproval) {
-        return;
-      }
       if (!changeRequest) {
         changeRequest = {
-          author: userEmail,
+          author: {email: userEmail, longLivedUserId: longLivedUserId},
           fields: {},
           createdAt: new Date(),
           approved: false,
@@ -66,14 +42,42 @@ export default function () {
           abbreviation: oldIcoEntity.abbreviation,
           icoId: icoID
         };
-        if (submitForApproval) {
-          changeRequest['submitedForApproval'] = true;
-        }
+      } else {
+        changeRequest.updatedAt = new Date();
       }
-      changedFields = _.mapValues(changedFields, (value, key, obj) => {
-        return {oldValue: oldIcoEntity[key], newValue: value};
-      });
-      changeRequest.fields = changedFields;
+      if (submitForApproval) {
+        changeRequest['publishRequest'] = true;
+      } else {
+        icoProject = PostProcess.normalizeIcoProject(icoProject);
+
+        // pick only those fields which are present in IcoTypeDef and set values from icoEntity
+        const objectToSet = _.mapValues(IcoTypeDef, (value, key, obj) => {
+          return icoProject[key];
+        });
+        let changedFields = _.omitBy(objectToSet, function (field, k) {
+          let oldField = oldIcoEntity[k];
+          if (!oldField && !field) {
+            return true;
+          }
+          if (_.isArray(field) && _.isArray(oldField)) {
+            field = _.map(field, (val) => {
+              return _.isObject(val) ? DataValidator.removeFalsyValues(val): val;
+            });
+            oldField = _.map(oldField, (val) => {
+              return _.isObject(val) ? DataValidator.removeFalsyValues(oldField): oldField;
+            });
+          }
+          return _.isEqual(oldField, field);
+        });
+        if (_.isEmpty(changedFields)) {
+          throw new Meteor.Error('Error during changeRequest send', 'there are no changed fields');
+        }
+        changedFields = _.mapValues(changedFields, (value, key, obj) => {
+          return {oldValue: oldIcoEntity[key], newValue: value};
+        });
+        changeRequest.fields = _.assign(changeRequest.fields, changedFields);
+      }
+
       ChangeRequests.upsert({_id: changeRequest._id}, {$set: changeRequest}, (err) => {
         if (err) {
           console.error('Error during changeRequest upsert', err);
@@ -98,7 +102,9 @@ export default function () {
           if (err) {
             console.error('Error during changeRequest approve', err);
           } else {
-            ChangeRequests.update({_id: _id}, {$set: {'approved': true}}, (err) => {
+            const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
+            const updatedAt = new Date();
+            ChangeRequests.update({_id: _id}, {$set: {approved: true, approvedBy: longLivedUserId, updatedAt }}, (err) => {
               if (err) {
                 console.error('Error during changeRequest approve', err);
               } else {
@@ -127,7 +133,9 @@ export default function () {
           if (err) {
             console.error('Error during changeRequest rejecting approved', err);
           } else {
-            ChangeRequests.update({_id: _id}, {$set: {'approved': false, 'rejected': true}}, (err) => {
+            const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
+            const updatedAt = new Date();
+            ChangeRequests.update({_id: _id}, {$set: {approved: false, rejected: true, rejectedBy: longLivedUserId, updatedAt}}, (err) => {
               if (err) {
                 console.error('Error during changeRequest rejecting approved', err);
               } else {
@@ -148,7 +156,9 @@ export default function () {
       if (!changeRequest) {
         throw new Meteor.Error('Error during changeRequest reject', 'changeRequest not found');
       } else {
-        ChangeRequests.update({_id: _id}, {$set: {'rejected': true}}, (err) => {
+        const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
+        const updatedAt = new Date();
+        ChangeRequests.update({_id: _id}, {$set: {rejected: true, rejectedBy: longLivedUserId, updatedAt}}, (err) => {
           if (err) {
             console.error('Error during changeRequest reject', err);
           }
@@ -173,7 +183,9 @@ export default function () {
           if (err) {
             console.error('Error during changeRequest approveRejected', err);
           } else {
-            ChangeRequests.update({_id: _id}, {$set: {'approved': true, 'rejected': false}}, (err) => {
+            const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
+            const updatedAt = new Date();
+            ChangeRequests.update({_id: _id}, {$set: {approved: true, rejected: false, approvedBy: longLivedUserId, updatedAt}}, (err) => {
               if (err) {
                 console.error('Error during changeRequest approveRejected', err);
               } else {

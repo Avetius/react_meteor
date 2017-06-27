@@ -3,7 +3,7 @@ import {mount} from 'react-mounter';
 
 import MainLayout from './components/main_layout';
 
-import AddOrEditIco from './containers/addOrEditIco';
+import EditExtendedIco from './containers/editExtendedIco';
 import EditPublicIco from './containers/editPublicIco';
 import IcoFrontList from './containers/icoFrontList';
 import IcoProfile from './containers/icoProfile'
@@ -97,7 +97,7 @@ export default function (inject, context, actions) {
     action() {
       actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={{active: false}} />),
+        content: () => (<EditExtendedIco editMode={{active: false}} />),
         context: () => context
       });
     }
@@ -108,7 +108,7 @@ export default function (inject, context, actions) {
     action({icoSlug}) {
       actions.icoProject.resetInfiniteScrolling(context);
       mount(MainLayoutCtx, {
-        content: () => (<AddOrEditIco editMode={{active: true, icoId: icoSlug}} />),
+        content: () => (<EditExtendedIco editMode={{active: true, icoSlug: icoSlug}} />),
         context: () => context
       });
     }
@@ -119,7 +119,7 @@ export default function (inject, context, actions) {
       action({icoSlug}) {
           actions.icoProject.resetInfiniteScrolling(context);
           mount(MainLayoutCtx, {
-              content: () => (<EditPublicIco icoId={icoSlug} />),
+              content: () => (<EditPublicIco icoSlug={icoSlug} />),
               context: () => context
           });
       }

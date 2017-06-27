@@ -35,14 +35,14 @@ class LimitedTextInput extends t.form.Component {
             }
 
             { this.customProps.type === 'text' ?
-              ( <input type={locals.type} value={locals.value}
+              ( <input type={locals.type} value={locals.value} disabled={locals.disabled}
                        id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)}/> )
               : ''
             }
 
             {  this.customProps.type === 'textarea' ?
               (
-                <textarea { ...locals.config.customAttrs } value={locals.value}
+                <textarea { ...locals.config.customAttrs } disabled={locals.disabled} value={locals.value}
                   id={randomId} className="form-control" onChange={this.interceptorOnChange.bind(this)} />
               ) : ''
             }
@@ -111,6 +111,13 @@ export class PersonalBackgroundInput extends LimitedTextInput {
 }
 
 export class RatingExplanationInput extends LimitedTextInput {
+  constructor (props) {
+    super(props);
+    this.customProps = { limit: MediumLengthDescription.limit, type: 'textarea', markdownPreview: true };
+  }
+}
+
+export class NotesInput extends LimitedTextInput {
   constructor (props) {
     super(props);
     this.customProps = { limit: MediumLengthDescription.limit, type: 'textarea', markdownPreview: true };

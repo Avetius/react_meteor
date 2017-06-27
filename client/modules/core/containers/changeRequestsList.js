@@ -1,5 +1,4 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
-import {Meteor} from 'meteor/meteor';
 import _ from 'lodash';
 import UsersMgmtShared from '/lib/usersMgmtShared';
 
@@ -7,27 +6,41 @@ import ChangeRequestsList from '../components/changeRequestsMgmt/changeRequestsL
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
-
-  if (Meteor.subscribe('ico.change-requests').ready()) {
-    let changeRequests = Collections.ChangeRequests.find({}).fetch();
-    changeRequests = _.map(changeRequests, (changeRequest) => {
-      const author = UsersMgmtShared.getChangeRequestAuthor(changeRequest.author);
-      return _.assign(changeRequest, {authorName: UsersMgmtShared.extractName(author)});
-    });
-    if (changeRequests) {
-      onData(null, { changeRequests, userId: Meteor.userId() });
+  if (Meteor.userId()) {
+    if (Meteor.subscribe('ico.change-requests').ready()) {
+      let changeRequests = Collections.ChangeRequests.find({}).fetch();
+      const actionTypes = ['rejectedBy', 'approvedBy', 'publishedBy'];
+      if (UsersMgmtShared.isCurrentUserSuperAdmin() || UsersMgmtShared.isCurrentUserContentAdmin()) {
+        changeRequests = _.map(changeRequests, (changeRequest) => {
+          _.each(actionTypes, (actionType) => {
+            if (changeRequest[actionType]) {
+              const user = UsersMgmtShared.findUserByLongLivedUserId(changeRequest[actionType]);
+              _.assign(changeRequest, {
+                [actionType]: {
+                  name: UsersMgmtShared.extractName(user),
+                  longLivedUserId: changeRequest[actionType]
+                }
+              });
+            }
+          });
+          if (UsersMgmtShared.isCurrentUserSuperAdmin()) {
+            const author = UsersMgmtShared.findUserByLongLivedUserId(changeRequest.author.longLivedUserId);
+            _.assign(changeRequest, {authorName: UsersMgmtShared.extractName(author)});
+          }
+          return changeRequest;
+        });
+      }
+      if (changeRequests) {
+        onData(null, {changeRequests, userId: Meteor.userId()});
+      }
     }
-
   } else {
-    onData();
+    FlowRouter.go('404');
   }
 
 };
 
 export const depsMapper = (context, actions) => ({
-  // todo implement actions.icoProject.addToWatchList,0
-  //addToWatchList: actions.icoProject.addToWatchList,
-  loadMore: actions.icoProject.loadMore,
   context: () => context
 });
 

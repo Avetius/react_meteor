@@ -51,7 +51,7 @@ class S3FileUploader extends t.form.Component {
       return (
         <div className={'form-group' + (locals.hasError ? ' has-error': '')}>
           <label className="control-label">{locals.label}</label>
-          <input type="text" value={this.state.urlValue} className="form-control"
+          <input type="text" value={this.state.urlValue} className="form-control" disabled={locals.disabled}
                  onChange={this.rawInputTextChange.bind(this)} placeholder="Put here URL for picture or upload bellow" />
           <div style={previewStyle}>
             <img src={locals.value} className="image-uploader-preview" />

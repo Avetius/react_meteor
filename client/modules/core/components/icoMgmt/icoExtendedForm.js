@@ -4,24 +4,24 @@ const Form = t.form.Form;
 
 import _ from 'lodash';
 // Rubix theme
-import { Modal, ButtonToolbar, Button } from '@sketchpixy/rubix';
+import {Modal, ButtonToolbar, Button} from '@sketchpixy/rubix';
 
-import { IcoType } from '/lib/icoProjectDefShared';
+import {IcoType} from '/lib/icoProjectDefShared';
 import IcoFieldsRenderOptions from './icoFieldsRenderOptions';
-import IcoAdminFormFields from './icoAdminFormFields'
+import IcoExtendedFormFields from '/lib/icoFormFields/icoExtendedFormFields' ;
 import UsersMgmtShared from '/lib/usersMgmtShared';
+import ChangeRequestsTable from '../changeRequestsMgmt/changeRequestsTable';
 
 const formLayout = (locals) => {
   return (
     <div>
-      {/*not needed now: <CsvImportUploader />*/}
-      {IcoAdminFormFields.map((fieldsSection, i) => {
+      {_.map(_.keys(IcoExtendedFormFields), (sectionKey) => {
         return (
-          <div key={i}>
-            <h4>{fieldsSection.sectionName}</h4>
-            {fieldsSection.fields.map((field) => {
-            return locals.inputs[field];
-          })}
+          <div key={sectionKey}>
+            <h4>{IcoExtendedFormFields[sectionKey].sectionName}</h4>
+            {IcoExtendedFormFields[sectionKey].fields.map((field) => {
+              return locals.inputs[field];
+            })}
           </div>);
       })}
     </div>
@@ -34,9 +34,9 @@ const renderOptions = {
   fields: IcoFieldsRenderOptions
 };
 
-export default class IcoForm extends React.Component {
+export default class IcoExtendedForm extends React.Component {
 
-  constructor () {
+  constructor() {
     super();
     this.state = {
       showDeleteModal: false,
@@ -60,7 +60,7 @@ export default class IcoForm extends React.Component {
         alert(message);
         return;
       }
-      this.props.edit(this.props.editMode.icoId, value);
+      this.props.edit(this.props.icoId, value);
     } else {
       const validationResult = this.refs.icoForm.validate();
       this.showErrorMessages(validationResult);
@@ -68,7 +68,20 @@ export default class IcoForm extends React.Component {
     }
   }
 
-  sendChangeRequest () {
+  submitForApproval() {
+    const value = this.refs.icoForm.getValue();
+    if (value) {
+      this.hideErrorMessages();
+      this.props.sendChangeRequest(this.props.icoId, value, true);
+      this.edit();
+    } else {
+      console.warn('upps, something happened. Validation failed?');
+      const validationResult = this.refs.icoForm.validate();
+      this.showErrorMessages(validationResult);
+    }
+  }
+
+  sendChangeRequest() {
     const value = this.refs.icoForm.getValue();
     if (value) {
       this.hideErrorMessages();
@@ -83,7 +96,7 @@ export default class IcoForm extends React.Component {
         alert(message);
         return;
       }
-      this.props.sendChangeRequest(this.props.editMode.icoId, value);
+      this.props.sendChangeRequest(this.props.icoId, value);
     } else {
       const validationResult = this.refs.icoForm.validate();
       this.showErrorMessages(validationResult);
@@ -92,18 +105,18 @@ export default class IcoForm extends React.Component {
   }
 
   deleteIco() {
-    this.props.deleteIco(this.props.editMode.icoId);
+    this.props.deleteIco(this.props.icoId);
   }
 
   showModalToDeleteIco() {
     this.setState({showDeleteModal: true});
   }
 
-  close () {
+  close() {
     this.setState({showDeleteModal: false});
   }
 
-  addAsConcept () {
+  addAsConcept() {
     const value = this.refs.icoForm.getValue();
     console.log('saving concept..', value);
     if (value) {
@@ -116,17 +129,17 @@ export default class IcoForm extends React.Component {
     }
   }
 
-  showErrorMessages (validationResult) {
+  showErrorMessages(validationResult) {
     const messages = _.map(validationResult.errors, (errorObj) => {
       let messageObj = _.pick(errorObj, ['message']);
       messageObj.key = errorObj.path[0];
       return messageObj;
     });
-    this.setState({ formErrors: messages });
+    this.setState({formErrors: messages});
   }
 
-  hideErrorMessages () {
-    this.setState({ formErrors: null });
+  hideErrorMessages() {
+    this.setState({formErrors: null});
   }
 
   onChange(icoEntityValue, path) {
@@ -138,32 +151,48 @@ export default class IcoForm extends React.Component {
   }
 
   render() {
-    let icoForm, saveButtons;
+    let icoForm, saveButtons, changeRequest;
     if (this.props.editMode.active) {
       icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions} value={this.props.icoEntityValue}
-                      context={{editMode: true}} onChange={this.onChange.bind(this)} />;
+                      context={{editMode: true}} onChange={this.onChange.bind(this)}/>;
+      changeRequest = this.props.changeRequest ?
+        <div>
+          <h3>Related change request</h3>
+          <ChangeRequestsTable changeRequests={[this.props.changeRequest]} showIcoForm={false} type="new"/>
+        </div> : '';
       saveButtons =
         <div className="row">
           <div className="col-md-8 margin-top-md margin-left-md">
             {/*need check user role too*/}
-            { this.props.published && UsersMgmtShared.isCurrentUserContentAdmin() ?
-              <button onClick={this.sendChangeRequest.bind(this)} className="btn btn-primary margin-right-xs">Send change request</button>
-            : <button onClick={this.edit.bind(this)} className="btn btn-primary margin-right-xs">Save edited ICO</button> }
-            <span> Save changes in either case - if it is concept or published ICO.</span>
-          </div>
-            { UsersMgmtShared.isCurrentUserSuperAdmin() ?
-              <div className="col-md-3 margin-top-md margin-left-md">
-                <button onClick={this.showModalToDeleteIco.bind(this)} className="btn btn-danger">Delete ICO</button>
-              </div> : ''
+            { (UsersMgmtShared.isCurrentUserContentAdmin() && !this.props.published) || UsersMgmtShared.isCurrentUserSuperAdmin() ?
+              <div>
+                <button onClick={this.edit.bind(this)} className="btn btn-primary margin-right-xs">Save edited ICO
+                </button>
+                { UsersMgmtShared.isCurrentUserSuperAdmin() ?
+                  <span> Save changes in either case - if it is concept or published ICO.</span> :
+                  <button onClick={this.submitForApproval.bind(this)}
+                          className="btn btn-primary margin-horizontal-md">Submit ICO for approval
+                  </button> }
+              </div> :
+              <button onClick={this.sendChangeRequest.bind(this)} className="btn btn-primary margin-right-xs">Send
+                change request</button>
             }
+          </div>
+          { UsersMgmtShared.isCurrentUserSuperAdmin() ?
+            <div className="col-md-3 margin-top-md margin-left-md">
+              <button onClick={this.showModalToDeleteIco.bind(this)} className="btn btn-danger">Delete ICO</button>
+            </div> : ''
+          }
         </div>;
     } else {
-      icoForm= <Form ref="icoForm" type={IcoType} options={renderOptions}
-                     context={{editMode: false}} onChange={this.onChange.bind(this)} />;
+      icoForm = <Form ref="icoForm" type={IcoType} options={renderOptions}
+                      context={{editMode: false}} onChange={this.onChange.bind(this)}/>;
       saveButtons =
         <div className="row">
           <div className="col-xs-6">
-            <button onClick={this.addAsConcept.bind(this)} className="btn btn-primary margin-horizontal-md">Add as concept</button>
+            <button onClick={this.addAsConcept.bind(this)} className="btn btn-primary margin-horizontal-md">Add as
+              concept
+            </button>
           </div>
         </div>;
     }
@@ -172,6 +201,7 @@ export default class IcoForm extends React.Component {
       <div>
 
         <div className="row">
+          {changeRequest}
           <div className="col-md-10">
             { this.props.editMode.active ? <h3>Edit ICO</h3> : <h3>New Ico</h3>}
             {icoForm}
