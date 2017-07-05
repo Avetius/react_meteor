@@ -32,6 +32,18 @@ class Layout extends React.Component {
           <meta name="twitter:image" content="https://s3.eu-central-1.amazonaws.com/ico-p1/appResources/ICOindex.com-300-dpi.png" />
           <meta name="twitter:title" content="ICOindex.com - Find best Initial Coin Offerings" />
           <meta name="twitter:description" content="We are aiming to make ICOs transparent, easy to understand and available for everyone." />
+
+          {/* Currently making 'URLs contain raw newline characters are deprecated' warning in console. About warning: https://www.chromestatus.com/features/5735596811091968  */}
+          <script type="text/javascript">
+            {`window.smartlook||(function(d) {
+                var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+                var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+                c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+              })(document);
+              smartlook('init', '91833eb93c4835292b09ed378ef2efd5a220b6b0');
+            `}
+          </script>
+
         </Helmet>
 
 
