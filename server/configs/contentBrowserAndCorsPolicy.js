@@ -9,6 +9,8 @@ export default () => {
   // Analytics section, needed here: https://github.com/okgrow/analytics
   BrowserPolicy.content.allowOriginForAll("www.google-analytics.com");
   BrowserPolicy.content.allowOriginForAll("cdn.mxpnl.com");
+  // smartlook analytics service
+  BrowserPolicy.content.allowOriginForAll("rec.smartlook.com");
 
   /**
    * Lets rewrite url of meteor assets (JS, CSS) to using CDN.
