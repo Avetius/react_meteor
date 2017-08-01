@@ -5,6 +5,8 @@ import {Meteor} from 'meteor/meteor';
 import {check, Match} from 'meteor/check';
 import {Counter} from 'meteor/natestrauser:publish-performant-counts';
 import UsersMgmtShared from '/lib/usersMgmtShared';
+import IcoProfilePublishFields from '/lib/icoPublishFields/icoProfilePublishFields';
+import IcoPublicPublishFormFields from '/lib/icoPublishFields/icoPublicPublishFormFields';
 
 /**
  * Publications performances::
@@ -40,103 +42,84 @@ export default function () {
     return IcoProjects.find(selector, options);
   });
 
-
-  Meteor.publish('ico.single', function (queryObj) {
+  Meteor.publish('ico.editMode', function (queryObj) {
     check(queryObj, Object);
+
+    const {icoSlug} = queryObj;
+    if (!icoSlug) {
+      console.error('ico.editMode publication error: ', 'query object does not have icoSlug');
+      return false;
+    }
 
     let options = {
       fields: {}
     };
-
-    let publishedStateSelector = {'entityState.state': 'published'};
-    let conceptStateSelector = {'entityState.state': 'concept'};
-    if (!UsersMgmtShared.isUserSuperAdmin(this.userId) && !UsersMgmtShared.isUserContentAdmin(this.userId)) {
-      const currentUser = Meteor.users.findOne(this.userId);
-      const managedIcosSlugs = UsersMgmtShared.getManagedIcosSlugs(currentUser);
-      _.assign(conceptStateSelector, {slugUrlToken: {$in: managedIcosSlugs}});
-    }
-
-    let selector = {$or: [publishedStateSelector, conceptStateSelector]};
-
-    const {icoSlug, id} = queryObj;
-    if (!icoSlug && !id) {
-      console.error('ico.single publication error: ', 'query object does not have icoSlug or id property.');
-      return [];
-    }
-    if (!icoSlug) {
-      selector._id = id;
+    if (UsersMgmtShared.isUserIcoAdmin(this.userId, icoSlug)) {
+      //publish only fields which are visible on public ico edit form
+      options.fields = IcoPublicPublishFormFields;
+    } else if(UsersMgmtShared.isUserContentAdmin(this.userId) || UsersMgmtShared.isUserSuperAdmin(this.userId)) {
+      //publish all fields
+      options.fields = {};
     } else {
-      selector.slugUrlToken = icoSlug;
+      throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
     }
 
-    if (!this.userId) {
-      // todo make some omits for admin data for non-admins?
-      options.fields = {...options.fields};
+    let selector = {slugUrlToken: icoSlug};
+    //publish also related change request for content and ico admins
+    if (UsersMgmtShared.isUserContentAdmin(this.userId) || UsersMgmtShared.isUserIcoAdmin(this.userId, icoSlug)) {
+      const currentUser = Meteor.users.findOne(this.userId);
+      const userEmail = UsersMgmtShared.extractEmail(currentUser);
+      let changeRequestSelector = {
+        published: { $ne: true },
+        'author.email': userEmail,
+        approved: false,
+        rejected: false,
+        icoSlug: icoSlug
+      };
+      return [
+        IcoProjects.find(selector, options),
+        ChangeRequests.find(changeRequestSelector)
+      ];
     }
+
     return IcoProjects.find(selector, options);
   });
 
+  Meteor.publish('ico.profile', function (queryObj) {
+    check(queryObj, Object);
 
-  /**
-   * global counts part
-   *
-   *  we're using publish-performant-counts (https://github.com/nate-strauser/meteor-publish-performant-counts)
-   implementation is not complicated: https://github.com/nate-strauser/meteor-publish-performant-counts/blob/master/lib/server.js
-   */
-
-  const counter = new Counter('concepts-prod', IcoProjects.find({
-    'meta.dataStatus': 'production',
-    'entityState.state': 'concept'
-  }));
-
-  const counter2 = new Counter('published-prod', IcoProjects.find({
-    'meta.dataStatus': 'production',
-    'entityState.state': 'published'
-  }));
-
-  const counter3 = new Counter('all-test', IcoProjects.find({
-    'meta.dataStatus': 'test'
-  }));
-
-  Meteor.publish('ico.global-counts', function () {
-    if (this.userId) {
-      return [counter, counter2, counter3];
-    } else {
-      return [counter2];
+    const {icoSlug} = queryObj;
+    if (!icoSlug) {
+      console.error('ico.profile publication error: ', 'query object does not have icoSlug');
+      return false;
     }
-  });
 
-  /**
-   *   category counts part
-   *
-   *   for categories counts we're using own separate collection; we compute those data in Methods
-   */
-  Meteor.publish('ico.category-counts', function () {
-    return Counts.find({_id: 'categories'});
-  });
-
-  Meteor.publishComposite('ico.change-requests', function () {
-    let selector = {$or: [{deleted: {"$exists": false}}, {deleted: false}]};
-    if (!UsersMgmtShared.isUserSuperAdmin(this.userId)) {
+    let publishedStateSelector = {'entityState.state': 'published', 'meta.dataStatus': 'production'};
+    let conceptStateSelector = {'entityState.state': 'concept', 'meta.dataStatus': 'production'};
+    let useConceptStateSelector = false;
+    let selector = {slugUrlToken: icoSlug};
+    if (this.userId && UsersMgmtShared.isUserIcoAdmin(this.userId, icoSlug)) {
       const currentUser = Meteor.users.findOne(this.userId);
-      const userEmail =  UsersMgmtShared.extractEmail(currentUser);
-      selector.author =  userEmail;
+      const managedIcosSlugs = UsersMgmtShared.getManagedIcosSlugs(currentUser);
+      //publish concept ico only if it is own created
+      _.assign(conceptStateSelector, {slugUrlToken: {$in: managedIcosSlugs}});
+      useConceptStateSelector = true;
     }
-    return {
-      find() {
-        return ChangeRequests.find(selector);
-      },
-      children: [{
-        find(changeRequest) {
-          return Meteor.users.find({
-            $or: [
-              {'privateProfile.linkedIn.email': changeRequest.author},
-              {'privateProfile.facebook.email': changeRequest.author}
-            ]
-          })
-        }
-      }]
-    };
-  });
+    if(this.userId && (UsersMgmtShared.isUserContentAdmin(this.userId) || UsersMgmtShared.isUserSuperAdmin(this.userId))) {
+      useConceptStateSelector = true;
+    }
+    if (useConceptStateSelector) {
+      _.assign(selector, {$or: [publishedStateSelector, conceptStateSelector]});
+    } else {
+      //publish only if it is published ico
+      _.assign(selector, publishedStateSelector);
+    }
 
+    let options = {
+      //publish only fields which are visible on profile page
+      fields: IcoProfilePublishFields
+    };
+
+    return IcoProjects.find(selector, options);
+  });
 }

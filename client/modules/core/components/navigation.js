@@ -41,24 +41,30 @@ class Navigation extends React.Component {
 
   render () {
 
-    let conceptsCountStr;
+    let conceptsCountStr,
+      newChangeRequestsCountStr;
     if (!this.props.globalCounts) {
       conceptsCountStr = '';
+      newChangeRequestsCountStr = '';
     } else {
       const conceptsCount = this.props.globalCounts.concept;
+      const newChangeRequestsCount = this.props.globalCounts.newChangeRequests;
       conceptsCountStr = (!conceptsCount && conceptsCount !== 0) ? '' :` (${conceptsCount})`;
+      if (UsersMgmtShared.isCurrentUserSuperAdmin()) {
+        newChangeRequestsCountStr = (!newChangeRequestsCount && newChangeRequestsCount !== 0) ? '' : ` (${newChangeRequestsCount})`;
+      }
     }
-
     const topHeaderPanel =
       <div id="top-header" className="row bg-header-img">
         <div className="opacity-plane">
           <div className="col-xs-12">
-
-            <div className="row margin-top-sm user-menu-dropdown-container">
-              <div className="col-xs-1 col-xs-push-11">
-                <UserMenuDropDown view={this.props.view} userId={this.props.userId} conceptsCountStr={conceptsCountStr} />
-              </div>
-            </div>
+            {this.props.userId ?
+              <div className="row margin-top-sm user-menu-dropdown-container">
+                <div className="col-xs-1 col-xs-push-11">
+                  <UserMenuDropDown view={this.props.view} userId={this.props.userId} conceptsCountStr={conceptsCountStr} newChangeRequestsCountStr={newChangeRequestsCountStr} />
+                </div>
+              </div> : ''
+            }
 
             <div className="row">
               <div className="col-xs-12 col-sm-10 col-sm-push-1">

@@ -1,5 +1,4 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
-import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
 import actions from '../actions';

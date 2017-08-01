@@ -1,5 +1,4 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
-import _ from 'lodash';
 import {Meteor} from 'meteor/meteor';
 
 import IcoManagement from '../components/icoMgmt/icoManagement';
@@ -11,12 +10,13 @@ export const composer = ({context}, onData) => {
   if (Meteor.userId()) {
 
     const currentUser = Meteor.user();
-
-    onData( null, {
-      userId: Meteor.userId(),
-      email: UsersMgmtShared.extractEmail(currentUser),
-      name: UsersMgmtShared.extractName(currentUser)
-    });
+    if (currentUser.publicProfile && currentUser.privateProfile) {
+      onData(null, {
+        userId: Meteor.userId(),
+        email: UsersMgmtShared.extractEmail(currentUser),
+        name: UsersMgmtShared.extractName(currentUser)
+      });
+    }
   } else {
     onData( null, {
       userId: null

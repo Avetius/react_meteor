@@ -8,6 +8,10 @@ export default class UsersMgmtServer {
     return (_.isEmpty(userObj.roles) || _.isEmpty(userObj.roles.global));
   }
 
+  static hasUserNoLongLivedUserId (userObj) {
+    return _.isEmpty(userObj.longLivedUserId);
+  }
+
   static setDefaultGlobalRole (userId) {
     Roles.addUsersToRoles(userId, ['regular-user'], 'global');
   }

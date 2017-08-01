@@ -1,6 +1,5 @@
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
-import _ from 'lodash';
 
 import UsersMgmtServer from '../users/usersMgmtServer';
 import UsersMgmtShared from '/lib/usersMgmtShared';
@@ -48,7 +47,7 @@ export default function () {
     },
 
     'users.deleteContentAdmin' (userId) {
-      check(userId, String); console.log('userId ==', userId);
+      check(userId, String);
       if (!UsersMgmtShared.isUserSuperAdmin(this.userId)) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }

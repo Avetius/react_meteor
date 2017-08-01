@@ -15,6 +15,7 @@ export default class ManageChangeRequest extends React.Component {
     let f = {};
     _.forEach(fields, (field) => {
       f[field] = changeRequest.fields[field].newValue;
+      f[field + "_old"] = changeRequest.fields[field].oldValue;
     });
     f.slugUrlToken = changeRequest.icoSlug;
     return f;

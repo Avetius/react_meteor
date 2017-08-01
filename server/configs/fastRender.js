@@ -19,7 +19,7 @@ Meteor.startup(() => {
   });
 
   FastRender.route('/profile/:icoSlug', function(params) {
-    this.subscribe('ico.single', {icoSlug: params.icoSlug});
+    this.subscribe('ico.profile', {icoSlug: params.icoSlug});
   });
 
 });

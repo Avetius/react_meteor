@@ -6,8 +6,8 @@ import PostProcess from './serverPostProcess';
 import createInitialTestData from '/server/configs/initial_adds';
 
 import UsersMgmtShared from '/lib/usersMgmtShared';
-import UsersMgmtServer from '../users/usersMgmtServer';
 import DataValidator from '/lib/dataValidator';
+import IcoStatus from '/lib/icoStatus';
 
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
@@ -30,7 +30,7 @@ export default function () {
       check(skip, Number);
       check(timestampToBound, Date);
 
-      if (!UsersMgmtShared.isCurrentUserSuperAdmin() && !UsersMgmtShared.isUserContentAdmin() && isRestrictPropertyRequested(query)) {
+      if (!UsersMgmtShared.isCurrentUserSuperAdmin() && !UsersMgmtShared.isCurrentUserContentAdmin() && isRestrictPropertyRequested(query)) {
         throw new Meteor.Error('Not authorized', 'You are not authorized to do the action.');
       }
 
@@ -118,7 +118,7 @@ export default function () {
       if (!validationResult.isValid()) {
         throw new Meteor.Error('rejected-by-validation', validationResult.firstError().message);
       }
-      const selectedIcoTypeDef = UsersMgmtShared.isCurrentUserSuperAdmin() ? IcoTypeDef : IcoPublicTypeDef;
+      const selectedIcoTypeDef = UsersMgmtShared.isCurrentUserSuperAdmin() || UsersMgmtShared.isCurrentUserContentAdmin() ? IcoTypeDef : IcoPublicTypeDef;
       icoProject = PostProcess.normalizeIcoProject(icoProject);
 
       // pick only those fields which are present in selectedIcoTypeDef and set values from icoEntity
@@ -166,7 +166,9 @@ export default function () {
           if (err) {
             console.error('Error during update IcoProjects collection in method ico.publish: ', err);
           } else {
-            ChangeRequests.update({ icoId: _id, submitedForApproval: true }, { $set: {"deleted": true} }, (err, affectedDocsNumber) => {
+            const longLivedUserId = UsersMgmtShared.extractLongLivedUserId(Meteor.user());
+            const updatedAt = new Date();
+            ChangeRequests.update({ icoId: _id, publishRequest: true }, { $set: {published: true, publishedBy: longLivedUserId, updatedAt} }, (err, affectedDocsNumber) => {
               if (err) {
                 console.error('Error during update IcoProjects collection in method ico.publish, delete submitForApproval request: ', err);
               } else {

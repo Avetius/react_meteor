@@ -32,8 +32,9 @@ export default class EditPublicIco extends React.Component {
                 ) : (
                   <IcoPublicForm icoEntityValue={icoPublicFormValue}
                                  edit={this.props.saveEditedIco}
-                                 icoId={this.props.icoId}
+                                 icoId={this.props.icoEntity._id}
                                  sendChangeRequest={this.props.sendChangeRequest}
+                                 changeRequest={this.props.changeRequest}
                                  published={this.props.published}
                   />
                 )

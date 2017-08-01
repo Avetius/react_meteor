@@ -87,8 +87,9 @@ export default class IcoManagement extends React.Component {
 
         </div>
       </div>
-
-      <OwnManagedIcos/>
+      { this.props.userId ?
+        <OwnManagedIcos/> : ''
+      }
 
     </div>;
   }

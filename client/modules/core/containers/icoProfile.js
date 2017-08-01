@@ -5,7 +5,7 @@ import IcoProfile from '../components/icoProfile';
 export const composer = ({context, icoSlug}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
-  if (Meteor.subscribe('ico.single', {icoSlug}).ready()) {
+  if (Meteor.subscribe('ico.profile', {icoSlug}).ready()) {
     LocalState.set({'ico.single-sub-ready': true});
     const icoEntity = Collections.IcoProjects.findOne({slugUrlToken: icoSlug});
     if (icoEntity) {

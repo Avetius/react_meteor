@@ -1,6 +1,7 @@
 import { Accounts } from 'meteor/accounts-base'
 import { Meteor } from 'meteor/meteor';
 import UsersMgmtServer from '../users/usersMgmtServer';
+import {Random} from 'meteor/random';
 
 // Facebook integration setup
 Meteor.startup(function() {
@@ -77,6 +78,7 @@ Accounts.onCreateUser( (options, user) => {
   user.privateProfile = user.privateProfile || {};
   // metadata should not be published to client
   user.metaProfile = user.metaProfile || {};
+  user.longLivedUserId = Random.id();
 
 
   if (user.services.facebook) {
@@ -124,6 +126,10 @@ Accounts.onLogin((login) => {
     if (UsersMgmtServer.shouldBeSuperAdmin(login.user)) {
       UsersMgmtServer.setDefaultSuperAdmins(login.user);
     }
+
+    if (UsersMgmtServer.hasUserNoLongLivedUserId(login.user)) {
+      setLongLivedUserId(login.user._id);
+    }
   }
 
 });
@@ -153,6 +159,10 @@ const meldDBCallback = function(src_user_id, dst_user_id) {
   //  {$set: {user_id: dst_user_id}},
   //  {multi: true}
   //);
+};
+
+const setLongLivedUserId = function(userId) {
+  Meteor.users.update({_id: userId}, {$set: {longLivedUserId: Random.id()}});
 };
 
 AccountsMeld.configure({
