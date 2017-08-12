@@ -13,12 +13,20 @@ export default class ManageAdmins extends React.Component {
       showDeleteModal: false,
       showAddModal: false,
       selectedUserId: null
-    }
+    };
+    this.checkUser = this.checkUser.bind(this);
   }
 
   addContentAdmin(userId) {
     this.props.addContentAdmin(userId);
     this.close();
+  }
+
+  checkUser(email){
+    debugger;
+    let user = this.props.users.find(user => user.email == email);
+    console.log('User found: ',!!user);
+    return !!user;
   }
 
   removeFromContentAdminRole(userId) {
@@ -52,7 +60,7 @@ export default class ManageAdmins extends React.Component {
   render() {
     return (
       <div>
-        <AddDeleteIcoManager addIcoManager={this.props.addIcoManager} deleteIcoManager={this.props.deleteIcoManager}/>
+        <AddDeleteIcoManager addIcoManager={this.props.addIcoManager} deleteIcoManager={this.props.deleteIcoManager} checkUser={this.checkUser}/>
         <Table responsive>
           <thead>
           <tr>

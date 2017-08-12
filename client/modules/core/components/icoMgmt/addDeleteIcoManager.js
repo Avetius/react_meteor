@@ -13,7 +13,6 @@ const formLayout = (locals) => {
     <div>
       {locals.inputs.adminEmail}
       {locals.inputs.slugUrlToken}
-
     </div>
   );
 };
@@ -51,15 +50,19 @@ export default class AddDeleteIcoManager extends React.Component {
     const value = this.refs.AddDeleteIcoManagerForm.getValue();
     if (value) {
       this.hideErrorMessages();
-      this.props.addIcoManager(value.adminEmail, value.slugUrlToken);
-      this.resetForm();
-      this.setState({successMessage: 'Successfully added'});
+      if(this.props.checkUser(value.adminEmail)){
+        this.props.addIcoManager(value.adminEmail, value.slugUrlToken);
+        this.resetForm();
+        this.setState({successMessage: 'Successfully added'});
+      }else{
+        this.showErrorMessages(validationResult);
+        this.setState({formErrors: errors.push('Unknown user, please enter valid one')});
+      }
     } else {
       const validationResult = this.refs.AddDeleteIcoManagerForm.validate();
       this.showErrorMessages(validationResult);
       console.warn('upps, something happened. Validation failed?');
     }
-
   }
 
   delete() {
